@@ -29,7 +29,7 @@ public class QuestionsCommentController {
 
     }
 
-    //根据编号删除用户
+    //根据编号删除问题评论
     @GetMapping("/removeQuesComById/{id}")
     public String removeQuesComById(@PathVariable int id) {
         questionscommentService.removeQuesComById(id);

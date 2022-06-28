@@ -18,20 +18,20 @@ public class UserController {
     UserService userService;
 
     @PostMapping("/adduser")
-    public String addArticle(User a) {
+    public String addUser(User a) {
         userService.addUser(a);
         return "success";
     }
 
     @GetMapping("/queryAllUser")
-    public List<User> queryAllArticle() {
+    public List<User> queryAllUser() {
         return userService.queryAllUser();
 
     }
 
     //根据编号删除用户
     @GetMapping("/removeUser/{id}")
-    public String removeCustomer(@PathVariable int id) {
+    public String removeUser(@PathVariable int id) {
         userService.removeUserById(id);
         return "success";
 
