@@ -13,6 +13,6 @@ public interface QuestionService extends IService<Question> {
 
     IPage<Question> queryQuestionPage(int currPage, int pageSize);
 
-    Question getQuestionById(int id);//按id查询用户
+    Question getQuestionById(int id);//按id查询问题
     void removeQuestionById(int id);//按id删除
 }
