@@ -10,7 +10,6 @@ import java.util.List;
 
 @Service
 public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> implements QuestionService {
-
     @Override
     public void addQuestion(Question a) {
         this.save(a);

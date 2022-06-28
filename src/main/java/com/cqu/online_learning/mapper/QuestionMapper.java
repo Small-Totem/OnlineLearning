@@ -6,5 +6,4 @@ import com.cqu.online_learning.entity.Question;
 public interface QuestionMapper extends BaseMapper<Question> {
 
 
-
 }

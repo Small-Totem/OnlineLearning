@@ -9,5 +9,4 @@ public interface QuestionService extends IService<Question> {
     void addQuestion(Question a);
     List<Question> queryAllQuestion();
 
-
 }
