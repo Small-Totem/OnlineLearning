@@ -9,7 +9,6 @@ import java.util.List;
 
 public interface QuestionService extends IService<Question> {
     void addQuestion(Question a);
-
     List<Question> queryAllQuestion();
 
     IPage<Question> queryQuestionPage(int currPage, int pageSize);

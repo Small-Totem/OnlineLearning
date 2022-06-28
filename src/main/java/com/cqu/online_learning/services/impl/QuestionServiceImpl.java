@@ -25,7 +25,6 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
     public List<Question> queryAllQuestion() {
         return list();
     }
-
     @Override
     public IPage<Question> queryQuestionPage(int currPage, int pageSize) {
 

@@ -14,6 +14,7 @@ public class MybatisplusConfig {
         //1 创建MybatisPlusInterceptor拦截器对象
         MybatisPlusInterceptor mpInterceptor=new MybatisPlusInterceptor();
         //2 添加分页拦截器
+
         mpInterceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
         return mpInterceptor;
     }

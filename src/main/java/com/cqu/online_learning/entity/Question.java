@@ -24,4 +24,5 @@ public class Question {
     private Integer praiseCount;
     private Timestamp add_time;
 
+
 }

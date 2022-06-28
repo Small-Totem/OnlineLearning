@@ -22,7 +22,6 @@ public class QuestionController {
         QuestionService.addQuestion(a);
         return  "success";
     }
-
     @GetMapping("/queryAllQuestion")
     public List<Question> queryAllQuestion(){
         return QuestionService.queryAllQuestion();
