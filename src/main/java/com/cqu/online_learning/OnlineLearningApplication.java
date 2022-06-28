@@ -11,7 +11,5 @@ public class OnlineLearningApplication {
     public static void main(String[] args) {
         SpringApplication.run(OnlineLearningApplication.class, args);
     }
-  //text:胡程斌是sb <-true
-    //Iceistired死了亲妈！
-    //请ice的儿子们不要诋毁你们的爹
+
 }
