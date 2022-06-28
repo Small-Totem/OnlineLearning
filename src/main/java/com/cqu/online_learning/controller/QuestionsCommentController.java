@@ -21,7 +21,7 @@ public class QuestionsCommentController {
     public String addQuesCom(QuestionsComment a) {
         questionscommentService.addQuesCom(a);
         return "success";
-}
+    }
 
     @GetMapping("/queryAllQuesCom")
     public List<QuestionsComment> queryAllQuesCom() {
