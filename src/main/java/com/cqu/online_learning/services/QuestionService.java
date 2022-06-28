@@ -10,9 +10,7 @@ import java.util.List;
 public interface QuestionService extends IService<Question> {
     void addQuestion(Question a);
     List<Question> queryAllQuestion();
-
     IPage<Question> queryQuestionPage(int currPage, int pageSize);
-
     Question getQuestionById(int id);//按id查询问题
     void removeQuestionById(int id);//按id删除
 }

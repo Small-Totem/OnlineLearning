@@ -10,6 +10,4 @@ public interface UserService extends IService<User> {
     List<User> queryAllUser();//查询所有用户
      User getUserById(int id);//按id查询用户
     void removeUserById(int id);//按id删除
-
-
 }

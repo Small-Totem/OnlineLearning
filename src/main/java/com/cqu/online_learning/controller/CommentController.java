@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class CommentController {
     @Autowired
@@ -28,5 +30,10 @@ public class CommentController {
     public String removeComment(@PathVariable int id){
         commentService.removeComment(id);
         return "success";
+    }
+
+    @GetMapping("/queryAllCommentByCourseId/{courseId}")
+    public List<Comment> queryAllCommentByCourseId(@PathVariable int courseId){
+        return commentService.queryAllCommentByCourseId(courseId);
     }
 }

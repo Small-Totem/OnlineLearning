@@ -7,10 +7,7 @@ import java.util.List;
 
 public interface ArticleService extends IService<Article> {
     void addArticle(Article a);
-
     List<Article> queryAllArticle();
-
     Article getArticle(int id);
-
     void removeArticle(int id);
 }

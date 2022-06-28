@@ -33,7 +33,7 @@ public class UserLoginLogController {
 
     @GetMapping("/removeLog/{id}")
     public String removeLog(@PathVariable int id) {
-        userLoginLogService.removeById(id);
+        userLoginLogService.removeLog(id);
         return "success";
     }
 }
