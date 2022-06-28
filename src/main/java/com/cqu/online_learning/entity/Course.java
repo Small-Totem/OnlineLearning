@@ -23,7 +23,7 @@ public class Course {
     private Timestamp addTime;
     private String title;
     private Integer lessonNum;
-    private  String logo;
+    private String logo;
     private Timestamp updateTime;
     private Integer pageViewcount;
     private Timestamp endTime;

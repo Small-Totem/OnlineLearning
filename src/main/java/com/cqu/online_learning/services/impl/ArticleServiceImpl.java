@@ -20,4 +20,14 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public List<Article> queryAllArticle() {
         return list();
     }
+
+    @Override
+    public Article getArticle(int id) {
+        return this.getById(id);
+    }
+
+    @Override
+    public void removeArticle(int id) {
+        this.removeById(id);
+    }
 }
