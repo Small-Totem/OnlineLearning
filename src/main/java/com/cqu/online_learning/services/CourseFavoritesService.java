@@ -10,5 +10,8 @@ import java.util.List;
 public interface CourseFavoritesService extends IService<CourseFavorites> {
     void addCourseFavorites(CourseFavorites a);
     List<CourseFavorites> queryAllCourseFavorites();
-    CourseFavorites queryCourseFavorites(int id);
+
+
+    CourseFavorites getCourseFavorites(int id);
+    void removeCourseFavorites(int id);
 }

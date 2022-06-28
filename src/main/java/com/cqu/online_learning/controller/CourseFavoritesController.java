@@ -26,9 +26,14 @@ public class CourseFavoritesController {
         return courseFavoritesService.queryAllCourseFavorites();
     }
 
-    @GetMapping("/queryCourseFavorites/{id}")
-    public CourseFavorites queryCourseFavorites(@PathVariable int id){
-        return courseFavoritesService.queryCourseFavorites(id);
+    @GetMapping("/getCourseFavorites/{id}")
+    public CourseFavorites getCourseFavorites(@PathVariable int id){
+        return courseFavoritesService.getCourseFavorites(id);
 
+    }
+    @GetMapping("/removeCourseFavorites/{id}")
+    public String removeCourseFavorites(@PathVariable int id){
+        courseFavoritesService.removeCourseFavorites(id);
+        return "success";
     }
 }
