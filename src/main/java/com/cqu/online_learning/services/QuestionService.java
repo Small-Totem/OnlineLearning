@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cqu.online_learning.entity.Question;
 
-import javax.xml.transform.Result;
 import java.util.List;
 
 public interface QuestionService extends IService<Question> {

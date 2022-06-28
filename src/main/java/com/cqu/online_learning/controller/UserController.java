@@ -17,21 +17,21 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/adduser")
-    public String addArticle(User a) {
+    @PostMapping("/addUser")
+    public String addUser(User a) {
         userService.addUser(a);
         return "success";
     }
 
     @GetMapping("/queryAllUser")
-    public List<User> queryAllArticle() {
+    public List<User> queryAllUser() {
         return userService.queryAllUser();
 
     }
 
     //根据编号删除用户
     @GetMapping("/removeUser/{id}")
-    public String removeCustomer(@PathVariable int id) {
+    public String removeUser(@PathVariable int id) {
         userService.removeUserById(id);
         return "success";
 
