@@ -16,7 +16,7 @@ public class QuestionsComment {
     @TableId(type = IdType.AUTO)
     private Integer id;
     private Integer userId;
-        private Integer questionId;
+    private Integer questionId;
     private String content;
     private Integer isBest;
     private Integer replyCount;

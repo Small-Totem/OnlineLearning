@@ -11,7 +11,6 @@ import java.sql.Timestamp;
 @Data
 @ToString
 @TableName("edu_teacher")
-
 public class Teacher {
     @TableId(type = IdType.AUTO)
     private Integer id;

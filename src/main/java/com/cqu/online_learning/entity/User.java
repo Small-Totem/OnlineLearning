@@ -1,13 +1,11 @@
 package com.cqu.online_learning.entity;
 
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.ToString;
 
-import java.security.PrivateKey;
 import java.sql.Timestamp;
 
 @Data
