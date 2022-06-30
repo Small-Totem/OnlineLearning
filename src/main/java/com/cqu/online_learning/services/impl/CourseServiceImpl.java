@@ -18,4 +18,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public List<Course> queryAllCourse() {
         return list();
     }
+    @Override
+    public Course getCourse(int courseId){
+        Course course = this.getById(courseId);
+        return course;
+    }
+    @Override
+    public void removeCourse(int id){
+
+        this.removeById(id);
+    }
 }

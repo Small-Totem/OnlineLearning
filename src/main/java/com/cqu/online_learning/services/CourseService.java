@@ -8,4 +8,7 @@ import java.util.List;
 public interface CourseService extends IService<Course> {
     void addCourse(Course a);
     List<Course> queryAllCourse();
+    void removeCourse(int id);
+
+    Course getCourse(int courseId);
 }
