@@ -17,7 +17,7 @@ public class Teacher {
     private String name;
     private String education;
     private String career;
-    private Byte isStar;
+    private Byte isStar;//0表示否 1表示是
     private String picPath;
     private String status;
     private Timestamp createTime;

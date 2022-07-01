@@ -23,6 +23,12 @@ public class UserController {
         return "success";
     }
 
+    //登陆验证，account是邮箱或手机都行
+    @PostMapping("/loginVerify/{account}/{pwd}")//不是很好但是将就了
+    public boolean loginVerify(@PathVariable String account,@PathVariable String pwd) {
+        return userService.verify(account,pwd);
+    }
+
     @GetMapping("/queryAllUser")
     public List<User> queryAllUser() {
         return userService.queryAllUser();
