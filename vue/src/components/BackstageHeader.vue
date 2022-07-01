@@ -66,7 +66,7 @@ export default {
         const handleCommand = (command) => {
             if (command == "loginout") {
                 localStorage.removeItem("ms_username");
-                router.push("/login");
+                router.push("/");
             } else if (command == "user") {
                 router.push("/user");
             }

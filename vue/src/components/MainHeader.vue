@@ -45,7 +45,8 @@
             const handleCommand = (command) => {
                 if (command == "loginout") {
                     localStorage.removeItem("ms_username");
-                    router.push("/login");
+                    router.push("/");
+                    router.go(0);//刷新页面
                 } else if (command == "user") {
                     router.push("/user");
                 }

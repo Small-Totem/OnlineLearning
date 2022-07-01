@@ -19,8 +19,8 @@
 <script>
 import { computed } from "vue";
 import { useStore } from "vuex";
-import vHeader from "../components/BackgroundHeader.vue";
-import vSidebar from "../components/BackgroundSidebar.vue";
+import vHeader from "../components/BackstageHeader.vue";
+import vSidebar from "../components/BackstageSidebar.vue";
 export default {
     components: {
         vHeader,
