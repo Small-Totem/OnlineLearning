@@ -3,11 +3,10 @@
         <v-header />
         <v-sidebar />
         <div class="content-box" :class="{ 'content-collapse': collapse }">
-            <v-tags></v-tags>
             <div class="content">
                 <router-view v-slot="{ Component }">
                     <transition name="move" mode="out-in">
-                        <keep-alive :include="tagsList">
+                        <keep-alive>
                             <component :is="Component" />
                         </keep-alive>
                     </transition>
@@ -20,8 +19,8 @@
 <script>
 import { computed } from "vue";
 import { useStore } from "vuex";
-import vHeader from "../components/Header.vue";
-import vSidebar from "../components/Sidebar.vue";
+import vHeader from "../components/BackgroundHeader.vue";
+import vSidebar from "../components/BackgroundSidebar.vue";
 export default {
     components: {
         vHeader,
@@ -29,12 +28,8 @@ export default {
     },
     setup() {
         const store = useStore();
-        const tagsList = computed(() =>
-            store.state.tagsList.map((item) => item.name)
-        );
         const collapse = computed(() => store.state.collapse);
         return {
-            tagsList,
             collapse,
         };
     },

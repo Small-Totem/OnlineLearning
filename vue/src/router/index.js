@@ -1,11 +1,24 @@
-import {createRouter, createWebHashHistory} from "vue-router";
+import {createRouter, createWebHashHistory, createWebHistory} from "vue-router";
 import Home from "../views/Home.vue";
 
 const routes = [
     {
         path: '/',
-        redirect: '/dashboard'
-    }, {
+        redirect: '/MainPage',
+        name: "MainPage",
+        component: () => import("../views/MainPage.vue"),
+        children: [
+            {
+                path: "/MainPage",
+                name: "MainPageContent",
+                meta: {
+                    title: '首页'
+                },
+                component: () => import ( /* webpackChunkName: "dashboard" */ "../views/MainContent.vue")
+            },
+        ]
+    },
+    {
         path: "/",
         name: "Home",
         component: Home,
@@ -97,7 +110,8 @@ const routes = [
                 component: () => import (/* webpackChunkName: "editor" */ '../views/Editor.vue')
             }
         ]
-    }, {
+    },
+    {
         path: "/login",
         name: "Login",
         meta: {
@@ -108,14 +122,17 @@ const routes = [
 ];
 
 const router = createRouter({
-    history: createWebHashHistory(),
+    //用hash模式还是history模式,如果用hash模式的话,url会是这样:localhost:3000/#/dashboard
+    //history: createWebHashHistory(),
+    history: createWebHistory(),
     routes
 });
 
 router.beforeEach((to, from, next) => {
     document.title = `${to.meta.title} | vue-manage-system`;
     const role = localStorage.getItem('ms_username');
-    if (!role && to.path !== '/login') {
+    if (!role && to.path !== '/login' && to.path !== '/'&& to.path !== '/MainPage') {
+        //没有登陆且访问了非主页面则跳转登陆
         next('/login');
     } else if (to.meta.permission) {
         // 如果是管理员权限则可进入

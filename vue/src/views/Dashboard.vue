@@ -212,7 +212,7 @@ export default {
             },
             {
                 title: "今天要修复100个bug",
-                status: false,
+                status: true,
             },
             {
                 title: "今天要修复100个bug",

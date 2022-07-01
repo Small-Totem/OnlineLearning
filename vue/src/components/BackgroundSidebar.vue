@@ -12,6 +12,7 @@
                         <template v-for="subItem in item.subs">
                             <el-submenu v-if="subItem.subs" :index="subItem.index" :key="subItem.index">
                                 <template #title>{{ subItem.title }}</template>
+                                <!--三级菜单-->
                                 <el-menu-item v-for="(threeItem, i) in subItem.subs" :key="i" :index="threeItem.index">
                                     {{ threeItem.title }}</el-menu-item>
                             </el-submenu>
