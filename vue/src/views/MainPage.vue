@@ -17,6 +17,7 @@
     import { useRoute } from "vue-router";
     import vHeader from "../components/MainHeader.vue";
 
+
     export default {
         name: "MainPage.vue",
         components: {
