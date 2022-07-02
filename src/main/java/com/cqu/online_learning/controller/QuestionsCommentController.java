@@ -26,19 +26,22 @@ public class QuestionsCommentController {
     @GetMapping("/queryAllQuesCom")
     public List<QuestionsComment> queryAllQuesCom() {
         return questionscommentService.queryAllQuesCom();
-
     }
 
-    //根据编号删除用户
     @GetMapping("/removeQuesComById/{id}")
     public String removeQuesComById(@PathVariable int id) {
         questionscommentService.removeQuesComById(id);
         return "success";
-
     }
 
     @GetMapping("/getQuesComById/{id}")
     public QuestionsComment getQuesComById(@PathVariable int id){
         return questionscommentService.getQuesComById(id);
     }
+
+    @GetMapping("/getAllQuestionCommentByQuestionId/{id}")
+    public List<QuestionsComment> getAllQuestionCommentByQuestionId(@PathVariable int id){
+        return questionscommentService.getAllQuestionCommentByQuestionId(id);
+    }
+
 }

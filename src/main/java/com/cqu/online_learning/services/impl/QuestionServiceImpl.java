@@ -4,12 +4,14 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cqu.online_learning.entity.Question;
+import com.cqu.online_learning.entity.QuestionsComment;
 import com.cqu.online_learning.mapper.QuestionMapper;
 import com.cqu.online_learning.services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.xml.transform.Result;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -33,7 +35,7 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         //Page<Question> articlePage =QuestionMapper.selectPage(page, queryWrapper);
         questionMapper.selectPage(page,null);
 
-        return  page;
+        return page;
     }
 
     @Override

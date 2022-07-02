@@ -6,8 +6,6 @@ import com.cqu.online_learning.mapper.UserMapper;
 import com.cqu.online_learning.services.UserService;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -40,9 +38,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public boolean verify(String account, String pwd) {
+    public int verify(String account, String pwd) {
         //System.out.println(account+" "+pwd);
-        /*todo 重复注册情况的排除没做*/
+        /*todo （低优先）重复注册情况的排除没做（并不会导致崩溃）*/
         HashMap<String, Object> columnMap1 = new HashMap<>();
         columnMap1.put("mobile", account);
         HashMap<String, Object> columnMap2 = new HashMap<>();
@@ -50,13 +48,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         List<User> users = listByMap(columnMap1);
         users.addAll(listByMap(columnMap2));//合并两个查询的结果
 
-        System.out.println(Arrays.toString(users.toArray()));
+        //System.out.println(Arrays.toString(users.toArray()));
         for(User i : users){
             if((account.equals(Integer.toString(i.getMobile()))||account.equals(i.getEmail()))
                     && getMD5(pwd).equals(i.getPassword()))
-                return true;
+                return i.getUserId();
         }
-        return false;
+        return -1;
     }
 
 }
