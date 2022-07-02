@@ -48,7 +48,7 @@
       </div>
       <!-- 课程简介、评价 -->
       <div class="clearfix" style="margin-top: 20px;width: 100%">
-        <div style="width: 71%;background-color: #fff;padding: 10px 20px;float: left;">
+        <div style="width: 70%;background-color: #fff;padding: 10px 20px;float: left;">
           <el-tabs>
             <el-tab-pane label="课程概述" class="course-descriptiont" >课程描述</el-tab-pane>
             <el-tab-pane label="课程评价" lazy>
@@ -130,7 +130,7 @@ export default {
   background-color: #333333;
   position:relative;
   bottom: 0;
-  width: 1235px;
+  width: 1120px;
   min-height: 80px;
   z-index: 3;
   padding: 14px 16px;
