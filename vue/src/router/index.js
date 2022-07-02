@@ -15,6 +15,14 @@ const routes = [
                     title: '首页'
                 },
                 component: () => import ( /* webpackChunkName: "dashboard" */ "../views/MainContent.vue")
+            },{
+
+                path: "/CoursePage",
+                name: "CoursePage",
+                meta: {
+                    title: '课程详情'
+                },
+                component: () => import ( /* webpackChunkName: "dashboard" */ "../views/Course.vue")
             },
         ]
     },
