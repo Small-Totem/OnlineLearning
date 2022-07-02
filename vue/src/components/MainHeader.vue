@@ -3,6 +3,7 @@
         <div class="header-left">
             <div class="logo">在线教育系统</div>
         </div>
+
         <div class="header-right">
             <!-- 如果登陆了 -->
             <div v-if="role" class="header-user-con">
@@ -53,7 +54,9 @@
             };
 
             const toLogin = () => {
-                router.push('/dashboard')
+
+              router.push('/dashboard')
+
             };
 
             return {
