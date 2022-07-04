@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 public class User {
     @TableId(type = IdType.AUTO)
     private Integer userId;
-    private Integer mobile;
+    private String mobile;
     private String email;
     private String password;
     private String showName;

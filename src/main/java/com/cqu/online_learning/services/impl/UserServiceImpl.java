@@ -50,7 +50,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         //System.out.println(Arrays.toString(users.toArray()));
         for(User i : users){
-            if((account.equals(Integer.toString(i.getMobile()))||account.equals(i.getEmail()))
+            if((account.equals(i.getMobile())||account.equals(i.getEmail()))
                     && getMD5(pwd).equals(i.getPassword()))
                 return i.getUserId();
         }
