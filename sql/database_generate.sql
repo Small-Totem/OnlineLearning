@@ -27,7 +27,7 @@ drop table if exists edu_user_login_log;
 /*==============================================================*/
 create table edu_article
 (
-   ARTICLE_ID           int not null,
+   ARTICLE_ID           int not null AUTO_INCREMENT,
    USER_ID              int,
    TITLE                text,
    SUMMARY              text,
@@ -38,12 +38,18 @@ create table edu_article
    primary key (ARTICLE_ID)
 );
 
+insert into edu_article (USER_ID,TITLE,SUMMARY,CLICK_NUM,PRAISE_COUNT) values (1,"我是理塘丁真","我只抽电子烟",345,121);
+insert into edu_article (USER_ID,TITLE,SUMMARY,CLICK_NUM,PRAISE_COUNT) values (1,"都什么时代了，还在抽传统烟？","电子烟入门教学",3245,221);
+insert into edu_article (USER_ID,TITLE,SUMMARY,CLICK_NUM,PRAISE_COUNT) values (3,"鸡哥篮球速成班","篮球速成",3345,221);
+insert into edu_article (USER_ID,TITLE,SUMMARY,CLICK_NUM,PRAISE_COUNT) values (2,"滑雪教学","滑了",3245,231);
+
+
 /*==============================================================*/
 /* Table: edu_comment                                           */
 /*==============================================================*/
 create table edu_comment
 (
-   COMMENT_ID           int not null,
+   COMMENT_ID           int not null AUTO_INCREMENT,
    COURSE_ID            int,
    USER_ID              int,
    CONTENT              text,
@@ -57,8 +63,8 @@ create table edu_comment
 /*==============================================================*/
 create table edu_course
 (
-   COURSE_ID            int not null,
-   ID                   int,
+   COURSE_ID            int not null AUTO_INCREMENT,
+   TEACHER_ID           int,
    COURSE_NAME          text,
    SUBJECT_ID           int,
    SUBJECT_LINK         text,
@@ -69,12 +75,18 @@ create table edu_course
    primary key (COURSE_ID)
 );
 
+insert into edu_course (COURSE_NAME,TITLE) values ("java:从入门到入土","java:从入门到入土");
+insert into edu_course (COURSE_NAME,TITLE) values ("php:从入门到入土","php:从入门到入土");
+insert into edu_course (COURSE_NAME,TITLE) values ("python:从入门到入土","python:从入门到入土");
+insert into edu_course (COURSE_NAME,TITLE) values ("c++:从入门到入土","c++:从入门到入土");
+insert into edu_course (COURSE_NAME,TITLE) values ("kotlin:从入门到入土","kotlin:从入门到入土");
+
 /*==============================================================*/
 /* Table: edu_course_favorites                                  */
 /*==============================================================*/
 create table edu_course_favorites
 (
-   ID                   int not null,
+   ID                   int not null AUTO_INCREMENT,
    USER_ID              int,
    COURSE_ID            int,
    ADD_TIME             timestamp,
@@ -86,7 +98,7 @@ create table edu_course_favorites
 /*==============================================================*/
 create table edu_questions
 (
-   ID                   int not null,
+   ID                   int not null AUTO_INCREMENT,
    USER_ID              int,
    TITLE                text,
    CONTENT              text,
@@ -99,12 +111,18 @@ create table edu_questions
    primary key (ID)
 );
 
+insert into edu_questions (USER_ID,TITLE,CONTENT,REPLY_COUNT,BROWSE_COUNT,PRAISE_COUNT) values ("1","node别人的模块怎么装？","求教,不知道怎么装",2,14,10);
+
+insert into edu_questions (USER_ID,TITLE,CONTENT,REPLY_COUNT,BROWSE_COUNT,PRAISE_COUNT) values ("2","vue报错怎么办","求大神",0,12,10);
+
+insert into edu_questions (USER_ID,TITLE,CONTENT,REPLY_COUNT,BROWSE_COUNT,PRAISE_COUNT) values ("3","java报错怎么办","求大神",0,11,9);
+
 /*==============================================================*/
 /* Table: edu_questions_comment                                 */
 /*==============================================================*/
 create table edu_questions_comment
 (
-   ID                   int not null,
+   ID                   int not null AUTO_INCREMENT,
    USER_ID              int,
    QUESTION_ID          int,
    CONTENT              text,
@@ -115,12 +133,16 @@ create table edu_questions_comment
    primary key (ID)
 );
 
+insert into edu_questions_comment (USER_ID,QUESTION_ID,CONTENT,IS_BEST,PRAISE_COUNT) values ("2","0","npm install 就行了",1,4);
+
+insert into edu_questions_comment (USER_ID,QUESTION_ID,CONTENT,IS_BEST,PRAISE_COUNT) values ("3","0","楼上正解",0,2);
+
 /*==============================================================*/
 /* Table: edu_teacher                                           */
 /*==============================================================*/
 create table edu_teacher
 (
-   ID                   int not null,
+   ID                   int not null AUTO_INCREMENT,
    NAME                 text,
    EDUCATION            text,
    CAREER               text,
@@ -134,13 +156,20 @@ create table edu_teacher
    primary key (ID)
 );
 
+insert into edu_teacher (NAME) values ("虎哥");
+insert into edu_teacher (NAME) values ("药水哥");
+insert into edu_teacher (NAME) values ("动力小子");
+insert into edu_teacher (NAME) values ("柯洁");
+insert into edu_teacher (NAME) values ("丁真");
+
+
 /*==============================================================*/
 /* Table: edu_user                                              */
 /*==============================================================*/
 create table edu_user
 (
-   USER_ID              int not null,
-   MOBILE               int,
+   USER_ID              int not null AUTO_INCREMENT,
+   MOBILE               text,
    EMAIL                text,
    PASSWORD             text,
    SHOW_NAME            text,
@@ -151,12 +180,16 @@ create table edu_user
    primary key (USER_ID)
 );
 
+insert into edu_user (EMAIL,PASSWORD,SEX,SHOW_NAME) values ("abc@xyz.com","a906449d5769fa7361d7ecc6aa3f6d28","男",'丁真');
+insert into edu_user (EMAIL,PASSWORD,SEX,SHOW_NAME) values ("abcd@xyz.com","a906449d5769fa7361d7ecc6aa3f6d28","女",'谷爱凌');
+insert into edu_user (MOBILE,PASSWORD,SEX,SHOW_NAME) values ("13579246810","a906449d5769fa7361d7ecc6aa3f6d28","男",'蔡徐坤');
+
 /*==============================================================*/
 /* Table: edu_user_login_log                                    */
 /*==============================================================*/
 create table edu_user_login_log
 (
-   LOG_ID               int not null,
+   LOG_ID               int not null AUTO_INCREMENT,
    USER_ID              int,
    LOGIN_TIME           timestamp,
    IP                   text,
