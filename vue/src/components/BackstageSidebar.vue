@@ -47,62 +47,32 @@ export default {
             {
                 icon: "el-icon-lx-cascades",
                 index: "/table",
-                title: "基础表格",
+                title: "会员管理",
             },
             {
                 icon: "el-icon-lx-copy",
                 index: "/tabs",
-                title: "tab选项卡",
+                title: "讲师管理",
             },
             {
                 icon: "el-icon-lx-calendar",
-                index: "3",
-                title: "表单相关",
-                subs: [
-                    {
-                        index: "/form",
-                        title: "基本表单",
-                    },
-                    {
-                        index: "/upload",
-                        title: "文件上传",
-                    },
-                    {
-                        index: "4",
-                        title: "三级菜单",
-                        subs: [
-                            {
-                                index: "/editor",
-                                title: "富文本编辑器",
-                            },
-                        ],
-                    },
-                ],
+                index: "/form",
+                title: "课程管理",
             },
             {
                 icon: "el-icon-lx-emoji",
                 index: "/icon",
-                title: "自定义图标",
+                title: "文章咨询管理",
             },
             {
                 icon: "el-icon-pie-chart",
                 index: "/charts",
-                title: "schart图表",
+                title: "统计分析",
             },
             {
                 icon: "el-icon-lx-warn",
-                index: "7",
-                title: "错误处理",
-                subs: [
-                    {
-                        index: "/permission",
-                        title: "权限测试",
-                    },
-                    {
-                        index: "/404",
-                        title: "404页面",
-                    },
-                ],
+                index: "/table1",
+                title: "问答管理",
             }
         ];
 

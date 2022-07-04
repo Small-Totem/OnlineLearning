@@ -3,227 +3,265 @@
         <div class="crumbs">
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item>
-                    <i class="el-icon-lx-emoji"></i> 自定义图标
+                    <i class="el-icon-lx-emoji"></i> 文章咨询管理
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
         <div class="container">
-            <h2>使用方法</h2>
-            <p style="line-height: 50px;">直接通过设置类名为 el-icon-lx-iconName 来使用即可。例如：（共{{iconList.length}}个图标）</p>
-            <p class="example-p">
-                <i class="el-icon-lx-redpacket_fill" style="font-size: 30px;color: #ff5900"></i>
-                <span>&lt;i class=&quot;el-icon-lx-redpacket_fill&quot;&gt;&lt;/i&gt;</span>
-            </p>
-            <p class="example-p">
-                <i class="el-icon-lx-weibo" style="font-size: 30px;color:#fd5656"></i>
-                <span>&lt;i class=&quot;el-icon-lx-weibo&quot;&gt;&lt;/i&gt;</span>
-            </p>
-            <p class="example-p">
-                <i class="el-icon-lx-emojifill" style="font-size: 30px;color: #ffc300"></i>
-                <span>&lt;i class=&quot;el-icon-lx-emojifill&quot;&gt;&lt;/i&gt;</span>
-            </p>
-            <br />
-            <h2>图标</h2>
-            <div class="search-box">
-                <el-input class="search" size="large" v-model="keyword" clearable placeholder="请输入图标名称"></el-input>
+            <div class="handle-box">
+                <el-select v-model="query.address" placeholder="搜索方式" class="handle-select mr10">
+                    <el-option key="1" label="文章ID" value="id"></el-option>
+                    <el-option key="2" label="文章作者" value="name"></el-option>
+                    <el-option key="3" label="文章标题" value="education"></el-option>
+                    <el-option key="4" label="文章概要" value="career"></el-option>
+                    <el-option key="5" label="点赞数量" value="SubjectId"></el-option>
+                    <el-option key="6" label="发布时间" value="updateTime"></el-option>
+                </el-select>
+                <el-input v-model="query.name" placeholder="" class="handle-input mr10"></el-input>
+                <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
             </div>
-            <ul>
-                <li class="icon-li" v-for="(item,index) in list" :key="index">
-                    <div class="icon-li-content">
-                        <i :class="`el-icon-lx-${item}`"></i>
-                        <span>{{item}}</span>
-                    </div>
-                </li>
-            </ul>
+            <el-table :data="tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header">
+                <el-table-column prop="articleId" label="文章ID"  align="center"></el-table-column>
+                <el-table-column prop="userId" label="文章作者" align="center"></el-table-column>
+                <!--<el-table-column label="账户余额">
+                    <template #default="scope">￥{{ scope.row.money }}</template>
+                </el-table-column>-->
+                <el-table-column prop="title" label="文章标题" align="center"></el-table-column>
+                <el-table-column prop="summary" label="文章概要" align="center"></el-table-column>
+                <el-table-column prop="publishTime" label="发布时间"  align="center"></el-table-column>
+                <el-table-column prop="link" label="文章链接" align="center"></el-table-column>
+                <el-table-column prop="clickNum" label="点击数量" width="90" align="center"></el-table-column>
+                <!--<template #default="scope">
+                    <el-tag :type="
+                            scope.row.state === '成功'
+                                ? 'success'
+                                : scope.row.state === '失败'
+                                ? 'danger'
+                                : ''
+                        ">{{ scope.row.state }}</el-tag>
+                </template>
+            </el-table-column>-->
+
+                <el-table-column prop="pralseCount" label="点赞数量" align="center"></el-table-column>
+                <el-table-column label="操作" width="180" align="center">
+                    <template #default="scope">
+                        <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)">编辑
+                        </el-button>
+                        <el-button type="text" icon="el-icon-delete" class="red"
+                                   @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <div class="pagination">
+                <el-pagination background layout="total, prev, pager, next" :current-page="query.pageIndex"
+                               :page-size="query.pageSize" :total="pageTotal" @current-change="handlePageChange"></el-pagination>
+            </div>
         </div>
+
+        <!-- 编辑弹出框 -->
+        <el-dialog title="编辑" v-model="editVisible" width="30%">
+            <el-form label-width="100px" style="width:280px;">
+                <el-form-item label="文章ID">
+                    <el-input v-model="form.articleId"></el-input>
+                </el-form-item>
+                <el-form-item label="文章作者">
+                    <el-input v-model="form.userId"></el-input>
+                </el-form-item>
+                <el-form-item label="文章标题" style="width:340px;">
+                    <el-input v-model="form.title"></el-input>
+                </el-form-item>
+                <el-form-item label="文章概要" style="width:380px;">
+                    <el-input
+                            type="textarea"
+                            :rows="3"
+                            placeholder="请输入内容"
+                            v-model="form.summary">
+                    </el-input>
+                </el-form-item>
+                <el-form-item label="发布时间">
+                    <el-date-picker
+                            v-model="form.publishTime"
+                            type="datetime"
+                            placeholder="选择发布日期时间"
+                            align="left"
+                            :picker-options="pickerOptions"
+                            style="width:200px; text-align:center">
+                    </el-date-picker>
+                </el-form-item>
+                <el-form-item label="文章链接" style="width:380px;">
+                    <el-input
+                            type="textarea"
+                            :rows="2"
+                            placeholder="请输入内容"
+                            v-model="form.link">
+                    </el-input>
+                </el-form-item>
+                <el-form-item label="点击数量">
+                    <el-input v-model="form.clickNum"></el-input>
+                </el-form-item>
+                <el-form-item label="点赞数量">
+                    <el-input v-model="form.pralseCount"></el-input>
+                </el-form-item>
+            </el-form>
+            <template #footer>
+                <span class="dialog-footer">
+                    <el-button @click="editVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="saveEdit">确 定</el-button>
+                </span>
+            </template>
+        </el-dialog>
     </div>
 </template>
 
 <script>
-import { computed, ref } from "vue";
-export default {
-    name: "icon",
-    setup() {
-        const iconList = [
-            "attentionforbid",
-            "attentionforbidfill",
-            "attention",
-            "attentionfill",
-            "tag",
-            "tagfill",
-            "people",
-            "peoplefill",
-            "notice",
-            "noticefill",
-            "mobile",
-            "mobilefill",
-            "voice",
-            "voicefill",
-            "unlock",
-            "lock",
-            "home",
-            "homefill",
-            "delete",
-            "deletefill",
-            "notification",
-            "notificationfill",
-            "notificationforbidfill",
-            "like",
-            "likefill",
-            "comment",
-            "commentfill",
-            "camera",
-            "camerafill",
-            "warn",
-            "warnfill",
-            "time",
-            "timefill",
-            "location",
-            "locationfill",
-            "favor",
-            "favorfill",
-            "skin",
-            "skinfill",
-            "news",
-            "newsfill",
-            "record",
-            "recordfill",
-            "emoji",
-            "emojifill",
-            "message",
-            "messagefill",
-            "goods",
-            "goodsfill",
-            "crown",
-            "crownfill",
-            "move",
-            "add",
-            "hot",
-            "hotfill",
-            "service",
-            "servicefill",
-            "present",
-            "presentfill",
-            "pic",
-            "picfill",
-            "rank",
-            "rankfill",
-            "male",
-            "female",
-            "down",
-            "top",
-            "recharge",
-            "rechargefill",
-            "forward",
-            "forwardfill",
-            "info",
-            "infofill",
-            "redpacket",
-            "redpacket_fill",
-            "roundadd",
-            "roundaddfill",
-            "friendadd",
-            "friendaddfill",
-            "cart",
-            "cartfill",
-            "more",
-            "moreandroid",
-            "back",
-            "right",
-            "shop",
-            "shopfill",
-            "question",
-            "questionfill",
-            "roundclose",
-            "roundclosefill",
-            "roundcheck",
-            "roundcheckfill",
-            "global",
-            "mail",
-            "punch",
-            "exit",
-            "upload",
-            "read",
-            "file",
-            "link",
-            "full",
-            "group",
-            "friend",
-            "profile",
-            "addressbook",
-            "calendar",
-            "text",
-            "copy",
-            "share",
-            "wifi",
-            "vipcard",
-            "weibo",
-            "remind",
-            "refresh",
-            "filter",
-            "settings",
-            "scan",
-            "qrcode",
-            "cascades",
-            "apps",
-            "sort",
-            "searchlist",
-            "search",
-            "edit",
-        ];
-        const keyword = ref("");
-        const list = computed(() => {
-            return iconList.filter((item) => {
-                return item.indexOf(keyword.value) !== -1;
-            });
-        });
+    import { ref, reactive } from "vue";
+    import { ElMessage, ElMessageBox } from "element-plus";
+    import { fetchData } from "../api/index";
 
-        return {
-            iconList,
-            keyword,
-            list,
-        };
-    },
-};
+    export default {
+        name: "basetable",
+        setup() {
+            const query = reactive({
+                articleId: "",
+                userId: "",
+                pageIndex: 1,
+                pageSize: 10,
+            });
+            const tableData = ref([]);
+            const pageTotal = ref(0);
+            // 获取表格数据
+            const getData = () => {
+                fetchData(query).then((res) => {
+                    tableData.value = res.list;
+                    pageTotal.value = res.pageTotal || 50;
+                });
+            };
+            getData();
+
+            // 查询操作
+            const handleSearch = () => {
+                query.pageIndex = 1;
+                getData();
+            };
+            // 分页导航
+            const handlePageChange = (val) => {
+                query.pageIndex = val;
+                getData();
+            };
+
+            // 删除操作
+            const handleDelete = (index) => {
+                // 二次确认删除
+                ElMessageBox.confirm("确定要删除吗？", "提示", {
+                    type: "warning",
+                })
+                    .then(() => {
+                        ElMessage.success("删除成功");
+                        tableData.value.splice(index, 1);
+                    })
+                    .catch(() => {});
+            };
+
+            // 表格编辑时弹窗和保存
+            const editVisible = ref(false);
+            let form = reactive({
+                articleId: "",
+                userId: "",
+                title: "",
+                summary: "",
+                publishTime: "",
+                link: "",
+                clickNum: "",
+                pralseCount: "",
+            });
+            let idx = -1;
+            const handleEdit = (index, row) => {
+                idx = index;
+                Object.keys(form).forEach((item) => {
+                    form[item] = row[item];
+                });
+                editVisible.value = true;
+            };
+            const saveEdit = () => {
+                editVisible.value = false;
+                ElMessage.success(`修改第 ${idx + 1} 行成功`);
+                Object.keys(form).forEach((item) => {
+                    tableData.value[idx][item] = form[item];
+                });
+            };
+
+            return {
+                query,
+                tableData,
+                pageTotal,
+                editVisible,
+                form,
+                handleSearch,
+                handlePageChange,
+                handleDelete,
+                handleEdit,
+                saveEdit,
+            };
+        },
+        data() {
+            return {
+                pickerOptions: {
+                    shortcuts: [{
+                        text: '今天',
+                        onClick(picker) {
+                            picker.$emit('pick', new Date());
+                        }
+                    }, {
+                        text: '昨天',
+                        onClick(picker) {
+                            const date = new Date();
+                            date.setTime(date.getTime() - 3600 * 1000 * 24);
+                            picker.$emit('pick', date);
+                        }
+                    }, {
+                        text: '一周前',
+                        onClick(picker) {
+                            const date = new Date();
+                            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+                            picker.$emit('pick', date);
+                        }
+                    }]
+                },
+                createTime: '',
+                updateTime: '',
+                textarea: ''
+            };
+        }
+    };
 </script>
 
 <style scoped>
-.example-p {
-    height: 45px;
-    display: flex;
-    align-items: center;
-}
-.search-box {
-    text-align: center;
-    margin-top: 10px;
-}
-.search {
-    width: 300px;
-}
-ul,
-li {
-    list-style: none;
-}
-.icon-li {
-    display: inline-block;
-    padding: 10px;
-    width: 120px;
-    height: 120px;
-}
-.icon-li-content {
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-.icon-li-content i {
-    font-size: 36px;
-    color: #606266;
-}
-.icon-li-content span {
-    margin-top: 10px;
-    color: #787878;
-}
+    .handle-box {
+        margin-bottom: 20px;
+    }
+
+    .handle-select {
+        width: 120px;
+    }
+
+    .handle-input {
+        width: 300px;
+        display: inline-block;
+    }
+    .table {
+        width: 100%;
+        font-size: 14px;
+    }
+    .red {
+        color: #ff0000;
+    }
+    .mr10 {
+        margin-right: 10px;
+    }
+    .table-td-thumb {
+        display: block;
+        margin: auto;
+        width: 40px;
+        height: 40px;
+    }
 </style>

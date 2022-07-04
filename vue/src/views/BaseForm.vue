@@ -3,172 +3,264 @@
         <div class="crumbs">
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item>
-                    <i class="el-icon-lx-calendar"></i> 表单
+                    <i class="el-icon-lx-calendar"></i> 课程管理
                 </el-breadcrumb-item>
-                <el-breadcrumb-item>基本表单</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
         <div class="container">
-            <div class="form-box">
-                <el-form ref="formRef" :rules="rules" :model="form" label-width="80px">
-                    <el-form-item label="表单名称" prop="name">
-                        <el-input v-model="form.name"></el-input>
-                    </el-form-item>
-                    <el-form-item label="选择器" prop="region">
-                        <el-select v-model="form.region" placeholder="请选择">
-                            <el-option key="bbk" label="步步高" value="bbk"></el-option>
-                            <el-option key="xtc" label="小天才" value="xtc"></el-option>
-                            <el-option key="imoo" label="imoo" value="imoo"></el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="日期时间">
-                        <el-col :span="11">
-                            <el-form-item prop="date1">
-                                <el-date-picker type="date" placeholder="选择日期" v-model="form.date1"
-                                    style="width: 100%;"></el-date-picker>
-                            </el-form-item>
-                        </el-col>
-                        <el-col class="line" :span="2">-</el-col>
-                        <el-col :span="11">
-                            <el-form-item prop="date2">
-                                <el-time-picker placeholder="选择时间" v-model="form.date2" style="width: 100%;">
-                                </el-time-picker>
-                            </el-form-item>
-                        </el-col>
-                    </el-form-item>
-                    <el-form-item label="城市级联" prop="options">
-                        <el-cascader :options="options" v-model="form.options"></el-cascader>
-                    </el-form-item>
-                    <el-form-item label="选择开关" prop="delivery">
-                        <el-switch v-model="form.delivery"></el-switch>
-                    </el-form-item>
-                    <el-form-item label="多选框" prop="type">
-                        <el-checkbox-group v-model="form.type">
-                            <el-checkbox label="步步高" name="type"></el-checkbox>
-                            <el-checkbox label="小天才" name="type"></el-checkbox>
-                            <el-checkbox label="imoo" name="type"></el-checkbox>
-                        </el-checkbox-group>
-                    </el-form-item>
-                    <el-form-item label="单选框" prop="resource">
-                        <el-radio-group v-model="form.resource">
-                            <el-radio label="步步高"></el-radio>
-                            <el-radio label="小天才"></el-radio>
-                            <el-radio label="imoo"></el-radio>
-                        </el-radio-group>
-                    </el-form-item>
-                    <el-form-item label="文本框" prop="desc">
-                        <el-input type="textarea" rows="5" v-model="form.desc"></el-input>
-                    </el-form-item>
-                    <el-form-item>
-                        <el-button type="primary" @click="onSubmit">表单提交</el-button>
-                        <el-button @click="onReset">重置表单</el-button>
-                    </el-form-item>
-                </el-form>
+            <div class="handle-box">
+                <el-select v-model="query.address" placeholder="搜索方式" class="handle-select mr10">
+                    <el-option key="1" label="课程ID" value="courseId"></el-option>
+                    <el-option key="2" label="课程名称" value="courseName"></el-option>
+                    <el-option key="3" label="标题" value="title"></el-option>
+                    <el-option key="4" label="项目ID" value="subjectId"></el-option>
+                    <el-option key="5" label="讲师ID" value="teacherId"></el-option>
+                    <el-option key="6" label="课程号" value="lessionNum"></el-option>
+                    <el-option key="7" label="添加时间" value="addTime"></el-option>
+                    <el-option key="8" label="结束时间" value="endTime"></el-option>
+                </el-select>
+                <el-input v-model="query.name"  class="handle-input mr10"></el-input>
+                <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+            </div>
+            <el-table :data="tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header">
+                <el-table-column prop="courseId" label="课程ID" width="70" align="center"></el-table-column>
+                <el-table-column prop="courseName" label="课程名称" width="130" align="center"></el-table-column>
+                <el-table-column prop="logo" label="封面LOGO"  width="100" align="center">
+                    <template #default="scope">
+                        <el-image class="table-td-thumb" :src="scope.row.thumb" :preview-src-list="[scope.row.thumb]">
+                        </el-image>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="title" label="标题" width="150" align="center"></el-table-column>
+                <el-table-column prop="subjectId" label="项目ID" width="70" align="center"></el-table-column>
+                <el-table-column prop="teacherId" label="讲师ID" width="70" align="center"></el-table-column>
+                <el-table-column prop="lessionNum" label="课程号" width="70" align="center"></el-table-column>
+                <el-table-column prop="pageViewcount" label="浏览数量" width="80" align="center"></el-table-column>
+                <el-table-column prop="addTime" label="添加时间" align="center"></el-table-column>
+                <el-table-column prop="endTime" label="结束时间" align="center"></el-table-column>
+
+                <el-table-column label="操作" width="180" align="center">
+                    <template #default="scope">
+                        <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)">编辑
+                        </el-button>
+                        <el-button type="text" icon="el-icon-delete" class="red"
+                                   @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                    </template>
+                </el-table-column>
+
+                <!--  -->
+
+
+
+            </el-table>
+            <div class="pagination">
+                <el-pagination background layout="total, prev, pager, next" :current-page="query.pageIndex"
+                               :page-size="query.pageSize" :total="pageTotal" @current-change="handlePageChange"></el-pagination>
             </div>
         </div>
+
+        <!-- 编辑弹出框 -->
+        <el-dialog title="编辑" v-model="editVisible" width="30%">
+            <el-form label-width="100px" style="width:280px;">
+                <el-form-item label="课程ID" >
+                    <el-input v-model="form.courseId"></el-input>
+                </el-form-item>
+                <el-form-item label="课程名称" style="width:330px;">
+                    <el-input v-model="form.courseName"></el-input>
+                </el-form-item>
+                <el-form-item label="标题" style="width:380px;">
+                    <el-input
+                            type="textarea"
+                            :rows="2"
+                            placeholder="请输入内容"
+                            v-model="form.title">
+                    </el-input>
+                </el-form-item>
+                <el-form-item label="项目ID">
+                    <el-input v-model="form.subjectId"></el-input>
+                </el-form-item>
+                <el-form-item label="讲师ID">
+                    <el-input v-model="form.teacherId"></el-input>
+                </el-form-item>
+                <el-form-item label="课程号">
+                    <el-input v-model="form.lessionNum"></el-input>
+                </el-form-item>
+                <el-form-item label="浏览数量" style="width:200px;">
+                    <el-input v-model="form.pageViewcount"></el-input>
+                </el-form-item>
+                <el-form-item label="创建时间" >
+                    <el-date-picker
+                            v-model="form.addTime"
+                            type="datetime"
+                            placeholder="选择创建日期时间"
+                            align="left"
+                            :picker-options="pickerOptions"
+                            style="width:200px; text-align:center">
+                    </el-date-picker>
+                </el-form-item>
+                <el-form-item label="结束时间" >
+                    <el-date-picker
+                            v-model="form.endTime"
+                            type="datetime"
+                            placeholder="选择创建日期时间"
+                            align="left"
+                            :picker-options="pickerOptions"
+                            style="width:200px; text-align:center">
+                    </el-date-picker>
+                </el-form-item>
+            </el-form>
+            <template #footer>
+                <span class="dialog-footer">
+                    <el-button @click="editVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="saveEdit">确 定</el-button>
+                </span>
+            </template>
+        </el-dialog>
     </div>
 </template>
 
 <script>
-import { reactive, ref } from "vue";
-import { ElMessage } from "element-plus";
-export default {
-    name: "baseform",
-    setup() {
-        const options = [
-            {
-                value: "guangdong",
-                label: "广东省",
-                children: [
-                    {
-                        value: "guangzhou",
-                        label: "广州市",
-                        children: [
-                            {
-                                value: "tianhe",
-                                label: "天河区",
-                            },
-                            {
-                                value: "haizhu",
-                                label: "海珠区",
-                            },
-                        ],
-                    },
-                    {
-                        value: "dongguan",
-                        label: "东莞市",
-                        children: [
-                            {
-                                value: "changan",
-                                label: "长安镇",
-                            },
-                            {
-                                value: "humen",
-                                label: "虎门镇",
-                            },
-                        ],
-                    },
-                ],
-            },
-            {
-                value: "hunan",
-                label: "湖南省",
-                children: [
-                    {
-                        value: "changsha",
-                        label: "长沙市",
-                        children: [
-                            {
-                                value: "yuelu",
-                                label: "岳麓区",
-                            },
-                        ],
-                    },
-                ],
-            },
-        ];
-        const rules = {
-            name: [
-                { required: true, message: "请输入表单名称", trigger: "blur" },
-            ],
-        };
-        const formRef = ref(null);
-        const form = reactive({
-            name: "",
-            region: "",
-            date1: "",
-            date2: "",
-            delivery: true,
-            type: ["步步高"],
-            resource: "小天才",
-            desc: "",
-            options: [],
-        });
-        // 提交
-        const onSubmit = () => {
-            // 表单校验
-            formRef.value.validate((valid) => {
-                if (valid) {
-                    console.log(form);
-                    ElMessage.success("提交成功！");
-                } else {
-                    return false;
-                }
-            });
-        };
-        // 重置
-        const onReset = () => {
-            formRef.value.resetFields();
-        };
+    import { ref, reactive } from "vue";
+    import { ElMessage, ElMessageBox } from "element-plus";
+    import { fetchData } from "../api/index";
 
-        return {
-            options,
-            rules,
-            formRef,
-            form,
-            onSubmit,
-            onReset,
-        };
-    },
-};
+    export default {
+        name: "baseform",
+        setup() {
+            const query = reactive({
+                address: "",
+                name: "",
+                pageIndex: 1,
+                pageSize: 10,
+            });
+            const tableData = ref([]);
+            const pageTotal = ref(0);
+            // 获取表格数据
+            const getData = () => {
+                fetchData(query).then((res) => {
+                    tableData.value = res.list;
+                    pageTotal.value = res.pageTotal || 50;
+                });
+            };
+            getData();
+
+            // 查询操作
+            const handleSearch = () => {
+                query.pageIndex = 1;
+                getData();
+            };
+            // 分页导航
+            const handlePageChange = (val) => {
+                query.pageIndex = val;
+                getData();
+            };
+
+            // 删除操作
+            const handleDelete = (index) => {
+                // 二次确认删除
+                ElMessageBox.confirm("确定要删除吗？", "提示", {
+                    type: "warning",
+                })
+                    .then(() => {
+                        ElMessage.success("删除成功");
+                        tableData.value.splice(index, 1);
+                    })
+                    .catch(() => {});
+            };
+
+            // 表格编辑时弹窗和保存
+            const editVisible = ref(false);
+            let form = reactive({
+                name: "",
+                address: "",
+            });
+            let idx = -1;
+            const handleEdit = (index, row) => {
+                idx = index;
+                Object.keys(form).forEach((item) => {
+                    form[item] = row[item];
+                });
+                editVisible.value = true;
+            };
+            const saveEdit = () => {
+                editVisible.value = false;
+                ElMessage.success(`修改第 ${idx + 1} 行成功`);
+                Object.keys(form).forEach((item) => {
+                    tableData.value[idx][item] = form[item];
+                });
+            };
+
+            return {
+                query,
+                tableData,
+                pageTotal,
+                editVisible,
+                form,
+                handleSearch,
+                handlePageChange,
+                handleDelete,
+                handleEdit,
+                saveEdit,
+            };
+        },
+        data() {
+            return {
+                pickerOptions: {
+                    shortcuts: [{
+                        text: '今天',
+                        onClick(picker) {
+                            picker.$emit('pick', new Date());
+                        }
+                    }, {
+                        text: '昨天',
+                        onClick(picker) {
+                            const date = new Date();
+                            date.setTime(date.getTime() - 3600 * 1000 * 24);
+                            picker.$emit('pick', date);
+                        }
+                    }, {
+                        text: '一周前',
+                        onClick(picker) {
+                            const date = new Date();
+                            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+                            picker.$emit('pick', date);
+                        }
+                    }]
+                },
+                addTime: '',
+                endTime: ''
+            };
+        }
+    };
 </script>
+
+<style scoped>
+    .handle-box {
+        margin-bottom: 20px;
+    }
+
+    .handle-select {
+        width: 120px;
+    }
+
+    .handle-input {
+        width: 300px;
+        display: inline-block;
+    }
+    .table {
+        width: 100%;
+        font-size: 14px;
+    }
+    .red {
+        color: #ff0000;
+    }
+    .mr10 {
+        margin-right: 10px;
+    }
+    .table-td-thumb {
+        display: block;
+        margin: auto;
+        width: 40px;
+        height: 40px;
+    }
+</style>

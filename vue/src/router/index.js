@@ -98,7 +98,7 @@ const routes = [
                 },
                 component: () => import ( /* webpackChunkName: "icon" */ "../views/Icon.vue")
             }, {
-                path: '/404',
+                path: '/table1',
                 name: '404',
                 meta: {
                     title: '找不到页面'
