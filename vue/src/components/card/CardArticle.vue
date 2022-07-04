@@ -6,7 +6,7 @@
 
     <ul class="me-category-list">
       <li v-for="a in articles" @click="view(a.id)" :style="itemStyle" :key="a.id" class="me-category-item">
-        <a>{{a.title}}</a>
+        <a style="cursor:pointer">{{a.title}}</a>
       </li>
     </ul>
   </el-card>

@@ -3,6 +3,7 @@
     <!-- <div>{{source}}</div> -->
     <div class="wrapper">
       <div
+        style="cursor:pointer"
         v-for="(item, index) in data.source"
         :key="item.id"
         :class="item.className"

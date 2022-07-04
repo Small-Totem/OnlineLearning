@@ -8,7 +8,6 @@
                 </el-main>
                 <el-aside>
                     <card-article cardHeader="最热课程" :articles="hotArticles"></card-article>
-                    <card-archive cardHeader="最新讨论" :archives="archives"></card-archive>
                     <card-article cardHeader="最新文章" :articles="hotArticles"></card-article>
                 </el-aside>
             </el-container>
@@ -100,18 +99,13 @@
     .el-col{
         width: 100%;
     }
-    .el-row {
-        margin-bottom: 20px;
-    }
-
 
     .el-container {
         width: 100%;
     }
 
     .el-aside {
-        margin-left: 20px;
-        margin-top: 20px;
+        margin: 10px;
         width: 260px;
     }
 

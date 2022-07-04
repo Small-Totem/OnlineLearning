@@ -1,5 +1,5 @@
 <template>
-    <el-card :body-style="{ padding: '0px' }" shadow="hover" class="card_course"  >
+    <el-card style="cursor:pointer" @click="course(2)" :body-style="{ padding: '0px' }" shadow="hover" class="card_course"  >
         <div class="_img">
             <img src="../../assets/img/course2.png" width="280"/>
         </div>
@@ -10,6 +10,8 @@
 </template>
 
 <script>
+    import { useRouter } from "vue-router";
+
     export default {
         name: "CardCourse.vue",
         props: {
@@ -21,6 +23,20 @@
                 type: String,
                 required: true
             },
+            course_id:{
+                type: Number,
+                required:true
+            }
+        },
+        setup(){
+            const router = useRouter();
+            function course(id) {
+                router.push("/course/"+id)
+            }
+            return{
+                course,
+                router,
+            };
         }
     }
 </script>

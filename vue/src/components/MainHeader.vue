@@ -1,26 +1,27 @@
 <template>
     <div class="header">
         <div class="header-left">
-            <div class="logo">在线教育系统</div>
+            <div class="logo">在线教育平台</div>
         </div>
-        <div class="header-middle">
+        <div class="search">
+        <el-input
+                placeholder="请输入内容"
+                prefix-icon="el-icon-search"
+                v-model="input">
+        </el-input>
+        </div>
+        <div class="links">
             <router-link to="/MainPage" > 首页 </router-link>&ensp;
             <router-link to="/CoursePage"> 课程 </router-link>&ensp;
             <router-link to="/TeacherPage"> 讲师 </router-link>&ensp;
             <router-link to="/ArticlePage"> 文章 </router-link>&ensp;
             <router-link to="/QuestionPage"> 问题 </router-link>
+        </div>
 
-        </div>
-        <div class="search">
-            <el-input
-                    placeholder="请输入内容"
-                    prefix-icon="el-icon-search"
-                    v-model="input">
-            </el-input>
-        </div>
 
         <div class="header-right">
             <!-- 如果登陆了 -->
+
             <div v-if="role" class="header-user-con">
                 <!-- 用户头像 -->
                 <div class="user-avator">
@@ -95,33 +96,33 @@
     box-sizing: border-box;
     width: 100%;
     height: 70px;
-    font-size: 22px;
     color: #fff;
-    background-color: #fd5656;
+    font-size: 18px;
+    background-color: #0785fd;
 }
 
 .header .logo {
     float: left;
-    width: 250px;
     line-height: 70px;
+    font-size: 24px;
 }
 .header-right {
+    padding-right: 20px;
     float: right;
-    padding-right: 30px;
 }
 .header-left {
     float: left;
     padding-left: 30px;
+    padding-right: 30px;
 }
-.header-middle{
+.links{
     float: left;
-    padding-left: 30px;
     line-height: 70px;
     color: #ffffff;
 }
 .router-link-active {
     text-decoration: none;
-    color: yellow;
+    color: #ff7200;
 }
 a{
     text-decoration: none;
@@ -129,11 +130,11 @@ a{
 }
 .search{
     float: left;
-    padding-left: 30px;
+    padding-right: 20px;
     line-height: 70px;
 }
 .el-input {
-    width: 350px;
+    width: 260px;
 }
 .header-user-con {
     display: flex;
@@ -143,7 +144,7 @@ a{
 .btn-fullscreen {
     transform: rotate(45deg);
     margin-right: 5px;
-    font-size: 24px;
+    font-size: 26px;
 }
 .btn-fullscreen {
     position: relative;
