@@ -11,7 +11,7 @@
             </transition>
         </router-view>
       </div>
-<v-footer></v-footer>
+      <v-footer/>
     </div>
   </div>
 </template>

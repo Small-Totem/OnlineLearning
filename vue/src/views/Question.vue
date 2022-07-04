@@ -160,6 +160,7 @@ export default {
   background-color: #d2d2d2;
 }
 
+
 .text {
   font-size: 14px;
 }
