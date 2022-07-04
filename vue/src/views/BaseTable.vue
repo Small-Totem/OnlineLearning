@@ -10,16 +10,15 @@
         <div class="container">
             <div style="display: flex;justify-content: space-between">
                 <div class="handle-box">
-                    <el-select v-model="query.address" placeholder="搜索方式" class="handle-select mr10">
+                    <el-select v-model="query.address"  placeholder="搜索方式" class="handle-select mr10">
                         <el-option key="1" label="用户ID" value="用户ID"></el-option>
                         <el-option key="2" label="用户昵称" value="用户昵称"></el-option>
                     </el-select>
-                    <el-input v-model="query.name"  class="handle-input mr10"></el-input>
+                    <el-input v-model="query.name" clearable   class="handle-input mr10"></el-input>
                     <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
                 </div>
                 <div>
-                    <el-button type="success"><i class="fa fa-level-up" aria-hidden="true"></i>导入数据</el-button>
-                    <el-button type="success"><i class="fa fa-level-down" aria-hidden="true"></i>导出数据</el-button>
+
                     <el-button type="primary" icon="el-icon-plus">添加用户</el-button>
                 </div>
             </div>

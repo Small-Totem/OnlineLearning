@@ -8,17 +8,24 @@
             </el-breadcrumb>
         </div>
         <div class="container">
-            <div class="handle-box">
-                <el-select v-model="query.address" placeholder="搜索方式" class="handle-select mr10">
-                    <el-option key="1" label="用户ID" value="id"></el-option>
-                    <el-option key="2" label="用户名" value="name"></el-option>
-                    <el-option key="3" label="所属机构" value="education"></el-option>
-                    <el-option key="4" label="职称" value="career"></el-option>
-                    <el-option key="5" label="分类ID" value="SubjectId"></el-option>
-                    <el-option key="6" label="创建时间" value="updateTime"></el-option>
-                </el-select>
-                <el-input v-model="query.name" placeholder="" class="handle-input mr10"></el-input>
-                <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+            <div >
+                <div style="display: flex;justify-content: space-between">
+                    <div class="handle-box">
+                        <el-select v-model="query.address" placeholder="搜索方式" class="handle-select mr10">
+                            <el-option key="1" label="用户ID" value="id"></el-option>
+                            <el-option key="2" label="用户名" value="name"></el-option>
+                            <el-option key="3" label="所属机构" value="education"></el-option>
+                            <el-option key="4" label="职称" value="career"></el-option>
+                            <el-option key="5" label="分类ID" value="SubjectId"></el-option>
+                            <el-option key="6" label="创建时间" value="updateTime"></el-option>
+                        </el-select>
+                        <el-input v-model="query.name" clearable   class="handle-input mr10"></el-input>
+                        <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+                    </div>
+                    <div>
+                        <el-button type="primary" icon="el-icon-plus">添加讲师</el-button>
+                    </div>
+                </div>
             </div>
             <el-table :data="tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header">
                 <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
@@ -65,6 +72,15 @@
                 <el-pagination background layout="total, prev, pager, next" :current-page="query.pageIndex"
                                :page-size="query.pageSize" :total="pageTotal"
                                @current-change="handlePageChange"></el-pagination>
+            </div>
+            <div style="display: flex;justify-content: flex-end">
+                <el-pagination
+                        background
+                        @current-change="currentChange"
+                        @size-change="sizeChange"
+                        layout="sizes,prev, pager, next, jumper, ->, total"
+                        :total="1000">
+                </el-pagination>
             </div>
         </div>
 
