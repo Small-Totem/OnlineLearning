@@ -1,5 +1,6 @@
 package com.cqu.online_learning.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.cqu.online_learning.entity.Article;
 import com.cqu.online_learning.services.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,9 @@ public class ArticleController {
     public String removeArticle(@PathVariable int id){
         articleService.removeArticle(id);
         return "success";
+    }
+    @GetMapping("/queryArticlePage/{id}")//分页查询Article
+    public IPage<Article> queryArticlePage(@PathVariable int id){
+        return articleService.queryArticlePage(id,2);
     }
 }
