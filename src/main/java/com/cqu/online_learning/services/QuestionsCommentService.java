@@ -12,4 +12,5 @@ public interface QuestionsCommentService extends IService<QuestionsComment> {
     QuestionsComment getQuesComById(int id);//按评论id查询问题评论
     //List<QuestionsComment> queryAllQuesCom(int qid);//按问题id查询所有评论
     void removeQuesComById(int id);//按id删除
+    List<QuestionsComment> getAllQuestionCommentByQuestionId(int id);
 }

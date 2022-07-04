@@ -15,6 +15,8 @@ public class UserLoginLogController {
     @Autowired
     UserLoginLogService userLoginLogService;
 
+
+    //这个api不该手动调用。在用户登录后会自动增加（实现于UserController.loginVerify()）
     @PostMapping("/addLog")
     public String addLog(UserLoginLog a) {
         userLoginLogService.addLog(a);

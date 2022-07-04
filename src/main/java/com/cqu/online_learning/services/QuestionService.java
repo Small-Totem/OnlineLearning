@@ -3,6 +3,7 @@ package com.cqu.online_learning.services;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cqu.online_learning.entity.Question;
+import com.cqu.online_learning.entity.QuestionsComment;
 
 import java.util.List;
 
