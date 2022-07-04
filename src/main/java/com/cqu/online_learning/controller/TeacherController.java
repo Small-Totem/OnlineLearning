@@ -1,5 +1,6 @@
 package com.cqu.online_learning.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.cqu.online_learning.entity.Teacher;
 import com.cqu.online_learning.services.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,17 @@ public class TeacherController {
     public String removeTeacher(@PathVariable int id){
         teacherService.removeTeacher(id);
         return"success";
+    }
+
+    @GetMapping("/queryTeacherPage/{id}")//分页查询Teacher
+    public IPage<Teacher> queryTeacherPage(@PathVariable int id){
+        return teacherService.queryTeacherPage(id,2);
+    }
+
+
+    @GetMapping("/getTeacherBySubjectID/{id}")//按科目id查询教师
+    public List<Teacher> getTeacherBySubjectID(@PathVariable int id){
+        return teacherService.getTeacherBySubjectID(id);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.cqu.online_learning.services;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cqu.online_learning.entity.Article;
 
@@ -10,4 +11,5 @@ public interface ArticleService extends IService<Article> {
     List<Article> queryAllArticle();
     Article getArticle(int id);
     void removeArticle(int id);
+    IPage<Article> queryArticlePage(int currPage, int pageSize);//分页查询
 }
