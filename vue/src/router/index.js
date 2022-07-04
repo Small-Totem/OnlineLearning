@@ -146,7 +146,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    document.title = `${to.meta.title} | vue-manage-system`;
+    document.title = `${to.meta.title} | 在线教育系统`;
     const role = localStorage.getItem('ms_username');
     if (!role && to.path !== '/login' && to.path !== '/'&& to.path !== '/MainPage') {
         //没有登陆且访问了非主页面则跳转登陆
