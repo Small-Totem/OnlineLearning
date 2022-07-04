@@ -3,6 +3,21 @@
         <div class="header-left">
             <div class="logo">在线教育系统</div>
         </div>
+        <div class="header-middle">
+            <router-link to="/MainPage" > 首页 </router-link>&ensp;
+            <router-link to="/CoursePage"> 课程 </router-link>&ensp;
+            <router-link to="/TeacherPage"> 讲师 </router-link>&ensp;
+            <router-link to="/ArticlePage"> 文章 </router-link>&ensp;
+            <router-link to="/QuestionPage"> 问题 </router-link>
+
+        </div>
+        <div class="search">
+            <el-input
+                    placeholder="请输入内容"
+                    prefix-icon="el-icon-search"
+                    v-model="input">
+            </el-input>
+        </div>
 
         <div class="header-right">
             <!-- 如果登陆了 -->
@@ -37,6 +52,11 @@
 <script>
     import { useRouter } from "vue-router";
     export default {
+        data() {
+            return {
+                input: ''
+            }
+        },
         setup() {
             const username = localStorage.getItem("ms_username");
             const message = 2;
@@ -92,6 +112,28 @@
 .header-left {
     float: left;
     padding-left: 30px;
+}
+.header-middle{
+    float: left;
+    padding-left: 30px;
+    line-height: 70px;
+    color: #ffffff;
+}
+.router-link-active {
+    text-decoration: none;
+    color: yellow;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+.search{
+    float: left;
+    padding-left: 30px;
+    line-height: 70px;
+}
+.el-input {
+    width: 350px;
 }
 .header-user-con {
     display: flex;
