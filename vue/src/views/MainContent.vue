@@ -32,13 +32,13 @@
             id:1,
             pic:require("../assets/img/course1.png"),
             description:"课程介绍1",
-            link:"/course1"
+            link:"/course/1"
         },
         {
             id:2,
             pic:require("../assets/img/course2.png"),
             description:"课程2",
-            link:"/course2"
+            link:"/course/2"
         }
     ]
 

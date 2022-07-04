@@ -160,15 +160,9 @@ export default {
   background-color: #d2d2d2;
 }
 
-
-.text {
-  font-size: 14px;
+.box-card{
+  width:100%;
 }
-
-.item {
-  padding: 18px 0;
-}
-
 
 
 
