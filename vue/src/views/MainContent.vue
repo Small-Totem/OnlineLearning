@@ -1,150 +1,134 @@
 <template>
-
-  <div class="MainContent">
-    <el-container>
-
-      <el-header>好课推荐</el-header>
-      <el-main>
-        学科：
-        <el-radio-group v-model="radio1">
-          <el-radio-button label="计算机科学"></el-radio-button>
-          <el-radio-button label="软件工程"></el-radio-button>
-          <el-radio-button label="大数据"></el-radio-button>
-          <el-radio-button label="人工智能"></el-radio-button>
-        </el-radio-group>
-      </el-main>
-    </el-container>
-
-    <el-container>
-      <br/>
-      <el-header>名师推荐</el-header>
-      <el-main>
-        学科：
-        <el-radio-group v-model="radio2">
-          <el-radio-button label="计算机科学"></el-radio-button>
-          <el-radio-button label="软件工程"></el-radio-button>
-          <el-radio-button label="大数据"></el-radio-button>
-          <el-radio-button label="人工智能"></el-radio-button>
-        </el-radio-group>
-
-        <div class="edit_delete">
-<!--          <el-button-->
-<!--                  type="primary"-->
-<!--                  icon="el-icon-edit"-->
-<!--                  class="edit_btn"-->
-<!--                  @click="editItem(item.id)"-->
-<!--          ></el-button>-->
-<!--          <el-button-->
-<!--                  type="danger"-->
-<!--                  icon="el-icon-delete"-->
-<!--                  class="delete_btn"-->
-<!--                  style="width: 220px"-->
-<!--                  @click="deleteItem"-->
-<!--          ></el-button>-->
-
-          <el-row type="flex" justify="space-around" style="height:500px;">
-            <el-col :span="6" class="col-button" v-for="(item,index) in buttonList" :key="index" >
-              <el-button class="link-button" style="background:url(item.backgroundUrl);height:144px;width:144px" ></el-button>
-              <div>{{item.id}}</div>
-              <div>{{item.name}}</div>
-            </el-col>
-          </el-row>
-        </div>
-      </el-main>
-    </el-container>
-
-    <el-container>
-      <br/>
-      <el-header>文章推荐</el-header>
-      <el-main>
-        学科：
-        <el-radio-group v-model="radio3">
-          <el-radio-button label="计算机科学"></el-radio-button>
-          <el-radio-button label="软件工程"></el-radio-button>
-          <el-radio-button label="大数据"></el-radio-button>
-          <el-radio-button label="人工智能"></el-radio-button>
-        </el-radio-group>
-      </el-main>
-    </el-container>
-
-    <el-container>
-      <br/>
-      <el-header>热门问答</el-header>
-      <el-main>
-        学科：
-        <el-radio-group v-model="radio4">
-          <el-radio-button label="计算机科学"></el-radio-button>
-          <el-radio-button label="软件工程"></el-radio-button>
-          <el-radio-button label="大数据"></el-radio-button>
-          <el-radio-button label="人工智能"></el-radio-button>
-        </el-radio-group>
-      </el-main>
-    </el-container>
-  </div>
-
+    <div>
+        <el-col>
+            <swiper-3-d :source="source"></swiper-3-d>
+            <el-container>
+                <el-main class="me-articles">
+                    <Course-scroll-page :data="courseList"></Course-scroll-page>
+                </el-main>
+                <el-aside>
+                    <card-article cardHeader="最热课程" :articles="hotArticles"></card-article>
+                    <card-archive cardHeader="最新讨论" :archives="archives"></card-archive>
+                    <card-article cardHeader="最新文章" :articles="hotArticles"></card-article>
+                </el-aside>
+            </el-container>
+        </el-col>
+    </div>
 </template>
 
 <script>
-    export default {
-        name: "MainContent.vue",
-        data () {
-            return {
-              radio1: '',
-              radio2: '',
-              radio3: '',
-              radio4: '',
-              buttonList: [
-                {id: '1', name: '请假流程', backgroundUrl: '../../assets/img/logout.png', url: ''},
-                {id: '2', name: '会议室', backgroundUrl: '', url: ''},
-                {id: '3', name: '日志', backgroundUrl: '', url: ''},
-                {id: '4', name: '员工健康码', backgroundUrl: '', url: ''}
-              ]
-            }
-          }
+    import Swiper3D from "../components/Swiper3D.vue";
+    import CardArticle from '../components/card/CardArticle.vue'
+    import CourseScrollPage from './CourseScrollPage.vue'
+    import {ElMessage} from 'element-plus'
+    import { ref } from 'vue'
 
+    import {getHotArtices} from '../api/article'
+    //import {getHotTags} from '@/api/tag'
+    //import {listArchives} from '@/api/article'
+
+    const source = [
+        {
+            id:1,
+            pic:require("../assets/img/course1.png"),
+            description:"课程介绍1",
+            link:"/course1"
+        },
+        {
+            id:2,
+            pic:require("../assets/img/course2.png"),
+            description:"课程2",
+            link:"/course2"
+        }
+    ]
+
+    export default {
+        name: 'MainContent.vue',
+        components: {
+            'card-article': CardArticle,
+            CourseScrollPage: CourseScrollPage,
+            Swiper3D,
+        },
+        setup(){
+
+            const courseList = [
+                {
+                    courseId:1,
+                    description:"courseA",
+                    link:"/course/1",
+                },
+                {
+                    courseId:2,
+                    description:"courseB",
+                    link:"/course/2",
+                },
+                {
+                    courseId:3,
+                    description:"courseC",
+                    link:"/course/3",
+                },
+                {
+                    courseId:4,
+                    description:"courseD",
+                    link:"/course/4",
+                },
+            ]
+
+            /*这里经历了太多折磨 @ref https://blog.csdn.net/wsjzzcbq/article/details/123003859*/
+            let hotArticles=ref()
+            getHotArtices().then(data => {
+                //console.log("success!")
+                //console.log(data.data)
+                hotArticles.value = data.data
+            }).catch(error => {
+                if (error !== 'error') {
+                    //console.log(error)
+                    ElMessage({type: 'error', message: '最热文章加载失败!', showClose: true})
+                }
+            })
+            return {
+                hotArticles,
+                source,
+                courseList,
+            }
+        },
     }
 </script>
 
 <style scoped>
 
-.el-header {
-  background-color: #B3C0D1;
-  color: #333;
-  text-align: center;
-  line-height: 60px;
-}
+    .el-col{
+        width: 100%;
+    }
+    .el-row {
+        margin-bottom: 20px;
+    }
 
-.el-main {
-  background-color: #E9EEF3;
-  color: #333;
-  text-align: center;
-  line-height: 160px;
-}
 
-body > .el-container {
-  margin-bottom: 40px;
-}
+    .el-container {
+        width: 100%;
+    }
 
-.el-container:nth-child(5) .el-aside,
-.el-container:nth-child(6) .el-aside {
-  line-height: 260px;
-}
+    .el-aside {
+        margin-left: 20px;
+        margin-top: 20px;
+        width: 260px;
+    }
 
-.el-container:nth-child(7) .el-aside {
-  line-height: 320px;
-}
-.edit_btn {
-  min-height: 220px;
-  min-width: 220px;
-  background: #e6a23c 80%;
-  border: #e6a23c;
-}
-.delete_btn {
-  min-height: 220px;
-  min-width: 220px;
-  margin-left: 15px !important;
-  background: #f56c6c 80%;
-  border: #f56c6c;
-}
+    .el-main {
+        padding: 0px;
+        line-height: 16px;
+    }
+
+    .el-card {
+        border-radius: 10px;
+        margin-right: 10px;
+    }
+
+    .el-card:not(:first-child) {
+        margin-top: 20px;
+
+    }
+
 
 </style>

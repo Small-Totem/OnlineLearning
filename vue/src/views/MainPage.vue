@@ -14,7 +14,6 @@
 <script>
     import { computed } from "vue";
     import { useStore } from "vuex";
-    import { useRoute } from "vue-router";
     import vHeader from "../components/MainHeader.vue";
 
     export default {
@@ -34,3 +33,6 @@
 
     }
 </script>
+<style scoped>
+
+</style>

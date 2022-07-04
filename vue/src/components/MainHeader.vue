@@ -27,7 +27,7 @@
             </div>
             <div v-if="!role" class="header-user-con">
                 <div class="header-login">
-                    <el-button @click="toLogin" size="medium" type="info">登陆</el-button>
+                    <el-button @click="toLogin" size="medium" type="info">登陆/注册</el-button>
                 </div>
             </div>
         </div>
