@@ -1,4 +1,5 @@
 <template>
+<div class="mainbox">
   <el-row type="flex" justify="center" class="box">
     <el-col :span="20">
   <div class="clearfix" style="margin-top: 0px;width: 100%;align-self: center">
@@ -82,7 +83,6 @@
 
           </el-card>
         </el-row>
-
       </el-tab-pane>
     </el-tabs>
 
@@ -120,7 +120,7 @@
       </div>
     </el-col>
   </el-row>
-
+</div>
 </template>
 
 <script>
@@ -155,13 +155,11 @@ export default {
 </script>
 
 <style scoped>
-.box{
-  width: 100%;
-  height: 90vh;
-  overflow-y: auto;
-  margin: 0 auto;
-  background-color: #eae5e5;
+
+.mainbox{
+  background-color: #d2d2d2;
 }
+
 .text {
   font-size: 14px;
 }
@@ -170,9 +168,7 @@ export default {
   padding: 18px 0;
 }
 
-.box-card {
-  width: 100%;
-}
+
 
 
 </style>

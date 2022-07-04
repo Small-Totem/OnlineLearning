@@ -121,8 +121,8 @@ export default {
 <style >
 .box{
   width: 100%;
-  height: 90vh;
-  overflow-y: auto;
+
+
   margin: 0 auto;
   background-color: #eae5e5;
 }
@@ -130,7 +130,7 @@ export default {
   background-color: #333333;
   position:relative;
   bottom: 0;
-  width: 1120px;
+  width: 1233px;
   min-height: 80px;
   z-index: 3;
   padding: 14px 16px;
