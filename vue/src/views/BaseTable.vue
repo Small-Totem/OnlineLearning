@@ -23,9 +23,9 @@
                     <el-button type="primary" icon="el-icon-plus">添加用户</el-button>
                 </div>
             </div>
-            <el-table :data="emps" border class="table" ref="multipleTable" header-cell-class-name="table-header">
+            <el-table :data="tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header">
                 <el-table-column prop="userId" label="用户ID" width="70" align="center"></el-table-column>
-                <el-table-column prop="showName" label="用户昵称" width="55" align="center"></el-table-column>
+                <el-table-column prop="showName" label="用户昵称" width="250" align="center"></el-table-column>
                 <el-table-column prop="picImg" label="图片链接"  width="90" align="center">
                     <template #default="scope">
                         <el-image class="table-td-thumb" :src="scope.row.thumb" :preview-src-list="[scope.row.thumb]">
@@ -33,8 +33,8 @@
                     </template>
                 </el-table-column>
                 <el-table-column prop="sex" label="性别" width="55" align="center"></el-table-column>
-                <el-table-column prop="mobile" label="手机" ></el-table-column>
-                <el-table-column prop="email" label="邮箱"></el-table-column>
+                <el-table-column prop="mobile" label="手机" align="center"></el-table-column>
+                <el-table-column prop="email" label="邮箱" align="center"></el-table-column>
 
                 <el-table-column label="操作" width="180" align="center">
                     <template #default="scope">
@@ -68,23 +68,29 @@
 
         <!-- 编辑弹出框 -->
         <el-dialog title="编辑" v-model="editVisible" width="30%">
-            <el-form label-width="90px">
+            <el-form label-width="100px"  style="width:280px;">
                 <el-form-item label="用户ID">
                     <el-input v-model="form.userId"></el-input>
                 </el-form-item>
                 <el-form-item label="用户昵称">
                     <el-input v-model="form.showName"></el-input>
                 </el-form-item>
-                <el-form-item label="图片链接">
-                    <el-input v-model="form.picImg"></el-input>
+                <el-form-item label="图片链接" style="width:380px;">
+                    <el-input
+                            type="textarea"
+                            :rows="2"
+                            placeholder="请输入内容"
+                            v-model="form.picImg">
+                    </el-input>
                 </el-form-item>
                 <el-form-item label="性别">
-                    <el-input v-model="form.sex"></el-input>
+                    <el-radio v-model="form.sex" label="男">男</el-radio>
+                    <el-radio v-model="form.sex" label="女">女</el-radio>
                 </el-form-item>
-                <el-form-item label="手机">
+                <el-form-item label="手机" style="width:300px;">
                     <el-input v-model="form.mobile"></el-input>
                 </el-form-item>
-                <el-form-item label="邮箱">
+                <el-form-item label="邮箱" style="width:300px;">
                     <el-input v-model="form.email"></el-input>
                 </el-form-item>
             </el-form>
@@ -112,7 +118,8 @@
                 loading:false,
                 total:0,
                 currentPage:1,
-                size:10
+                size:10,
+                radio: '1'
             }
         },
         mounted(){
@@ -140,7 +147,7 @@
 
             }
         },
-        setup: function () {
+        setup () {
             const query = reactive({
                 userId: "",
                 showName: "",
