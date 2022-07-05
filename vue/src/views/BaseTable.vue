@@ -19,7 +19,7 @@
                 </div>
                 <div>
 
-                    <el-button type="primary" icon="el-icon-plus" @click="handleUser(scope.$index, scope.row)">添加用户</el-button>
+                    <el-button type="primary" icon="el-icon-plus" @click="showAddUser">添加用户</el-button>
                 </div>
             </div>
 
@@ -99,6 +99,47 @@
                 </span>
             </template>
         </el-dialog>
+
+
+        <el-dialog
+                title="添加员工"
+                :visible.sync="addUserVisible"
+                width="30%"
+                v-model="addUserVisible">
+
+            <el-form label-width="100px"  style="width:280px;">
+                <el-form-item label="用户ID">
+                    <el-input v-model="form.userId" prefix-icon="el-icon-edit"></el-input>
+                </el-form-item>
+                <el-form-item label="用户昵称">
+                    <el-input v-model="form.showName"></el-input>
+                </el-form-item>
+                <el-form-item label="图片链接" style="width:380px;">
+                    <el-input
+                            type="textarea"
+                            :rows="2"
+                            placeholder="请输入内容"
+                            v-model="form.picImg">
+                    </el-input>
+                </el-form-item>
+                <el-form-item label="性别">
+                    <el-radio v-model="form.sex" label="男">男</el-radio>
+                    <el-radio v-model="form.sex" label="女">女</el-radio>
+                </el-form-item>
+                <el-form-item label="手机" style="width:300px;">
+                    <el-input v-model="form.mobile"></el-input>
+                </el-form-item>
+                <el-form-item label="邮箱" style="width:300px;">
+                    <el-input v-model="form.email"></el-input>
+                </el-form-item>
+            </el-form>
+            <template #footer>
+                <span class="dialog-footer">
+                    <el-button @click="addUserVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="addUserVisible = false">确 定</el-button>
+                </span>
+            </template>
+        </el-dialog>
     </div>
 </template>
 
@@ -111,7 +152,8 @@
 
     export default {
 
-        name: "table",
+        name: "user",
+
         data(){
             return{
                 emps:[],
@@ -119,12 +161,11 @@
                 total:0,
                 currentPage:1,
                 size:10,
-                radio: '1'
+                radio: '1',
+                addUserVisible: false
             }
         },
-        mounted(){
 
-        },
         methods:{
             currentChange(currentPage){
                 this.currentPage=currentPage;
@@ -134,7 +175,9 @@
                 this.size=size;
                 this.initEmps();
             },
-
+            showAddUser(){
+              this.addUserVisible = true;
+            },
             initEmps(){
                 this.loading=true;
                 this.getRequest('/queryAllUser/?currentPage='+this.currentPage+'&size='+this.size).then(resp=>{

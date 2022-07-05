@@ -24,7 +24,7 @@
                 </div>
                 <div>
 
-                    <el-button type="primary" icon="el-icon-plus">添加课程</el-button>
+                    <el-button type="primary" icon="el-icon-plus" @click="showAddCourse">添加课程</el-button>
                 </div>
             </div>
 
@@ -138,6 +138,67 @@
                 </span>
             </template>
         </el-dialog>
+        <el-dialog
+                title="添加课程"
+                :visible.sync="addCourseVisible"
+                width="30%"
+                v-model="addCourseVisible">
+
+            <el-form label-width="100px" style="width:280px;">
+                <el-form-item label="课程ID" >
+                    <el-input v-model="form.courseId"></el-input>
+                </el-form-item>
+                <el-form-item label="课程名称" style="width:330px;">
+                    <el-input v-model="form.courseName"></el-input>
+                </el-form-item>
+                <el-form-item label="标题" style="width:380px;">
+                    <el-input
+                            type="textarea"
+                            :rows="2"
+                            placeholder="请输入内容"
+                            v-model="form.title">
+                    </el-input>
+                </el-form-item>
+                <el-form-item label="项目ID">
+                    <el-input v-model="form.subjectId"></el-input>
+                </el-form-item>
+                <el-form-item label="讲师ID">
+                    <el-input v-model="form.teacherId"></el-input>
+                </el-form-item>
+                <el-form-item label="课程号">
+                    <el-input v-model="form.lessionNum"></el-input>
+                </el-form-item>
+                <el-form-item label="浏览数量" style="width:200px;">
+                    <el-input v-model="form.pageViewcount"></el-input>
+                </el-form-item>
+                <el-form-item label="创建时间" >
+                    <el-date-picker
+                            v-model="form.addTime"
+                            type="datetime"
+                            placeholder="选择创建日期时间"
+                            align="left"
+                            :picker-options="pickerOptions"
+                            style="width:200px; text-align:center">
+                    </el-date-picker>
+                </el-form-item>
+                <el-form-item label="结束时间" >
+                    <el-date-picker
+                            v-model="form.endTime"
+                            type="datetime"
+                            placeholder="选择创建日期时间"
+                            align="left"
+                            :picker-options="pickerOptions"
+                            style="width:200px; text-align:center">
+                    </el-date-picker>
+                </el-form-item>
+            </el-form>
+            <template #footer>
+                <span class="dialog-footer">
+                    <el-button @click="addCourseVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="addCourseVisible = false">确 定</el-button>
+                </span>
+            </template>
+        </el-dialog>
     </div>
 </template>
 
@@ -150,6 +211,41 @@
 
     export default {
         name: "baseform",
+        data() {
+            return {
+                pickerOptions: {
+                    shortcuts: [{
+                        text: '今天',
+                        onClick(picker) {
+                            picker.$emit('pick', new Date());
+                        }
+                    }, {
+                        text: '昨天',
+                        onClick(picker) {
+                            const date = new Date();
+                            date.setTime(date.getTime() - 3600 * 1000 * 24);
+                            picker.$emit('pick', date);
+                        }
+                    }, {
+                        text: '一周前',
+                        onClick(picker) {
+                            const date = new Date();
+                            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+                            picker.$emit('pick', date);
+                        }
+                    }]
+                },
+                addTime: '',
+                endTime: '',
+                addCourseVisible:false
+            };
+
+        },
+        methods: {
+            showAddCourse(){
+                this.addCourseVisible =true;
+            }
+        },
         setup() {
             const query = reactive({
                 address: "",
@@ -239,35 +335,8 @@
                 handleEdit,
                 saveEdit,
             };
-        },
-        data() {
-            return {
-                pickerOptions: {
-                    shortcuts: [{
-                        text: '今天',
-                        onClick(picker) {
-                            picker.$emit('pick', new Date());
-                        }
-                    }, {
-                        text: '昨天',
-                        onClick(picker) {
-                            const date = new Date();
-                            date.setTime(date.getTime() - 3600 * 1000 * 24);
-                            picker.$emit('pick', date);
-                        }
-                    }, {
-                        text: '一周前',
-                        onClick(picker) {
-                            const date = new Date();
-                            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-                            picker.$emit('pick', date);
-                        }
-                    }]
-                },
-                addTime: '',
-                endTime: ''
-            };
         }
+
     };
 </script>
 

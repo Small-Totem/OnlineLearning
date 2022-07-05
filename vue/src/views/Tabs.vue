@@ -22,7 +22,7 @@
                         <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
                     </div>
                     <div>
-                        <el-button type="primary" icon="el-icon-plus">添加讲师</el-button>
+                        <el-button type="primary" icon="el-icon-plus" @click="showAddTeacher">添加讲师</el-button>
                     </div>
                 </div>
             </div>
@@ -110,6 +110,83 @@
                 </el-date-picker>
                 </el-form-item>
 
+                <el-form-item label="更新时间" label-width="100px">
+                <el-date-picker
+                        v-model="form.updateTime"
+                        type="datetime"
+                        placeholder="选择更新日期时间"
+                        align="left"
+                        :picker-options="pickerOptions"
+                        style="width:200px;text-align:center">
+                </el-date-picker>
+                </el-form-item>
+                <!--
+                <el-time-picker
+                        v-model="form.createTime"
+                        :picker-options="{selectableRange: '18:30:00 - 20:30:00'}"
+                        placeholder="创建时间" style="height:60px; text-align:center" >
+                </el-time-picker>
+                <el-time-picker
+                        v-model="form.updateTime"
+                        :picker-options="{selectableRange: '18:30:00 - 20:30:00'}"
+                        placeholder="更新时间"  style="height:60px;" >
+                </el-time-picker>-->
+
+                <el-form-item label="排序" label-width="100px">
+                    <el-input v-model="form.sort" ></el-input>
+                </el-form-item>
+            </el-form>
+            <template #footer>
+                <span class="dialog-footer">
+                    <el-button @click="editVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="saveEdit">确 定</el-button>
+                </span>
+            </template>
+        </el-dialog>
+        <el-dialog
+                title="添加讲师"
+                :visible.sync="addTeacherVisible"
+                width="30%"
+                v-model="addTeacherVisible">
+
+            <el-form  style="width:280px;" >
+                <el-form-item label="用户名" label-width="100px">
+                    <el-input v-model="form.name"></el-input>
+                </el-form-item>
+                <el-form-item label="所属机构" label-width="100px">
+                    <el-input v-model="form.education"></el-input>
+                </el-form-item>
+                <el-form-item label="职称" label-width="100px">
+                    <el-input v-model="form.career"></el-input>
+                </el-form-item>
+                <el-form-item label="是否推荐" label-width="100px">
+                    <el-select v-model="form.isStar" placeholder="填写" class="handle-select mr10">
+                        <el-option key="1" label="是" value="是"></el-option>
+                        <el-option key="2" label="否" value="否"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="分类ID" label-width="100px">
+                    <el-input v-model="form.SubjectId"></el-input>
+                </el-form-item>
+                <el-form-item label="状态" label-width="100px">
+                    <el-select v-model="form.status" placeholder="填写" class="handle-select mr10">
+                        <el-option key="1" label="在线" value="在线"></el-option>
+                        <el-option key="2" label="离线" value="离线"></el-option>
+                        <el-option key="3" label="已冻结" value="已冻结"></el-option>
+                    </el-select>
+                </el-form-item>
+
+                <el-form-item label="创建时间" label-width="100px">
+                    <el-date-picker
+                            v-model="form.createTime"
+                            type="datetime"
+                            placeholder="选择创建日期时间"
+                            align="left"
+                            :picker-options="pickerOptions"
+                            style="width:200px; text-align:center">
+                    </el-date-picker>
+                </el-form-item>
+
             </el-form>
             <template #footer>
                 <span class="dialog-footer">
@@ -134,15 +211,15 @@
             //const loading=ref(true)
 
             const query = reactive({
-                id:"",
+                id: "",
                 name: "",
                 education: "",
                 career: "",
                 isStar: "",
                 createTime: "",
                 subject: "",
-                picPath:"",
-                info:"",
+                picPath: "",
+                info: "",
                 pageIndex: 1,
                 pageSize: 10,
             });
@@ -185,7 +262,7 @@
             // 表格编辑时弹窗和保存
             const editVisible = ref(false);
             let form = reactive({
-                id:"",
+                id: "",
                 name: "",
                 education: "",
                 career: "",
@@ -193,7 +270,7 @@
                 status: "",
                 createTime: "",
                 subject: "",
-                info:"",
+                info: "",
             });
             let idx = -1;
             const handleEdit = (index, row) => {
@@ -211,7 +288,7 @@
                 });
             };
 
-            let backTeacherData=ref()
+            let backTeacherData = ref()
             getTeacherData().then(_data => {
                 backTeacherData.value = _data.data
             }).catch(error => {
@@ -263,10 +340,17 @@
                 },
                 createTime: '',
                 updateTime: '',
-                loading:false
+                loading: false,
+                updateTime: '',
+                addTeacherVisible: false
             };
-        }
+        },
 
+
+        methods:{
+            showAddTeacher() {
+                this.addTeacherVisible = true;
+            }}
     };
 
 

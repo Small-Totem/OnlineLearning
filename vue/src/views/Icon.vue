@@ -24,7 +24,7 @@
                     </div>
                     <div>
 
-                        <el-button type="primary" icon="el-icon-plus">添加文章</el-button>
+                        <el-button type="primary" icon="el-icon-plus" @click="showAddArticle">添加文章</el-button>
                     </div>
                 </div>
             </div>
@@ -120,6 +120,62 @@
                 </el-form-item>
                 <el-form-item label="点赞数量">
                     <el-input v-model="form.praiseCount"></el-input>
+                </el-form-item>
+            </el-form>
+            <template #footer>
+                <span class="dialog-footer">
+                    <el-button @click="editVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="saveEdit">确 定</el-button>
+                </span>
+            </template>
+        </el-dialog>
+        <el-dialog
+                title="添加文章"
+                :visible.sync="addArticleVisible"
+                width="30%"
+                v-model="addArticleVisible">
+
+            <el-form label-width="100px" style="width:280px;">
+                <el-form-item label="文章ID">
+                    <el-input v-model="form.articleId"></el-input>
+                </el-form-item>
+                <el-form-item label="文章作者">
+                    <el-input v-model="form.userId"></el-input>
+                </el-form-item>
+                <el-form-item label="文章标题" style="width:340px;">
+                    <el-input v-model="form.title"></el-input>
+                </el-form-item>
+                <el-form-item label="文章概要" style="width:380px;">
+                    <el-input
+                            type="textarea"
+                            :rows="3"
+                            placeholder="请输入内容"
+                            v-model="form.summary">
+                    </el-input>
+                </el-form-item>
+                <el-form-item label="发布时间">
+                    <el-date-picker
+                            v-model="form.publishTime"
+                            type="datetime"
+                            placeholder="选择发布日期时间"
+                            align="left"
+                            :picker-options="pickerOptions"
+                            style="width:200px; text-align:center">
+                    </el-date-picker>
+                </el-form-item>
+                <el-form-item label="文章链接" style="width:380px;">
+                    <el-input
+                            type="textarea"
+                            :rows="2"
+                            placeholder="请输入内容"
+                            v-model="form.link">
+                    </el-input>
+                </el-form-item>
+                <el-form-item label="点击数量">
+                    <el-input v-model="form.clickNum"></el-input>
+                </el-form-item>
+                <el-form-item label="点赞数量">
+                    <el-input v-model="form.pralseCount"></el-input>
                 </el-form-item>
             </el-form>
             <template #footer>
@@ -262,9 +318,16 @@
                 },
                 createTime: '',
                 updateTime: '',
-                textarea: ''
+                textarea: '',
+                addArticleVisible:false
             };
-        }
+
+        },
+        methods:{
+            showAddArticle() {
+                this.addArticleVisible = true;
+            }
+    }
     };
 </script>
 

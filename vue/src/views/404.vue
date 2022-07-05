@@ -25,7 +25,7 @@
                     </div>
                     <div>
 
-                        <el-button type="primary" icon="el-icon-plus">添加问答</el-button>
+                        <el-button type="primary" icon="el-icon-plus" @click="showAddQuestion">添加问答</el-button>
                     </div>
                 </div>
             </div>
@@ -132,6 +132,64 @@
                 <span class="dialog-footer">
                     <el-button @click="editVisible = false">取 消</el-button>
                     <el-button type="primary" @click="saveEdit">确 定</el-button>
+                </span>
+            </template>
+        </el-dialog>
+
+        <el-dialog
+                title="添加问答"
+                :visible.sync="addQuestionVisible"
+                width="30%"
+                v-model="addQuestionVisible">
+
+            <el-form label-width="100px"  style="width:280px;" >
+                <el-form-item label="问答ID">
+                    <el-input v-model="form.id"></el-input>
+                </el-form-item>
+                <el-form-item label="提问者ID">
+                    <el-input v-model="form.cusId"></el-input>
+                </el-form-item>
+                <el-form-item label="标题" style="width:380px;">
+                    <el-input
+                            type="textarea"
+                            :rows="2"
+                            placeholder="请输入内容"
+                            v-model="form.title">
+                    </el-input>
+                </el-form-item>
+                <el-form-item label="类型">
+                    <el-input v-model="form.type"></el-input>
+                </el-form-item>
+                <el-form-item label="状态" label-width="100px">
+                    <el-select v-model="form.status" placeholder="填写" class="handle-select mr10">
+                        <el-option key="1" label="已回复" value="已回复"></el-option>
+                        <el-option key="2" label="未回复" value="未回复"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="回复数量" style="width:200px;">
+                    <el-input v-model="form.replyCount"></el-input>
+                </el-form-item>
+                <el-form-item label="浏览数量" style="width:200px;">
+                    <el-input v-model="form.browseCount"></el-input>
+                </el-form-item>
+                <el-form-item label="点赞数量" style="width:200px;">
+                    <el-input v-model="form.praiseCount"></el-input>
+                </el-form-item>
+                <el-form-item label="创建时间" >
+                    <el-date-picker
+                            v-model="form.addTime"
+                            type="datetime"
+                            placeholder="选择创建日期时间"
+                            align="left"
+                            :picker-options="pickerOptions"
+                            style="width:200px; text-align:center">
+                    </el-date-picker>
+                </el-form-item>
+            </el-form>
+            <template #footer>
+                <span class="dialog-footer">
+                    <el-button @click="addQuestionVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="addQuestionVisible=false">确 定</el-button>
                 </span>
             </template>
         </el-dialog>
@@ -260,8 +318,14 @@
                         }
                     }]
                 },
-                addTime: ''
+                addTime: '',
+                addQuestionVisible:false
             };
+        },
+        methods:{
+            showAddQuestion(){
+                this.addQuestionVisible=true;
+            }
         }
     };
 </script>
