@@ -18,7 +18,7 @@ const routes = [
             },{
 
                 path: "/Course/:id",
-                name: "CoursePage",
+                name: "CourseDetail",
                 meta: {
                     title: '课程详情'
                 },

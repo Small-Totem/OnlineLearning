@@ -1,7 +1,6 @@
 <template>
     <div>
         <el-container>
-
             <el-header class="select">课程选择</el-header>
             <el-main class="content">
                 学科：

@@ -160,8 +160,8 @@
 
 
 
-import axios from "_axios@0.21.4@axios";
-import {ElMessage} from "_element-plus@1.0.2-beta.52@element-plus";
+import axios from "axios";
+import {ElMessage} from "element-plus";
 
 
 export default {

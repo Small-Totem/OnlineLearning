@@ -3,7 +3,7 @@
         <el-col>
             <swiper-3-d :source="source"></swiper-3-d>
             <el-container>
-                <el-main class="me-articles">
+                <el-main >
                     <Course-scroll-page></Course-scroll-page>
                 </el-main>
                 <el-aside>
@@ -113,22 +113,19 @@
     }
 
     .el-aside {
-        margin: 10px;
+        margin: 8px;
         width: 260px;
     }
 
     .el-main {
         padding: 0px;
-        line-height: 16px;
     }
 
     .el-card {
         border-radius: 10px;
-        margin-right: 10px;
     }
 
     .el-card:not(:first-child) {
         margin-top: 20px;
-
     }
 </style>

@@ -4,12 +4,11 @@
             <img :src=link width="280" height="280"/>
         </div>
         <div class="card_course_info">
-            {{description}}
+            <span class="card_course_info_description">{{description}}</span>
             <div class="card_course_info_teacher">
                 <i class="el-icon-lx-service"></i>
-                <span>{{ teacher }}</span>
+                <span >{{ teacher }}</span>
             </div>
-
         </div>
     </el-card>
 </template>
@@ -50,17 +49,21 @@
     .el-card{
         width: 280px;
         height: 340px;
+        padding-bottom: 10px;
     }
     .card_course_info{
         margin-top: 5px;
         text-align: center;
     }
     .card_course{
-        margin: 10px;
+        margin: 8px;
     }
     .card_course_info_teacher{
         text-align:left;
         margin-left: 10px;
         margin-top: 10px;
+    }
+    .card_course_info_description{
+        font-size: 18px;
     }
 </style>

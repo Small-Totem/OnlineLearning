@@ -1,11 +1,9 @@
 <template>
-  <scroll-page :loading="loading" :no-data="noData">
     <el-col v-for="(item,index) in hotCourses.coursesData">
       <card-course :description=item.courseName :link="item.logo"
                    :course-id="item.courseId" :teacher="hotCourses.teacherName[index]">
       </card-course>
     </el-col>
-  </scroll-page>
 </template>
 
 <script>
@@ -17,7 +15,7 @@
   import axios from 'axios'
 
   export default {
-    name: "CourseScrollPage",
+    name: "CourseScrollPage_Course",
     setup(){
       const loading=ref(true)
       const noData=ref(false)
@@ -68,9 +66,5 @@
 <style scoped>
   .el-card {
     border-radius: 10px;
-  }
-
-  .el-card:not(:first-child) {
-    margin-top: 10px;
   }
 </style>

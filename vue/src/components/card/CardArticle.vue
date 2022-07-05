@@ -40,6 +40,7 @@
 <style scoped>
   .me-category-header {
     font-weight: 600;
+    padding-bottom: 10px;
   }
 
   .me-category-list {

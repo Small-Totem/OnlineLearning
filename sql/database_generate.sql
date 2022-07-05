@@ -168,7 +168,7 @@ insert into edu_teacher (NAME,IS_STAR,SUBJECT) values ("虎哥",0,"职场");
 insert into edu_teacher (NAME,IS_STAR,SUBJECT) values ("药水哥",0,"情感");
 insert into edu_teacher (NAME,IS_STAR,SUBJECT) values ("动力小子",0,"电竞");
 insert into edu_teacher (NAME,IS_STAR,SUBJECT) values ("柯洁",0,"围棋");
-insert into edu_teacher (NAME,IS_STAR,SUBJECT) values ("丁真",1,"养身");
+insert into edu_teacher (NAME,IS_STAR,SUBJECT) values ("丁真",1,"养生");
 
 /*==============================================================*/
 /* Table: edu_user                                              */
