@@ -1,6 +1,7 @@
 package com.cqu.online_learning.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -11,6 +12,7 @@ import java.sql.Timestamp;
 @Data
 @ToString
 @TableName("edu_questions")
+
 public class Question {
     @TableId(type = IdType.AUTO)
     private Integer id;
@@ -19,10 +21,10 @@ public class Question {
     private String content;
     private String type;
     private String status;
-    private Integer reply_count;
-    private Integer browse_count;
+    private Integer replyCount;
+    private Integer browseCount;
     private Integer praiseCount;
-    private Timestamp add_time;
+    private Timestamp addTime;
 
 
 }
