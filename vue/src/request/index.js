@@ -3,7 +3,6 @@ import {ElMessage} from 'element-plus'
 import store from '../store'
 import {getToken} from '../request/token.js'
 
-/**/
 const service = axios.create({
   baseURL: process.env.BASE_API,
   timeout: 10000
@@ -17,11 +16,10 @@ service.interceptors.request.use(config => {
   }
   return config
 }, error => {
-
   Promise.reject(error)
 })
 
-// respone拦截器
+// response拦截器
 service.interceptors.response.use(
   response => {
 

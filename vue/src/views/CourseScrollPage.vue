@@ -1,7 +1,7 @@
 <template>
-  <scroll-page :loading="loading" :offset="offset" :no-data="noData" v-on:load="load">
-    <el-col v-for="item in data">
-      <card-course :description=item.description :link="item.link">
+  <scroll-page :loading="loading" :no-data="noData">
+    <el-col v-for="item in hotCourses">
+      <card-course :description=item.courseName :link="item.logo" :course-id="item.courseId">
       </card-course>
     </el-col>
   </scroll-page>
@@ -9,48 +9,32 @@
 
 <script>
   import ScrollPage from '../components/scrollpage/index.vue'
-  import {getArticles} from '../api/article.js'
   import {ref,reactive} from 'vue'
   import {ElMessage} from 'element-plus'
-  import {getArticles_test} from "../api/article";
   import CardCourse from "../components/card/CardCourse.vue"
+  import {getHotCourses} from "../api/course";
 
   export default {
     name: "CourseScrollPage",
-    props: {
-      data:{
-        type: Array,
-        required: true,
-      }
-    },
     setup(){
       const loading=ref(true)
       const noData=ref(false)
-      const articles=ref()
 
-      /*这下面这一坨暂时没用，但是先别删*/
-      getArticles_test().then(data => {
-        let newArticles = data.data
-        console.log(newArticles)
-        if (newArticles && newArticles.length > 0) {
-          articles.value = articles.value.concat(newArticles)
-          console.log(articles)
-        } else {
-          noData.value = true
-        }
-
+      let hotCourses=ref()
+      getHotCourses().then(_data => {
+        hotCourses.value = _data.data
       }).catch(error => {
         if (error !== 'error') {
-          ElMessage({type: 'error', message: '主课程加载失败!', showClose: true})
+          ElMessage({type: 'error', message: '最热课程加载失败!', showClose: true})
         }
       }).finally(() => {
-        loading.value=false
+        loading.value = false
       })
 
       return {
         loading,
         noData,
-        articles: []
+        hotCourses
       }
     },
     methods: {
@@ -62,7 +46,6 @@
       'card-course':CardCourse,
       'scroll-page': ScrollPage,
     }
-
   }
 </script>
 

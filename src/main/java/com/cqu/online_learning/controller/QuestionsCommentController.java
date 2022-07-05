@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.cqu.online_learning.utils.StaticUtils.wrap;
+
 @RestController
 public class QuestionsCommentController {
 
@@ -24,8 +26,8 @@ public class QuestionsCommentController {
     }
 
     @GetMapping("/queryAllQuesCom")
-    public List<QuestionsComment> queryAllQuesCom() {
-        return questionscommentService.queryAllQuesCom();
+    public Object queryAllQuesCom() {
+        return wrap(questionscommentService.queryAllQuesCom());
     }
 
     @GetMapping("/removeQuesComById/{id}")
@@ -40,8 +42,8 @@ public class QuestionsCommentController {
     }
 
     @GetMapping("/getAllQuestionCommentByQuestionId/{id}")
-    public List<QuestionsComment> getAllQuestionCommentByQuestionId(@PathVariable int id){
-        return questionscommentService.getAllQuestionCommentByQuestionId(id);
+    public Object getAllQuestionCommentByQuestionId(@PathVariable int id){
+        return wrap(questionscommentService.getAllQuestionCommentByQuestionId(id));
     }
 
 }

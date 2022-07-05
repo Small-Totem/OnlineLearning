@@ -3,12 +3,15 @@ package com.cqu.online_learning.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.cqu.online_learning.entity.Course;
-import com.cqu.online_learning.services.ArticleService;
 import com.cqu.online_learning.services.CourseService;
+import com.cqu.online_learning.utils.ReturnWrap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static com.cqu.online_learning.utils.StaticUtils.wrap;
+
 @RestController
 public class CourseController {
     @Autowired
@@ -17,13 +20,18 @@ public class CourseController {
     @PostMapping("/addCourse")
     public String addCourse(Course a){
         courseService.addCourse(a);
-        return  "success";
+        return "success";
     }
 
+    //注意：这个函数原来的返回值是List<Course> 需要改成现在这样（用ReturnWrap包装一下）
+    //原因详见ReturnWrap.java
+    @CrossOrigin(origins={"http://localhost:3000","http://localhost:8081"})
     @GetMapping("/queryAllCourse")
-    public List<Course> queryAllCourse(){
-        return courseService.queryAllCourse();
+    public Object queryAllCourse(){
+        //return "{\"code\":0,\"data\":"+courseService.queryAllCourse().toString()+",\"msg\":\"成功\"}";
+        return wrap(courseService.queryAllCourse());
     }
+
     @GetMapping("/getCourse/{courseId}")
     public Course queryCourse(@PathVariable int courseId){
         return courseService.getCourse(courseId);

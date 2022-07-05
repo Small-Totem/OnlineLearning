@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.cqu.online_learning.utils.StaticUtils.wrap;
+
 @RestController
 public class QuestionController {
     @Autowired
@@ -26,8 +28,8 @@ public class QuestionController {
     }
 
     @GetMapping("/queryAllQuestion")
-    public List<Question> queryAllQuestion(){
-        return questionService.queryAllQuestion();
+    public Object queryAllQuestion(){
+        return wrap(questionService.queryAllQuestion());
     }
 
 

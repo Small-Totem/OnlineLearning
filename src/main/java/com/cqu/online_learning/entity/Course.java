@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 public class Course {
     @TableId(type = IdType.AUTO)
     private Integer courseId;
-    private Integer id;
+    private Integer teacherId;
     private String courseName;
     private Integer subjectId;
     private String subjectLink;
