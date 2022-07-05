@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.cqu.online_learning.utils.StaticUtils.wrap;
+
 @RestController
 public class CourseFavoritesController {
     @Autowired
@@ -22,8 +24,8 @@ public class CourseFavoritesController {
     }
 
     @GetMapping("/queryAllCourseFavorites")
-    public List<CourseFavorites> queryAllCourseFavorites(){
-        return courseFavoritesService.queryAllCourseFavorites();
+    public Object queryAllCourseFavorites(){
+        return wrap(courseFavoritesService.queryAllCourseFavorites());
     }
 
     @GetMapping("/getCourseFavorites/{id}")

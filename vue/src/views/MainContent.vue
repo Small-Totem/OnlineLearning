@@ -4,7 +4,7 @@
             <swiper-3-d :source="source"></swiper-3-d>
             <el-container>
                 <el-main class="me-articles">
-                    <Course-scroll-page :data="courseList"></Course-scroll-page>
+                    <Course-scroll-page></Course-scroll-page>
                 </el-main>
                 <el-aside>
                     <card-article cardHeader="最热课程" :articles="hotArticles"></card-article>
@@ -22,7 +22,7 @@
     import {ElMessage} from 'element-plus'
     import { ref } from 'vue'
 
-    import {getHotArtices} from '../api/article'
+    import {getHotArticles} from '../api/article'
     //import {getHotTags} from '@/api/tag'
     //import {listArchives} from '@/api/article'
 
@@ -49,46 +49,18 @@
             Swiper3D,
         },
         setup(){
-
-            const courseList = [
-                {
-                    courseId:1,
-                    description:"courseA",
-                    link:"/course/1",
-                },
-                {
-                    courseId:2,
-                    description:"courseB",
-                    link:"/course/2",
-                },
-                {
-                    courseId:3,
-                    description:"courseC",
-                    link:"/course/3",
-                },
-                {
-                    courseId:4,
-                    description:"courseD",
-                    link:"/course/4",
-                },
-            ]
-
             /*这里经历了太多折磨 @ref https://blog.csdn.net/wsjzzcbq/article/details/123003859*/
             let hotArticles=ref()
-            getHotArtices().then(data => {
-                //console.log("success!")
-                //console.log(data.data)
+            getHotArticles().then(data => {
                 hotArticles.value = data.data
             }).catch(error => {
                 if (error !== 'error') {
-                    //console.log(error)
                     ElMessage({type: 'error', message: '最热文章加载失败!', showClose: true})
                 }
             })
             return {
                 hotArticles,
                 source,
-                courseList,
             }
         },
     }

@@ -71,7 +71,6 @@ export default {
         };
 
         const store = useStore();
-        store.commit("clearTags");
 
         return {
             param,

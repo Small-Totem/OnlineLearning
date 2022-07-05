@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.cqu.online_learning.utils.StaticUtils.wrap;
+
 @RestController
 public class UserController {
 
@@ -36,13 +38,12 @@ public class UserController {
             log.setUserId(result);
             logService.addLog(log);
         }
-
         return result;
     }
 
     @GetMapping("/queryAllUser")
-    public List<User> queryAllUser() {
-        return userService.queryAllUser();
+    public Object queryAllUser() {
+        return wrap(userService.queryAllUser());
 
     }
 
