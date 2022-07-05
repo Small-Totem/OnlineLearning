@@ -59,10 +59,7 @@
 
 
             </el-table>
-            <div class="pagination">
-                <el-pagination background layout="total, prev, pager, next" :current-page="query.pageIndex"
-                               :page-size="query.pageSize" :total="pageTotal" @current-change="handlePageChange"></el-pagination>
-            </div>
+
             <div style="display: flex;justify-content: flex-end">
                 <el-pagination
                         background
@@ -144,10 +141,10 @@
 
             <el-form label-width="100px"  style="width:280px;" >
                 <el-form-item label="问答ID">
-                    <el-input v-model="form.id"></el-input>
+                    <el-input v-model="form.id" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="提问者ID">
-                    <el-input v-model="form.cusId"></el-input>
+                    <el-input v-model="form.cusId" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="标题" style="width:380px;">
                     <el-input
@@ -158,7 +155,7 @@
                     </el-input>
                 </el-form-item>
                 <el-form-item label="类型">
-                    <el-input v-model="form.type"></el-input>
+                    <el-input v-model="form.type" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="状态" label-width="100px">
                     <el-select v-model="form.status" placeholder="填写" class="handle-select mr10">
@@ -167,13 +164,13 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="回复数量" style="width:200px;">
-                    <el-input v-model="form.replyCount"></el-input>
+                    <el-input v-model="form.replyCount" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="浏览数量" style="width:200px;">
-                    <el-input v-model="form.browseCount"></el-input>
+                    <el-input v-model="form.browseCount" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="点赞数量" style="width:200px;">
-                    <el-input v-model="form.praiseCount"></el-input>
+                    <el-input v-model="form.praiseCount" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="创建时间" >
                     <el-date-picker

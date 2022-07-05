@@ -53,11 +53,7 @@
                     </template>
                 </el-table-column>
             </el-table>
-            <div class="pagination">
-                <el-pagination background layout="total, prev, pager, next" :current-page="query.pageIndex"
-                               :page-size="query.pageSize" :total="pageTotal"
-                               @current-change="handlePageChange"></el-pagination>
-            </div>
+
             <div style="display: flex;justify-content: flex-end">
                 <el-pagination
                         background
@@ -151,13 +147,13 @@
 
             <el-form  style="width:280px;" >
                 <el-form-item label="用户名" label-width="100px">
-                    <el-input v-model="form.name"></el-input>
+                    <el-input v-model="form.name" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="所属机构" label-width="100px">
-                    <el-input v-model="form.education"></el-input>
+                    <el-input v-model="form.education" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="职称" label-width="100px">
-                    <el-input v-model="form.career"></el-input>
+                    <el-input v-model="form.career" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="是否推荐" label-width="100px">
                     <el-select v-model="form.isStar" placeholder="填写" class="handle-select mr10">
@@ -166,7 +162,7 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="分类ID" label-width="100px">
-                    <el-input v-model="form.SubjectId"></el-input>
+                    <el-input v-model="form.SubjectId" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="状态" label-width="100px">
                     <el-select v-model="form.status" placeholder="填写" class="handle-select mr10">

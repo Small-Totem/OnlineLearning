@@ -112,14 +112,16 @@
                     <el-input v-model="form.userId" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="用户昵称">
-                    <el-input v-model="form.showName"></el-input>
+                    <el-input v-model="form.showName"  prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="图片链接" style="width:380px;">
                     <el-input
                             type="textarea"
                             :rows="2"
                             placeholder="请输入内容"
-                            v-model="form.picImg">
+                            v-model="form.picImg"
+                            prefix-icon="el-icon-edit"
+                    >
                     </el-input>
                 </el-form-item>
                 <el-form-item label="性别">
@@ -127,10 +129,10 @@
                     <el-radio v-model="form.sex" label="女">女</el-radio>
                 </el-form-item>
                 <el-form-item label="手机" style="width:300px;">
-                    <el-input v-model="form.mobile"></el-input>
+                    <el-input v-model="form.mobile"  prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="邮箱" style="width:300px;">
-                    <el-input v-model="form.email"></el-input>
+                    <el-input v-model="form.email"  prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
             </el-form>
             <template #footer>

@@ -62,10 +62,7 @@
                     </template>
                 </el-table-column>
             </el-table>
-            <div class="pagination">
-                <el-pagination background layout="total, prev, pager, next" :current-page="query.pageIndex"
-                               :page-size="query.pageSize" :total="pageTotal" @current-change="handlePageChange"></el-pagination>
-            </div>
+
             <div style="display: flex;justify-content: flex-end">
                 <el-pagination
                         background
@@ -137,13 +134,13 @@
 
             <el-form label-width="100px" style="width:280px;">
                 <el-form-item label="文章ID">
-                    <el-input v-model="form.articleId"></el-input>
+                    <el-input v-model="form.articleId" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="文章作者">
-                    <el-input v-model="form.userId"></el-input>
+                    <el-input v-model="form.userId" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="文章标题" style="width:340px;">
-                    <el-input v-model="form.title"></el-input>
+                    <el-input v-model="form.title" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="文章概要" style="width:380px;">
                     <el-input
@@ -175,7 +172,7 @@
                     <el-input v-model="form.clickNum"></el-input>
                 </el-form-item>
                 <el-form-item label="点赞数量">
-                    <el-input v-model="form.pralseCount"></el-input>
+                    <el-input v-model="form.pralseCount" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
             </el-form>
             <template #footer>

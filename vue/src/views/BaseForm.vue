@@ -63,10 +63,7 @@
 
 
             </el-table>
-            <div class="pagination">
-                <el-pagination background layout="total, prev, pager, next" :current-page="query.pageIndex"
-                               :page-size="query.pageSize" :total="pageTotal" @current-change="handlePageChange"></el-pagination>
-            </div>
+
             <div style="display: flex;justify-content: flex-end">
                 <el-pagination
                         background
@@ -146,30 +143,32 @@
 
             <el-form label-width="100px" style="width:280px;">
                 <el-form-item label="课程ID" >
-                    <el-input v-model="form.courseId"></el-input>
+                    <el-input v-model="form.courseId" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="课程名称" style="width:330px;">
-                    <el-input v-model="form.courseName"></el-input>
+                    <el-input v-model="form.courseName" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="标题" style="width:380px;">
                     <el-input
                             type="textarea"
                             :rows="2"
                             placeholder="请输入内容"
-                            v-model="form.title">
+                            v-model="form.title"
+                            prefix-icon="el-icon-edit"
+                    >
                     </el-input>
                 </el-form-item>
                 <el-form-item label="项目ID">
-                    <el-input v-model="form.subjectId"></el-input>
+                    <el-input v-model="form.subjectId" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="讲师ID">
-                    <el-input v-model="form.teacherId"></el-input>
+                    <el-input v-model="form.teacherId" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="课程号">
-                    <el-input v-model="form.lessionNum"></el-input>
+                    <el-input v-model="form.lessionNum" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="浏览数量" style="width:200px;">
-                    <el-input v-model="form.pageViewcount"></el-input>
+                    <el-input v-model="form.pageViewcount" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="创建时间" >
                     <el-date-picker
