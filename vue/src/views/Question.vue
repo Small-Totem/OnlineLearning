@@ -10,16 +10,28 @@
           <el-card class="box-card">
             <el-col>
             <div style="float: left;width: 100px;height: 100px">
+              <div>
               <el-avatar :size="large" :src=url></el-avatar>
+              </div>
+              <span style="margin-left: 20px" >{{question.userId}}</span>
             </div>
             </el-col>
-            <el-col style="width: 550px">
+
+            <el-col>
+              <div style="margin-top: 4px" ><i class="el-icon-collection-tag"></i></div>
+              <div style="float: left; margin-top: 10px"><i class="el-icon-chat-dot-round"></i></div>
+              <div style=" margin-top: 40px"><i class="el-icon-edit"></i> </div>
+            </el-col>
+            <el-col style="width: 550px;margin-left: 10px">
                <div >
-                   <span >{{question.title}}</span>
+                   <span style="color: #20a0ff" >{{question.title}}</span>
                </div>
-               <div >
+               <div style="margin-top: 10px" >
                    <span >{{question.content}}</span>
             </div>
+              <div style="margin-top: 10px" >
+                <span style="color: #999999">{{question.addTime}}</span>
+              </div>
             </el-col>
             <el-col>
             <div style="text-align: center ">
@@ -106,12 +118,12 @@
             </el-dialog>
           </div>
         <div>
-          <h5 style="font-size: 30px;color: #afafaf">热门问答推荐</h5>
+          <h5 style="font-size: 30px;color: #afafaf;text-align: center">热门问答推荐</h5>
         </div>
         <el-row v-for="q in hot_questions">
           <el-card style="width: 300px;height: 70px">
-            <div style="float: left">
-            <i class="el-icon-s-promotion" ></i>
+            <div style="float: left ;margin-top: 4px;margin-right: 4px">
+            <i class="el-icon-collection-tag" ></i>
              </div>
 
             <el-link href="https://element.eleme.io" target="_blank">{{q.title}}</el-link>
