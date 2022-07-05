@@ -10,10 +10,10 @@
           <el-card class="box-card">
             <el-col>
             <div style="float: left;width: 100px;height: 100px">
-              <div>
+              <div style="margin-bottom: 5px">
               <el-avatar :size="large" :src=url></el-avatar>
-              </div>
-              <span style="margin-left: 20px" >{{question.userId}}</span>
+              </div >
+              <span style="margin-left: 15px" >{{question.userId}}</span>
             </div>
             </el-col>
 
@@ -59,15 +59,27 @@
           <el-card class="box-card">
             <el-col>
               <div style="float: left;width: 100px;height: 100px">
+                <div style="margin-bottom: 5px">
                 <el-avatar :size="large"  :src=url></el-avatar>
               </div>
-            </el-col>
-            <el-col style="width: 550px">
-              <div >
-                <span >{{tq.title}}</span>
+                <span style="margin-left: 15px" >{{tq.userId}}</span>
               </div>
+
+            </el-col>
+            <el-col>
+              <div style="margin-top: 4px" ><i class="el-icon-collection-tag"></i></div>
+              <div style="float: left; margin-top: 10px"><i class="el-icon-chat-dot-round"></i></div>
+              <div style=" margin-top: 40px"><i class="el-icon-edit"></i> </div>
+            </el-col>
+            <el-col style="width: 550px;margin-left: 10px">
               <div >
+                <span style="color: #20a0ff">{{tq.title}}</span>
+              </div>
+              <div style="margin-top: 10px">
                 <span >{{tq.content}}</span>
+              </div>
+              <div style="margin-top: 10px" >
+                <span style="color: #999999">{{tq.addTime}}</span>
               </div>
             </el-col>
             <el-col>
