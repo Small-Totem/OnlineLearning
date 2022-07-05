@@ -13,11 +13,11 @@
                     <div class="handle-box">
                         <el-select v-model="query.address" placeholder="搜索方式" class="handle-select mr10">
                             <el-option key="1" label="文章ID" value="id"></el-option>
-                            <el-option key="2" label="文章作者" value="name"></el-option>
-                            <el-option key="3" label="文章标题" value="education"></el-option>
-                            <el-option key="4" label="文章概要" value="career"></el-option>
-                            <el-option key="5" label="点赞数量" value="SubjectId"></el-option>
-                            <el-option key="6" label="发布时间" value="updateTime"></el-option>
+                            <el-option key="2" label="文章作者" value="userId"></el-option>
+                            <el-option key="3" label="文章标题" value="title"></el-option>
+                            <el-option key="4" label="文章概要" value="summary"></el-option>
+                            <el-option key="5" label="点赞数量" value="praiseCount"></el-option>
+                            <el-option key="6" label="发布时间" value="publishTime"></el-option>
                         </el-select>
                         <el-input v-model="query.name" clearable   class="handle-input mr10"></el-input>
                         <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
@@ -29,7 +29,8 @@
                 </div>
             </div>
 
-            <el-table :data="tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header">
+
+            <el-table :data="backArticleData" border class="table" ref="multipleTable" header-cell-class-name="table-header">
                 <el-table-column prop="articleId" label="文章ID"  align="center"></el-table-column>
                 <el-table-column prop="userId" label="文章作者" align="center"></el-table-column>
                 <!--<el-table-column label="账户余额">
@@ -51,7 +52,7 @@
                 </template>
             </el-table-column>-->
 
-                <el-table-column prop="pralseCount" label="点赞数量" align="center"></el-table-column>
+                <el-table-column prop="praiseCount" label="点赞数量" align="center"></el-table-column>
                 <el-table-column label="操作" width="180" align="center">
                     <template #default="scope">
                         <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)">编辑
@@ -118,7 +119,7 @@
                     <el-input v-model="form.clickNum"></el-input>
                 </el-form-item>
                 <el-form-item label="点赞数量">
-                    <el-input v-model="form.pralseCount"></el-input>
+                    <el-input v-model="form.praiseCount"></el-input>
                 </el-form-item>
             </el-form>
             <template #footer>
@@ -135,6 +136,8 @@
     import { ref, reactive } from "vue";
     import { ElMessage, ElMessageBox } from "element-plus";
     import { fetchData } from "../api/index";
+
+    import { getArticleData } from "../api/article";
 
     export default {
         name: "basetable",
@@ -190,7 +193,7 @@
                 publishTime: "",
                 link: "",
                 clickNum: "",
-                pralseCount: "",
+                praiseCount: "",
             });
             let idx = -1;
             const handleEdit = (index, row) => {
@@ -208,7 +211,19 @@
                 });
             };
 
+            let backArticleData=ref()
+            getArticleData().then(_data => {
+                backArticleData.value = _data.data
+            }).catch(error => {
+                if (error !== 'error') {
+                    ElMessage({type: 'error', message: '文章咨询数据加载失败!', showClose: true})
+                }
+            }).finally(() => {
+                loading.value = false
+            })
+
             return {
+                backArticleData,
                 query,
                 tableData,
                 pageTotal,

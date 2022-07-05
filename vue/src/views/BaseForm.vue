@@ -15,11 +15,9 @@
                         <el-option key="1" label="课程ID" value="courseId"></el-option>
                         <el-option key="2" label="课程名称" value="courseName"></el-option>
                         <el-option key="3" label="标题" value="title"></el-option>
-                        <el-option key="4" label="项目ID" value="subjectId"></el-option>
+                        <el-option key="4" label="项目" value="subject"></el-option>
                         <el-option key="5" label="讲师ID" value="teacherId"></el-option>
-                        <el-option key="6" label="课程号" value="lessionNum"></el-option>
-                        <el-option key="7" label="添加时间" value="addTime"></el-option>
-                        <el-option key="8" label="结束时间" value="endTime"></el-option>
+                        <el-option key="6" label="添加时间" value="addTime"></el-option>
                     </el-select>
                     <el-input v-model="query.name" clearable   class="handle-input mr10"></el-input>
                     <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
@@ -34,7 +32,8 @@
 
             </div>
 
-            <el-table :data="tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header">
+            <el-table :data="backCourseData"
+                      border class="table" ref="multipleTable" header-cell-class-name="table-header">
                 <el-table-column prop="courseId" label="课程ID" width="70" align="center"></el-table-column>
                 <el-table-column prop="courseName" label="课程名称" width="130" align="center"></el-table-column>
                 <el-table-column prop="logo" label="封面LOGO"  width="100" align="center">
@@ -44,12 +43,11 @@
                     </template>
                 </el-table-column>
                 <el-table-column prop="title" label="标题" width="150" align="center"></el-table-column>
-                <el-table-column prop="subjectId" label="项目ID" width="70" align="center"></el-table-column>
+                <el-table-column prop="subject" label="项目" width="70" align="center"></el-table-column>
+                <el-table-column prop="subjectLink" label="课程链接" width="70" align="center"></el-table-column>
                 <el-table-column prop="teacherId" label="讲师ID" width="70" align="center"></el-table-column>
-                <el-table-column prop="lessionNum" label="课程号" width="70" align="center"></el-table-column>
                 <el-table-column prop="pageViewcount" label="浏览数量" width="80" align="center"></el-table-column>
                 <el-table-column prop="addTime" label="添加时间" align="center"></el-table-column>
-                <el-table-column prop="endTime" label="结束时间" align="center"></el-table-column>
 
                 <el-table-column label="操作" width="180" align="center">
                     <template #default="scope">
@@ -97,14 +95,27 @@
                             v-model="form.title">
                     </el-input>
                 </el-form-item>
-                <el-form-item label="项目ID">
-                    <el-input v-model="form.subjectId"></el-input>
+                <el-form-item label="logo" style="width:380px;">
+                    <el-input
+                            type="textarea"
+                            :rows="2"
+                            placeholder="请输入LOGO链接"
+                            v-model="form.logo">
+                    </el-input>
+                </el-form-item>
+                <el-form-item label="项目">
+                    <el-input v-model="form.subject"></el-input>
+                </el-form-item>
+                <el-form-item label="课程链接" style="width:380px;">
+                    <el-input
+                            type="textarea"
+                            :rows="2"
+                            placeholder="请输入内容"
+                            v-model="form.subjectLink">
+                    </el-input>
                 </el-form-item>
                 <el-form-item label="讲师ID">
                     <el-input v-model="form.teacherId"></el-input>
-                </el-form-item>
-                <el-form-item label="课程号">
-                    <el-input v-model="form.lessionNum"></el-input>
                 </el-form-item>
                 <el-form-item label="浏览数量" style="width:200px;">
                     <el-input v-model="form.pageViewcount"></el-input>
@@ -112,16 +123,6 @@
                 <el-form-item label="创建时间" >
                     <el-date-picker
                             v-model="form.addTime"
-                            type="datetime"
-                            placeholder="选择创建日期时间"
-                            align="left"
-                            :picker-options="pickerOptions"
-                            style="width:200px; text-align:center">
-                    </el-date-picker>
-                </el-form-item>
-                <el-form-item label="结束时间" >
-                    <el-date-picker
-                            v-model="form.endTime"
                             type="datetime"
                             placeholder="选择创建日期时间"
                             align="left"
@@ -144,6 +145,8 @@
     import { ref, reactive } from "vue";
     import { ElMessage, ElMessageBox } from "element-plus";
     import { fetchData } from "../api/index";
+
+    import {getCourseData} from "../api/article";
 
     export default {
         name: "baseform",
@@ -211,7 +214,20 @@
                 });
             };
 
+            let backCourseData=ref()
+            getCourseData().then(_data => {
+                backCourseData.value = _data.data
+            }).catch(error => {
+                if (error !== 'error') {
+                    ElMessage({type: 'error', message: '课程数据加载失败!', showClose: true})
+                }
+            }).finally(() => {
+                loading.value = false
+            })
+
+
             return {
+                backCourseData,
                 query,
                 tableData,
                 pageTotal,

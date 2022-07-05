@@ -13,11 +13,12 @@
                     <div class="handle-box">
                         <el-select v-model="query.address" placeholder="搜索方式" class="handle-select mr10">
                             <el-option key="1" label="问答ID" value="id"></el-option>
-                            <el-option key="2" label="提问者ID" value="cusId"></el-option>
+                            <el-option key="2" label="提问者ID" value="userId"></el-option>
                             <el-option key="3" label="标题" value="title"></el-option>
                             <el-option key="4" label="类型" value="type"></el-option>
                             <el-option key="5" label="状态" value="status"></el-option>
                             <el-option key="6" label="添加时间" value="addTime"></el-option>
+                            <el-option key="7" label="内容" value="content"></el-option>
                         </el-select>
                         <el-input v-model="query.name" clearable   class="handle-input mr10"></el-input>
                         <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
@@ -33,16 +34,17 @@
 
 
 
-            <el-table :data="tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header" >
+            <el-table :data="backQuestionData" border class="table" ref="multipleTable" header-cell-class-name="table-header" >
                 <el-table-column prop="id" label="问答ID" width="70" align="center"></el-table-column>
-                <el-table-column prop="cusId" label="提问者ID" width="80" align="center"></el-table-column>
+                <el-table-column prop="userId" label="提问者ID" width="80" align="center"></el-table-column>
                 <el-table-column prop="title" label="标题" width="210" align="center"></el-table-column>
                 <el-table-column prop="type" label="类型" align="center"></el-table-column>
+                <el-table-column prop="content" label="内容" width="210" align="center"></el-table-column>
                 <el-table-column prop="status" label="状态" width="80" align="center"></el-table-column>
                 <el-table-column prop="replyCount" label="回复数量" width="80" align="center"></el-table-column>
                 <el-table-column prop="browseCount" label="浏览数量" width="80" align="center"></el-table-column>
                 <el-table-column prop="praiseCount" label="点赞数量" width="80" align="center"></el-table-column>
-                <el-table-column prop="addTime" label="添加时间" width="200" align="center"></el-table-column>
+                <el-table-column prop="addTime" label="添加时间" width="180" align="center"></el-table-column>
                 <el-table-column label="操作" width="180" align="center">
                     <template #default="scope">
                         <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)">编辑
@@ -89,6 +91,14 @@
                             v-model="form.title">
                     </el-input>
                 </el-form-item>
+                <el-form-item label="内容" style="width:380px;">
+                    <el-input
+                            type="textarea"
+                            :rows="5"
+                            placeholder="请输入内容"
+                            v-model="form.content">
+                    </el-input>
+                </el-form-item>
                 <el-form-item label="类型">
                     <el-input v-model="form.type"></el-input>
                 </el-form-item>
@@ -132,6 +142,8 @@
     import { ref, reactive } from "vue";
     import { ElMessage, ElMessageBox } from "element-plus";
     import { fetchData } from "../api/index";
+
+    import { getQuestionData } from "../api/article";
 
     export default {
         name: "baseform",
@@ -199,7 +211,19 @@
                 });
             };
 
+            let backQuestionData=ref()
+            getQuestionData().then(_data => {
+                backQuestionData.value = _data.data
+            }).catch(error => {
+                if (error !== 'error') {
+                    ElMessage({type: 'error', message: '问答数据加载失败!', showClose: true})
+                }
+            }).finally(() => {
+                loading.value = false
+            })
+
             return {
+                backQuestionData,
                 query,
                 tableData,
                 pageTotal,

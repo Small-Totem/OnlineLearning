@@ -16,8 +16,7 @@
                             <el-option key="2" label="用户名" value="name"></el-option>
                             <el-option key="3" label="所属机构" value="education"></el-option>
                             <el-option key="4" label="职称" value="career"></el-option>
-                            <el-option key="5" label="分类ID" value="SubjectId"></el-option>
-                            <el-option key="6" label="创建时间" value="updateTime"></el-option>
+                            <el-option key="5" label="分类" value="subject"></el-option>
                         </el-select>
                         <el-input v-model="query.name" clearable   class="handle-input mr10"></el-input>
                         <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
@@ -27,12 +26,10 @@
                     </div>
                 </div>
             </div>
-            <el-table :data="tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header">
+
+            <el-table :data="backTeacherData"  border class="table" ref="multipleTable" header-cell-class-name="table-header">
                 <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
                 <el-table-column prop="name" label="用户名" align="center"></el-table-column>
-                <!--<el-table-column label="账户余额">
-                    <template #default="scope">￥{{ scope.row.money }}</template>
-                </el-table-column>-->
                 <el-table-column prop="picPath" label="头像(查看大图)" align="center">
                     <template #default="scope">
                         <el-image class="table-td-thumb" :src="scope.row.thumb" :preview-src-list="[scope.row.thumb]">
@@ -42,22 +39,10 @@
                 <el-table-column prop="education" label="所属机构" align="center"></el-table-column>
                 <el-table-column prop="career" label="职称" align="center"></el-table-column>
                 <el-table-column prop="isStar" label="是否推荐" width="55" align="center"></el-table-column>
-                <el-table-column prop="SubjectId" label="分类ID" align="center"></el-table-column>
-                <el-table-column prop="status" label="状态" width="90" align="center"></el-table-column>
-                <!--<template #default="scope">
-                    <el-tag :type="
-                            scope.row.state === '成功'
-                                ? 'success'
-                                : scope.row.state === '失败'
-                                ? 'danger'
-                                : ''
-                        ">{{ scope.row.state }}</el-tag>
-                </template>
-            </el-table-column>-->
-
+                <el-table-column prop="subject" label="分类" align="center"></el-table-column>
                 <el-table-column prop="createTime" label="创建时间" align="center"></el-table-column>
-                <el-table-column prop="updateTime" label="更新时间" align="center"></el-table-column>
-                <el-table-column prop="sort" label="排序" width="60" align="center"></el-table-column>
+                <el-table-column prop="info" label="讲师简介" align="center"></el-table-column>
+
                 <el-table-column label="操作" width="180" align="center">
                     <template #default="scope">
                         <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)">编辑
@@ -102,15 +87,16 @@
                         <el-option key="2" label="否" value="否"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="分类ID" label-width="100px">
+                <el-form-item label="分类" label-width="100px">
                     <el-input v-model="form.SubjectId"></el-input>
                 </el-form-item>
-                <el-form-item label="状态" label-width="100px">
-                    <el-select v-model="form.status" placeholder="填写" class="handle-select mr10">
-                        <el-option key="1" label="在线" value="在线"></el-option>
-                        <el-option key="2" label="离线" value="离线"></el-option>
-                        <el-option key="3" label="已冻结" value="已冻结"></el-option>
-                    </el-select>
+                <el-form-item label="讲师介绍" label-width="100px" style="width:380px;">
+                    <el-input
+                            type="textarea"
+                            :rows="4"
+                            placeholder="请输入内容"
+                            v-model="form.info">
+                    </el-input>
                 </el-form-item>
 
                 <el-form-item label="创建时间" label-width="100px">
@@ -124,31 +110,6 @@
                 </el-date-picker>
                 </el-form-item>
 
-                <el-form-item label="更新时间" label-width="100px">
-                <el-date-picker
-                        v-model="form.updateTime"
-                        type="datetime"
-                        placeholder="选择更新日期时间"
-                        align="left"
-                        :picker-options="pickerOptions"
-                        style="width:200px;text-align:center">
-                </el-date-picker>
-                </el-form-item>
-                <!--
-                <el-time-picker
-                        v-model="form.createTime"
-                        :picker-options="{selectableRange: '18:30:00 - 20:30:00'}"
-                        placeholder="创建时间" style="height:60px; text-align:center" >
-                </el-time-picker>
-                <el-time-picker
-                        v-model="form.updateTime"
-                        :picker-options="{selectableRange: '18:30:00 - 20:30:00'}"
-                        placeholder="更新时间"  style="height:60px;" >
-                </el-time-picker>-->
-
-                <el-form-item label="排序" label-width="100px">
-                    <el-input v-model="form.sort" ></el-input>
-                </el-form-item>
             </el-form>
             <template #footer>
                 <span class="dialog-footer">
@@ -165,21 +126,23 @@
     import {ElMessage, ElMessageBox} from "element-plus";
     import {fetchData} from "../api/index";
 
+    import {getTeacherData} from "../api/article";
+
     export default {
         name: "basetable",
         setup() {
+            //const loading=ref(true)
+
             const query = reactive({
-                address: "",
-                name: "",
                 id:"",
+                name: "",
                 education: "",
                 career: "",
                 isStar: "",
-                status: "",
                 createTime: "",
-                updateTime: "",
-                sort: "",
-
+                subject: "",
+                picPath:"",
+                info:"",
                 pageIndex: 1,
                 pageSize: 10,
             });
@@ -224,14 +187,13 @@
             let form = reactive({
                 id:"",
                 name: "",
-                address: "",
                 education: "",
                 career: "",
                 isStar: "",
                 status: "",
                 createTime: "",
-                updateTime: "",
-                sort: "",
+                subject: "",
+                info:"",
             });
             let idx = -1;
             const handleEdit = (index, row) => {
@@ -249,7 +211,20 @@
                 });
             };
 
+            let backTeacherData=ref()
+            getTeacherData().then(_data => {
+                backTeacherData.value = _data.data
+            }).catch(error => {
+                if (error !== 'error') {
+                    ElMessage({type: 'error', message: '教师数据加载失败!', showClose: true})
+                }
+            }).finally(() => {
+                loading.value = false
+            })
+
+
             return {
+                backTeacherData,
                 query,
                 tableData,
                 pageTotal,
@@ -287,9 +262,11 @@
                     }]
                 },
                 createTime: '',
-                updateTime: ''
+                updateTime: '',
+                loading:false
             };
         }
+
     };
 
 

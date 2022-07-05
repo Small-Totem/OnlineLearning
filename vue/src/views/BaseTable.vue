@@ -19,10 +19,12 @@
                 </div>
                 <div>
 
-                    <el-button type="primary" icon="el-icon-plus">添加用户</el-button>
+                    <el-button type="primary" icon="el-icon-plus" @click="handleUser(scope.$index, scope.row)">添加用户</el-button>
                 </div>
             </div>
-            <el-table :data="tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header">
+
+
+            <el-table :data="backUserData" border class="table" ref="multipleTable" header-cell-class-name="table-header">
                 <el-table-column prop="userId" label="用户ID" width="70" align="center"></el-table-column>
                 <el-table-column prop="showName" label="用户昵称" width="250" align="center"></el-table-column>
                 <el-table-column prop="picImg" label="图片链接"  width="90" align="center">
@@ -33,7 +35,8 @@
                 </el-table-column>
                 <el-table-column prop="sex" label="性别" width="55" align="center"></el-table-column>
                 <el-table-column prop="mobile" label="手机" align="center"></el-table-column>
-                <el-table-column prop="email" label="邮箱" align="center"></el-table-column>
+                <el-table-column prop="email" label="邮箱" align="center">
+                </el-table-column>
 
                 <el-table-column label="操作" width="180" align="center">
                     <template #default="scope">
@@ -44,11 +47,7 @@
                     </template>
                 </el-table-column>
 
-                <!--  -->
-
-
-
-            </el-table>
+            </el-table >
             <div style="display: flex;justify-content: flex-end">
                 <el-pagination
                         background
@@ -107,6 +106,8 @@
     import { ref, reactive } from "vue";
     import { ElMessage, ElMessageBox } from "element-plus";
     import { fetchData } from "../api/index";
+
+    import {getUserData} from '../api/article';
 
     export default {
 
@@ -196,8 +197,12 @@
             // 表格编辑时弹窗和保存
             const editVisible = ref(false);
             let form = reactive({
-                name: "",
-                address: "",
+                userId: "",
+                showName: "",
+                picImg: "",
+                sex: "",
+                mobile: "",
+                emile: "",
             });
             let idx = -1;
             const handleEdit = (index, row) => {
@@ -215,7 +220,21 @@
                 });
             };
 
+
+
+            let backUserData=ref()
+            getUserData().then(_data => {
+                backUserData.value = _data.data
+            }).catch(error => {
+                if (error !== 'error') {
+                    ElMessage({type: 'error', message: '用户数据加载失败!', showClose: true})
+                }
+            }).finally(() => {
+                loading.value = false
+            })
+
             return {
+                backUserData,
                 query,
                 tableData,
                 pageTotal,
