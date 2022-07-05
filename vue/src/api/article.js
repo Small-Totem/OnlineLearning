@@ -1,8 +1,16 @@
 import request from '../request'
 
-export function getHotArticles() {
+export function getAllArticles() {
   return request({
-    url: 'http://localhost:8080/article_test',
+    url: 'http://localhost:8080/queryAllArticle',
+    method: 'get'
+  })
+}
+
+export function getHotArticles() {
+  //todo 后端实现改为hot
+  return request({
+    url: 'http://localhost:8080/queryAllArticle',
     method: 'get'
   })
 }

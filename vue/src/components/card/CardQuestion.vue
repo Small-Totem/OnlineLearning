@@ -5,7 +5,7 @@
     </div>
 
     <ul class="me-category-list">
-      <li v-for="a in source" @click="view(a.articleId)" :style="itemStyle" :key="a.articleId" class="me-category-item">
+      <li v-for="a in source" @click="view(a.id)" :style="itemStyle" :key="a.id" class="me-category-item">
         <a style="cursor:pointer">{{a.title}}</a>
       </li>
     </ul>
@@ -31,7 +31,7 @@
     },
     methods: {
       view(id) {
-        this.$router.push({path: `/article/${id}`})
+        this.$router.push({path: `/question/${id}`})
       }
     }
   }
