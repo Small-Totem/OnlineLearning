@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-import static com.cqu.online_learning.utils.StaticUtils.wrap;
-
 @RestController
 public class TeacherController {
 
@@ -47,9 +45,9 @@ public class TeacherController {
     }
 
 
-    @GetMapping("/getTeacherBySubjectID/{id}")//按科目id查询教师
-    public Object getTeacherBySubjectID(@PathVariable int id){
-        return wrap(teacherService.getTeacherBySubjectID(id));
+    @GetMapping("/getTeacherBySubject/{subject}")//按科目查询教师
+    public List<Teacher> getTeacherBySubject(@PathVariable String subject){
+        return teacherService.getTeacherBySubject(subject);
     }
 
 }

@@ -42,8 +42,8 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
     }
 
     @Override
-    public List<Teacher> getTeacherBySubjectID(int id) {//按科目id查询教师
-        return this.baseMapper.getTeacherBySubjectID(id);
+    public List<Teacher> getTeacherBySubject(String subject) {//按科目查询教师
+        return this.baseMapper.getTeacherBySubject(subject);
     }
 
 }

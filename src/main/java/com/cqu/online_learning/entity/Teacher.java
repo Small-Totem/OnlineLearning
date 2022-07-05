@@ -22,6 +22,6 @@ public class Teacher {
     private String status;
     private Timestamp createTime;
     private Timestamp updateTime;
-    private Integer subjectId;
+    private String subject;
     private Integer sort;
 }

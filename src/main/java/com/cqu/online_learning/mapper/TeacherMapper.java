@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 public interface TeacherMapper extends BaseMapper<Teacher> {
-    @Select("select edu_teacher.* from edu_teacher where edu_teacher.subject_id=#{id}")
-    List<Teacher> getTeacherBySubjectID(int id);//按学科id查询教师
+    @Select("select edu_teacher.* from edu_teacher where edu_teacher.subject=#{subject}")
+    List<Teacher> getTeacherBySubject(String subject);//按学科查询教师
 
 }

@@ -15,7 +15,7 @@ public class Course {
     private Integer courseId;
     private Integer teacherId;
     private String courseName;
-    private Integer subjectId;
+    private String subject;
     private String subjectLink;
     private Timestamp addTime;
     private String title;

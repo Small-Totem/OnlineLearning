@@ -13,5 +13,5 @@ public interface CourseService extends IService<Course> {
     Course getCourse(int courseId);
     IPage<Course> queryCoursePage(int currPage, int pageSize);//分页查询
     List<Course> queryCourseByTeacher(int id);//按教师id查询课程
-    List<Course> getCourseBySubjectID(int id);//按科目id查询课程
+    List<Course> getCourseBySubject(String subject);//按科目查询课程
 }

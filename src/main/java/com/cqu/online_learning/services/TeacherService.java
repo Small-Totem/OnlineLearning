@@ -12,6 +12,6 @@ public interface TeacherService extends IService<Teacher> {
     Teacher getTeacher(int id);
     void removeTeacher(int id);
     IPage<Teacher> queryTeacherPage(int currPage, int pageSize);//分页查询
-    List<Teacher> getTeacherBySubjectID(int id);//按科目id查询教师
+    List<Teacher> getTeacherBySubject(String subject);//按科目查询教师
 
 }

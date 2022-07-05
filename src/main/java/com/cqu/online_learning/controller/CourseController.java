@@ -53,9 +53,9 @@ public class CourseController {
         return courseService.queryCourseByTeacher(id);
     }
 
-    @GetMapping("/getCourseBySubjectID/{id}")//按科目id查询课程
-    public List<Course> getCourseBySubjectID(@PathVariable int id){
-        return courseService.getCourseBySubjectID(id);
+    @GetMapping("/getCourseBySubject/{subject}")//按科目查询课程
+    public List<Course> getCourseBySubject(@PathVariable String subject){
+        return courseService.getCourseBySubject(subject);
     }
 
 }

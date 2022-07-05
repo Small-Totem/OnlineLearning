@@ -42,8 +42,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    public List<Course> getCourseBySubjectID(int id) {//按科目id查询课程
-        return this.baseMapper.getCourseBySubjectID(id);
+    public List<Course> getCourseBySubject(String subject) {//按科目id查询课程
+        return this.baseMapper.getCourseBySubject(subject);
     }
 
     @Override
