@@ -25,7 +25,6 @@ public class CourseController {
 
     //注意：这个函数原来的返回值是List<Course> 需要改成现在这样（用ReturnWrap包装一下）
     //原因详见ReturnWrap.java
-    @CrossOrigin(origins={"http://localhost:3000","http://localhost:8081"})
     @GetMapping("/queryAllCourse")
     public Object queryAllCourse(){
         //return "{\"code\":0,\"data\":"+courseService.queryAllCourse().toString()+",\"msg\":\"成功\"}";

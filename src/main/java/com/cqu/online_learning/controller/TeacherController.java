@@ -49,5 +49,4 @@ public class TeacherController {
     public List<Teacher> getTeacherBySubject(@PathVariable String subject){
         return teacherService.getTeacherBySubject(subject);
     }
-
 }

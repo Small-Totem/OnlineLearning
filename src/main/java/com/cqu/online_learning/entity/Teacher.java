@@ -19,9 +19,7 @@ public class Teacher {
     private String career;
     private Byte isStar;//0表示否 1表示是
     private String picPath;
-    private String status;
+    private String info;
     private Timestamp createTime;
-    private Timestamp updateTime;
     private String subject;
-    private Integer sort;
 }

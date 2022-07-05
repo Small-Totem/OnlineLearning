@@ -41,7 +41,6 @@ public class ArticleController {
     }
 
     //test
-    @CrossOrigin(origins={"http://localhost:3000","http://localhost:8081"})//允许跨域访问 @ref https://www.csdn.net/tags/MtjaIg0sMzYzMC1ibG9n.html
     @GetMapping("/article_test")
     public String article_test(){
         return "{\"code\":0,\"data\":[{\"id\":1,\"title\":\"2022年3月30号\"},{\"id\":72,\"title\":\"Vue.js 3.0\"},{\"id\"" +

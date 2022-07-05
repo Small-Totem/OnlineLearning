@@ -7,7 +7,6 @@
                     <Course-scroll-page></Course-scroll-page>
                 </el-main>
                 <el-aside>
-                    <card-article cardHeader="最热课程" :articles="hotArticles"></card-article>
                     <card-article cardHeader="最新文章" :articles="hotArticles"></card-article>
                 </el-aside>
             </el-container>
@@ -23,8 +22,6 @@
     import { ref } from 'vue'
 
     import {getHotArticles} from '../api/article'
-    //import {getHotTags} from '@/api/tag'
-    //import {listArchives} from '@/api/article'
 
     const source = [
         {
@@ -95,6 +92,4 @@
         margin-top: 20px;
 
     }
-
-
 </style>

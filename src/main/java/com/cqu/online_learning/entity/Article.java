@@ -16,6 +16,7 @@ public class Article {
     private Integer articleId;
     private Integer userId;
     private String title;
+    private String content;
     private String summary;
     private Timestamp publishTime;
     private String link;

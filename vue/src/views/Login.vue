@@ -9,7 +9,7 @@
                   <el-input
                       v-model="loginForm.username"
                       type="text"
-                      placeholder="请输入手机号"
+                      placeholder="请输入手机号或邮箱"
                       autocomplete="off"
                       prefix-icon="el-icon-user"
                   />
@@ -105,11 +105,11 @@ export default {
         //处理回传数据。
         console.log(res)
         _this.loginflag=res.data
-        if(_this.loginflag == -1) {
+        if(_this.loginflag === -1) {
           ElMessage({type: 'error', message: '用户名或密码错误!', showClose: true})
         }
         else{
-          ElMessage({type: 'true', message: '登陆成功!', showClose: true})
+          ElMessage({type: 'success', message: '登陆成功!', showClose: true})
           localStorage.setItem("ms_username", _this.loginForm.username);
           _this.$router.push('/')
 
@@ -122,7 +122,10 @@ export default {
         const url = 'http://localhost:8080/addUser'
         if(_this.regForm.password!=_this.regForm.confirmPassword){
           ElMessage({type: 'error', message: '两次输入的密码不一致!', showClose: true})
-        }else{
+        }else if(_this.regForm.password===""|| _this.regForm.username===""){
+          ElMessage({type: 'error', message: '用户名或密码不能为空!', showClose: true})
+        }
+        else {
           var queryInfo = new URLSearchParams() ;
           queryInfo.append("mobile",_this.regForm.username)
           queryInfo.append("password",_this.regForm.password)
@@ -130,12 +133,12 @@ export default {
         axios.post(url,queryInfo).then(function (res) {
           //处理回传数据。
           _this.registerFlag=res.data
-          if(_this.registerFlag =="success"){
-            ElMessage({type: 'true', message: '注册成功!', showClose: true})
+          if(_this.registerFlag ==="success"){
+            ElMessage({type: 'success', message: '注册成功!', showClose: true})
             localStorage.setItem("ms_username", _this.regForm.username);
             _this.$router.push('/MainPage')
           }else{
-            ElMessage({type: 'true', message: '服务器连接失败!', showClose: true})
+            ElMessage({type: 'error', message: '服务器连接失败!', showClose: true})
           }
         })
         };
