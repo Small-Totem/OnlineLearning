@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.cqu.online_learning.utils.StaticUtils.wrap;
+
 @RestController
 public class UserLoginLogController {
     @Autowired
@@ -24,8 +26,8 @@ public class UserLoginLogController {
     }
 
     @GetMapping("/queryAllLog")
-    public List<UserLoginLog> queryAllLog(){
-        return userLoginLogService.queryAllLog();
+    public Object queryAllLog(){
+        return wrap(userLoginLogService.queryAllLog());
     }
 
     @GetMapping("/getLog/{id}")

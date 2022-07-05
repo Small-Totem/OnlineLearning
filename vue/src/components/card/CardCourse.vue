@@ -23,7 +23,7 @@
                 type: String,
                 required: true
             },
-            course_id:{
+            courseId:{
                 type: Number,
                 required:true
             }
@@ -44,10 +44,7 @@
 <style scoped>
     .el-card{
         width: 280px;
-        height: 320px;
-    }
-    ._img{
-
+        height: 280px;
     }
     .card_course_info{
         text-align:center

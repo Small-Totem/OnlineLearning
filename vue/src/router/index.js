@@ -23,9 +23,42 @@ const routes = [
                     title: '课程详情'
                 },
                 component: () => import ( /* webpackChunkName: "dashboard" */ "../views/Course.vue")
-            },
-            {
-
+            },{
+                path: "/CoursePage",
+                name: "CoursePage",
+                meta: {
+                    title: '课程'
+                },
+                component: () => import ( /* webpackChunkName: "dashboard" */ "../views/CoursePage.vue")
+            },{
+                path: "/TeacherPage",
+                name: "TeacherPage",
+                meta: {
+                title: '讲师'
+                },
+                component: () => import ( /* webpackChunkName: "dashboard" */ "../views/TeacherPage.vue")
+            },{
+                path: "/Teacher",
+                name: "Teacher",
+                meta: {
+                title: '讲师详情'
+                },
+                component: () => import ( /* webpackChunkName: "dashboard" */ "../views/Teacher.vue")
+            },{
+                path: "/ArticlePage",
+                name: "ArticlePage",
+                meta: {
+                title: '文章'
+                },
+                component: () => import ( /* webpackChunkName: "dashboard" */ "../views/ArticlePage.vue")
+            },{
+                path: "/Article",
+                name: "Article",
+                meta: {
+                title: '文章详情'
+                },
+                component: () => import ( /* webpackChunkName: "dashboard" */ "../views/Article.vue")
+            },{
                 path: "/QuestionPage",
                 name: "QuestionPage",
                 meta: {

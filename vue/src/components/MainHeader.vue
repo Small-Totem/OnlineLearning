@@ -18,10 +18,8 @@
             <router-link to="/QuestionPage"> 问题 </router-link>
         </div>
 
-
         <div class="header-right">
             <!-- 如果登陆了 -->
-
             <div v-if="role" class="header-user-con">
                 <!-- 用户头像 -->
                 <div class="user-avator">
@@ -122,7 +120,7 @@
 }
 .router-link-active {
     text-decoration: none;
-    color: #ff7200;
+    color: #00ff82;
 }
 a{
     text-decoration: none;
