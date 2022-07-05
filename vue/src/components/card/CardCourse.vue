@@ -1,10 +1,15 @@
 <template>
     <el-card style="cursor:pointer" @click="course(2)" :body-style="{ padding: '0px' }" shadow="hover" class="card_course"  >
         <div class="_img">
-            <img src="../../assets/img/course2.png" width="280"/>
+            <img :src=link width="280" height="280"/>
         </div>
         <div class="card_course_info">
             {{description}}
+            <div class="card_course_info_teacher">
+                <i class="el-icon-lx-service"></i>
+                <span>{{ teacher }}</span>
+            </div>
+
         </div>
     </el-card>
 </template>
@@ -17,15 +22,15 @@
         props: {
             description: {
                 type: String,
-                required: true
             },
             link: {
                 type: String,
-                required: true
+            },
+            teacher: {
+                type: String,
             },
             courseId:{
                 type: Number,
-                required:true
             }
         },
         setup(){
@@ -44,12 +49,18 @@
 <style scoped>
     .el-card{
         width: 280px;
-        height: 280px;
+        height: 340px;
     }
     .card_course_info{
-        text-align:center
+        margin-top: 5px;
+        text-align: center;
     }
     .card_course{
         margin: 10px;
+    }
+    .card_course_info_teacher{
+        text-align:left;
+        margin-left: 10px;
+        margin-top: 10px;
     }
 </style>

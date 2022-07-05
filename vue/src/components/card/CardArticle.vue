@@ -22,8 +22,7 @@
         required: true
       },
       articles: {
-        type: Array,
-        required: true
+        type: Array
       },
       itemStyle: Object
     },

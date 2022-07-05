@@ -81,13 +81,13 @@ create table edu_course
 );
 
 
-insert into edu_course (TEACHER_ID,COURSE_NAME,TITLE) values (1,"java:从入门到入土","java:从入门到入土");
-insert into edu_course (TEACHER_ID,COURSE_NAME,TITLE) values (2,"php:从入门到入土","php:从入门到入土");
-insert into edu_course (TEACHER_ID,COURSE_NAME,TITLE) values (2,"python:从入门到入土","python:从入门到入土");
-insert into edu_course (TEACHER_ID,COURSE_NAME,TITLE) values (2,"c++:从入门到入土","c++:从入门到入土");
-insert into edu_course (TEACHER_ID,COURSE_NAME,TITLE) values (2,"kotlin:从入门到入土","kotlin:从入门到入土");
-insert into edu_course (TEACHER_ID,COURSE_NAME,TITLE) values (3,"vue:前端开发实战","vue:前端开发实战");
-insert into edu_course (TEACHER_ID,COURSE_NAME,TITLE) values (0,"电子烟实战","电子烟实战");
+insert into edu_course (TEACHER_ID,COURSE_NAME,TITLE,LOGO) values (1,"java:从入门到入土","java:从入门到入土","https://p2.itc.cn/images01/20210720/9c5ad1a36bd54ac4a621c9b357423081.jpeg");
+insert into edu_course (TEACHER_ID,COURSE_NAME,TITLE,LOGO) values (2,"php:从入门到入土","php:从入门到入土","https://img2.baidu.com/it/u=2692009492,3096513359&fm=253&fmt=auto&app=138&f=JPEG?w=550&h=370");
+insert into edu_course (TEACHER_ID,COURSE_NAME,TITLE,LOGO) values (4,"围棋:AI是怎么让围棋变得无趣的","围棋:AI是怎么让围棋变得无趣的","http://mms1.baidu.com/it/u=4137928886,1380956632&fm=253&app=138&f=JPEG&fmt=auto&q=75?w=590&h=500");
+insert into edu_course (TEACHER_ID,COURSE_NAME,TITLE,LOGO) values (2,"c++:从入门到入土","c++:从入门到入土","https://img1.baidu.com/it/u=2432038776,1994590296&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500");
+insert into edu_course (TEACHER_ID,COURSE_NAME,TITLE,LOGO) values (2,"kotlin:从基础到实战","kotlin:从基础到实战","http://mms0.baidu.com/it/u=2188006861,2500630587&fm=253&app=138&f=JPEG&fmt=auto&q=75?w=500&h=500");
+insert into edu_course (TEACHER_ID,COURSE_NAME,TITLE,LOGO) values (3,"vue:前端开发实战","vue:前端开发实战","http://mms0.baidu.com/it/u=4101935789,3368351456&fm=253&app=138&f=JPEG&fmt=auto&q=75?w=474&h=383");
+insert into edu_course (TEACHER_ID,COURSE_NAME,TITLE,LOGO) values (5,"电子烟的发展史","电子烟的发展史","https://img1.baidu.com/it/u=1043431332,3800419241&fm=253&fmt=auto&app=138&f=JPEG?w=749&h=500");
 
 /*==============================================================*/
 /* Table: edu_course_favorites                                  */

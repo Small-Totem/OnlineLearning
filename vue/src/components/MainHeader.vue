@@ -120,7 +120,7 @@
 }
 .router-link-active {
     text-decoration: none;
-    color: #00ff82;
+    color: #1300ff;
 }
 a{
     text-decoration: none;

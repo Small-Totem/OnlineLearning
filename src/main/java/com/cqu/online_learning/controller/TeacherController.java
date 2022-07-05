@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
+import static com.cqu.online_learning.utils.StaticUtils.wrap;
+
 @RestController
 public class TeacherController {
 
@@ -24,8 +26,8 @@ public class TeacherController {
     }
 
     @GetMapping("/queryAllTeacher")
-    public List<Teacher> queryAllTeacher(){
-        return teacherService.queryAllTeacher();
+    public Object queryAllTeacher(){
+        return wrap(teacherService.queryAllTeacher());
     }
 
     @GetMapping("/getTeacher/{id}")
