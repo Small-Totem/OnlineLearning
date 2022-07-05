@@ -49,4 +49,9 @@ public class QuestionController {
         return questionService.getQuestionById(id);
     }
 
+    @GetMapping("/getQuestionByType/{id}")//按类型查询问题
+    public Object getQuestionByType(@PathVariable int id){
+        return wrap(questionService.getQuestionByType(id));
+    }
+
 }

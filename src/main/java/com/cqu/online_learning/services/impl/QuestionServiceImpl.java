@@ -48,4 +48,14 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         this.removeById(id);
     }
 
+    @Override
+    public List<Question> getQuestionByType(int id) {
+        HashMap<String, Object> map = new HashMap<>();
+        //自定义查询
+        map.put("type",id);
+        List<Question> questionList = questionMapper.selectByMap(map);
+        return questionList;
+    }
+
+
 }
