@@ -56,3 +56,15 @@ export function getQuestionData(){
     method:"get"
   })
 }
+
+//作为post带参数的例子 勿动
+export function post_param_test(params) {
+  return request({
+    url: 'http://localhost:8080/addCourseFavorites',
+    method: 'post',
+    params: {
+      userId: params.userId,
+      courseId: params.courseId,
+    }
+  })
+}
