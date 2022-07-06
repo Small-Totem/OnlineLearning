@@ -48,7 +48,7 @@ public class TeacherController {
 
 
     @GetMapping("/getTeacherBySubject/{subject}")//按科目查询教师
-    public List<Teacher> getTeacherBySubject(@PathVariable String subject){
-        return teacherService.getTeacherBySubject(subject);
+    public Object getTeacherBySubject(@PathVariable String subject){
+        return wrap(teacherService.getTeacherBySubject(subject));
     }
 }
