@@ -52,12 +52,12 @@ const routes = [
                 },
                 component: () => import ( /* webpackChunkName: "dashboard" */ "../views/ArticlePage.vue")
             },{
-                path: "/Article",
-                name: "Article",
+                path: "/ArticleDetails/:id",
+                name: "ArticleDetails",
                 meta: {
                 title: '文章详情'
                 },
-                component: () => import ( /* webpackChunkName: "dashboard" */ "../views/Article.vue")
+                component: () => import ( /* webpackChunkName: "dashboard" */ "../views/ArticleDetails.vue")
             },{
                 path: "/QuestionPage",
                 name: "QuestionPage",

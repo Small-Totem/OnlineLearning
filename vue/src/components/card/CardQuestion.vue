@@ -31,7 +31,7 @@
     },
     methods: {
       view(id) {
-        this.$router.push({path: `/question/${id}`})
+        this.$router.push({path: `/questionDetails/${id}`})
       }
     }
   }

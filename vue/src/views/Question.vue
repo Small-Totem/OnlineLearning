@@ -7,7 +7,7 @@
     <el-tabs>
       <el-tab-pane label="全部问答" >
         <el-row v-for="question in questions">
-          <el-card style="border-radius: 10px; margin-top: 8px" shadow="hover" class="box-card"  @click.native="toDetails(question.id)">
+          <el-card style="border-radius: 10px; margin-top: 8px;cursor:pointer" shadow="hover" class="box-card"  @click.native="toDetails(question.id)">
             <el-col>
             <div style="float: left;width: 100px;height: 100px">
               <div style="margin-bottom: 5px">
@@ -20,7 +20,7 @@
             <el-col>
               <div style="margin-top: 4px" ><i class="el-icon-collection-tag"></i></div>
               <div style="float: left; margin-top: 10px"><i class="el-icon-chat-dot-round"></i></div>
-              <div style=" margin-top: 40px"><i class="el-icon-edit"></i> </div>
+              <div style="margin-top: 40px"><i class="el-icon-edit"></i> </div>
             </el-col>
             <el-col style="width: 550px;margin-left: 10px">
                <div >
@@ -248,7 +248,6 @@ export default {
     },
     toDetails(id){
       const _this = this;
-      console.log("1111")
       _this.$router.push('/QuestionDetails/'+id)
     }
   }

@@ -1,7 +1,7 @@
 <template >
   <div><div style="float: left;width: 70%">
     <el-row type="flex" justify="center" >
-      <el-card style="border-radius: 10px; margin-top: 20px ;" shadow="hover" >
+      <el-card style="border-radius: 10px; margin-top: 20px;" shadow="hover" >
         <el-col>
           <div style="float: left;width: 100px;height: 100px">
             <div style="margin-bottom: 5px">
@@ -187,7 +187,7 @@ export default {
       queryInfo.append("content",_this.form.content)
       queryInfo.append("replyCount",0)
       queryInfo.append("isBest",0)
-     //todo queryInfo.append("userId",store.state.userId)
+      queryInfo.append("userId",store.state.userId)
       queryInfo.append("questionId", _this.questionId)
 
       if(_this.form.content==="" ) {

@@ -45,8 +45,7 @@
         },
         setup(props,context){
             const router = useRouter();
-
-            console.log(props.currFilter)
+            //console.log(props.currFilter)
 
             function course(id) {
                 router.push("/course/"+id)

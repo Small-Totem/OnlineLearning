@@ -314,9 +314,9 @@
             function getTById(id) {
                 let backTeacherData = ref()
                 getTeacherById(id).then(_data => {
-                    this.backTeacherData=undefined;
-                    this.backTeacherData=_data;
-                    console.log(_data)
+                    let temp=[_data]
+                    this.backTeacherData=temp;
+                    //console.log(_data)
                 }).catch(error => {
                     if (error !== 'error') {
                         ElMessage({type: 'error', message: '教师数据加载失败!', showClose: true})

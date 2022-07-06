@@ -45,13 +45,4 @@ public class ArticleController {
         return articleService.queryArticlePage(id,2);
     }
 
-    //test
-    @GetMapping("/article_test")
-    public String article_test(){
-        return "{\"code\":0,\"data\":[{\"id\":1,\"title\":\"2022年3月30号\"},{\"id\":72,\"title\":\"Vue.js 3.0\"},{\"id\"" +
-                ":75,\"title\":\"应用 & 组件实例\"},{\"id\":74,\"title\":\"测试Markdown语法\"},{\"id\":71,\"title\":\"测试" +
-                "图片\"},{\"id\":73,\"title\":\"测试评论\"}],\"msg\":\"成功\"}";
-    }
-
-
 }

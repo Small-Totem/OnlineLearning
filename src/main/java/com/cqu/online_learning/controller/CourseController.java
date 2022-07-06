@@ -33,12 +33,10 @@ public class CourseController {
     }
 
     @GetMapping("/getCourse/{courseId}")
-    public List<Course> queryCourse(@PathVariable int courseId){
-        List<Course> querycourse=new ArrayList<>();
-        querycourse.add(courseService.getCourse(courseId));
-        return querycourse;
-
+    public Course queryCourse(@PathVariable int courseId){
+        return courseService.getCourse(courseId);
     }
+
     @GetMapping("/removeCourse/{id}")
     public String removeCourse(@PathVariable int id){
         courseService.removeCourse(id);

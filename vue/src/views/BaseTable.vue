@@ -424,9 +424,9 @@
             function getUById(id){
                 let backUserData=ref()
                 getUserById(id).then(_data => {
-                    this.backUserData=undefined;
-                    this.backUserData=_data;
-                    console.log(_data)
+                    let temp=[_data]
+                    this.backUserData=temp;
+                    console.log(temp)
                 }).catch(error => {
                     if (error !== 'error') {
                         ElMessage({type: 'error', message: '用户数据加载失败!', showClose: true})

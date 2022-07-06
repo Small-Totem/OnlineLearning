@@ -4,7 +4,8 @@
             <el-col :span="20">
                 <div style="width: 70%;background-color: #fff;padding: 10px 20px;float: left;">
                     <el-row v-for="article in articles">
-                        <el-card style="border-radius: 10px; margin-top: 8px" shadow="hover" class="box-card">
+                        <el-card style="border-radius: 10px; margin-top: 8px;cursor:pointer" shadow="hover" class="box-card"
+                                 @click.native="toDetails(article.articleId)">
                             <el-col>
                                 <div style="float: left;width: 100px;height: 100px">
                                     <div style="margin-bottom: 5px">
@@ -59,13 +60,16 @@
                                 @click="dialogFormVisible=true">
                             发表文章
                         </el-button>
-                        <el-dialog title="提问" :visible.sync="dialogFormVisible" v-model="dialogFormVisible" :append-to-body="true" >
+                        <el-dialog title="发表文章" :visible.sync="dialogFormVisible" v-model="dialogFormVisible" :append-to-body="true" >
                             <el-form :model="form">
-                                <el-form-item label="问题标题" :label-width="formLabelWidth">
+                                <el-form-item label="文章标题" :label-width="formLabelWidth">
                                     <el-input v-model="form.title" autocomplete="off"></el-input>
                                 </el-form-item>
-                                <el-form-item label="问题内容" :label-width="formLabelWidth">
-                                    <el-input v-model="form.content" autocomplete="off"  ></el-input>
+                                <el-form-item label="文章摘要" :label-width="formLabelWidth">
+                                    <el-input v-model="form.summary" autocomplete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item label="文章内容" :label-width="formLabelWidth" >
+                                    <el-input v-model="form.content" type="textarea" :rows="6" autocomplete="off"></el-input>
                                 </el-form-item>
                             </el-form>
                             <div slot="footer" class="dialog-footer">
@@ -107,23 +111,31 @@
             })
             return  {
                 hotArticles,
-                articles:[],
                 submitFlag:"fail",
                 url:"../src/assets/img/img.jpg",
-                dialogFormVisible: false,
-                form: {
-                    title: "",
-                    content: "",
-                },
                 formLabelWidth: '120px',
             }
         },
 
+        data(){
+            return{
+                form: {
+                    title: "",
+                    content: "",
+                    summary: ""
+                },
+                articles:[],
+                dialogFormVisible: false
+            }
+        },
+
+
         created() {
-            this.getQuestionData()
+            this.getArticleData()
+
         },
         methods: {
-            getQuestionData() {
+            getArticleData() {
                 const _this = this;
                 const url = 'http://localhost:8080/queryAllArticle'
                 axios.get(url).then(function (res) {
@@ -132,17 +144,18 @@
                 })
             },
 
-            submitForm() {  //todo
+            submitForm() {
                 const _this = this;
-                const url = "http://localhost:8080/addQuestion"
+                const url = "http://localhost:8080/addArticle"
                 const queryInfo = new URLSearchParams();
                 queryInfo.append("title", _this.form.title)
                 queryInfo.append("content", _this.form.content)
-                queryInfo.append("replyCount", 0)
-                queryInfo.append("browseCount", 0)
+                queryInfo.append("summary", _this.form.summary)
+                queryInfo.append("clickNum", 0)
+                queryInfo.append("praiseCount", 0)
                 queryInfo.append("userId", store.state.userId)
-                if (_this.form.title === "" || _this.form.content === "") {
-                    ElMessage({type: 'error', message: '问题标题与内容不能为空!', showClose: true})
+                if (_this.form.title === "" || _this.form.summary === "" || _this.form.content === "") {
+                    ElMessage({type: 'error', message: '输入不能为空!', showClose: true})
                 } else {
                     axios.post(url, queryInfo).then(function (res) {
                         //处理回传数据
@@ -150,12 +163,15 @@
                         if (_this.submitFlag === "success") {
                             ElMessage({type: 'success', message: '提交成功!', showClose: true})
                             _this.dialogFormVisible = false
-
                         } else {
                             ElMessage({type: 'error', message: '提交失败!', showClose: true})
                         }
                     })
                 }
+            },
+            toDetails(id){
+                const _this = this;
+                _this.$router.push('/ArticleDetails/'+id)
             }
         }
     }
