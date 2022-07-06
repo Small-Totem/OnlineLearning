@@ -7,7 +7,7 @@
     <ul class="me-tag-list">
       <li class="me-tag-item" v-for="t in tags" :key="t.id">
         <!--type="primary"-->
-        <el-button size="mini" type="primary" round plain>{{t.tagName}}</el-button>
+        <el-button size="mini" @click="onButton(t.tagName)" autofocus="true" type="primary" round plain>{{t.tagName}}</el-button>
       </li>
     </ul>
   </el-card>
@@ -18,10 +18,18 @@
   export default {
     name: 'CardTag',
     props: {
-      tags: Array
+      tags: Array,
+      getFilter :{
+        type: Function
+      }
     },
-    setup(){
-      return {}
+    setup(props,context){
+      function onButton(filter) {
+        props.getFilter(filter)
+      }
+      return {
+        onButton
+      }
     },
   }
 </script>

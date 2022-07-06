@@ -6,9 +6,9 @@
        color: #333">
         <el-breadcrumb-item>全部课程</el-breadcrumb-item>
         <el-breadcrumb-item >
-          子路径
+          java
         </el-breadcrumb-item>
-        <el-breadcrumb-item>课程标题</el-breadcrumb-item>
+        <el-breadcrumb-item>java编程训练营</el-breadcrumb-item>
       </el-breadcrumb>
 
       <div style="position: relative">
@@ -45,7 +45,7 @@
               <el-button
                       type="primary"
                       style="width: 16vw;font-size: 18px"
-                      icon="el-icon-plus"
+                      icon="el-icon-lx-hot"
                       @click="showVideo()">
                 试听课程
               </el-button>
@@ -113,7 +113,7 @@ export default {
       url:"https://qn-next.xuetangx.com/16511360792037.jpg",
       course: {
         courseName: "课程名称",
-        title:"课程名称",
+        title:"java编程训练营",
         cover: "~/src/assets/photo/wb-icon.png",
         price: 13,
         teacherName: "教师名",

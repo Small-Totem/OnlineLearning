@@ -1,9 +1,9 @@
 <template>
     <div style="margin-top: 20px;">
-        <CardTag class="course_tag" :tags="tags">
+        <CardTag class="course_tag" :tags="tags" :getFilter="getFilterFun">
         </CardTag>
         <div style="width: 80%; margin: 10px auto">
-            <course-scroll-page></course-scroll-page>
+            <course-scroll-page :currFilter="curr_filter"></course-scroll-page>
         </div>
     </div>
 </template>
@@ -11,10 +11,23 @@
 <script>
     import CardTag from "../components/card/CardTag.vue";
     import CourseScrollPage from "./CourseScrollPage.vue";
+    import {ref,reactive} from 'vue'
+
     export default {
         name: "CoursePage",
         components: {CourseScrollPage, CardTag},
         setup(){
+            const curr_filter = ref()
+            curr_filter.value = 'null'
+
+            //此函数由子组件调用(CardTag)
+            //@ref http://events.jianshu.io/p/52b84406702b
+            const getFilterFun = (filter) => {
+                if(filter==='全部')
+                    filter='null'
+                curr_filter.value = filter
+            }
+
             const tags=[{
                 id:1,
                 tagName:"全部"
@@ -41,7 +54,9 @@
                 tagName:"艺术"
             }]
             return {
-                tags
+                tags,
+                curr_filter,
+                getFilterFun
             }
         }
     }
