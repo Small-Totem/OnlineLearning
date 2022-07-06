@@ -1,50 +1,49 @@
 <template>
-    <el-card style="cursor:pointer" @click="course(2)" :body-style="{ padding: '0px' }" shadow="hover" class="card_teacher"  >
+    <el-card style="cursor:pointer" @click="teacher(2)" :body-style="{ padding: '0px' }" shadow="hover" class="card_teacher"  >
         <div class="_img">
-            <img src="../../assets/img/course2.png" width="280"/>
+            <el-avatar :size="100" :src="squareUrl" ></el-avatar>
         </div>
-        <div class="card_course_name">
+        <div class="card_teacher_name">
             {{teacher_name}}
         </div>
-        <div class="card_course_education">
+        <div class="card_teacher_education">
             {{teacher_education}}
         </div>
-        <div class="card_course_career">
+        <div class="card_teacher_career">
             {{teacher_career}}
-        </div>
-        <div class="card_course_info">
+        </div ><br/>
+        <hr width="350" size="1" align="center" color="#EBEBEB" />
+        <div class="card_teacher_info">
             {{teacher_description}}
         </div>
     </el-card>
 </template>
 
 <script>
+    import { useRouter } from "vue-router";
     export default {
         name: "CardTeacher",
         props: {
             teacher_name: {
-                type: String,
-                required: true
+                type: String
             },
             teacher_education: {
                 type: String,
-                required: true
             },
             teacher_career: {
                 type: String,
-                required: true
             },
             teacher_description: {
                 type: String,
-                required: true
             },
             link: {
                 type: String,
-                required: true
             },
             teacher_id:{
                 type: Number,
-                required:true
+            },
+            squareUrl:{
+                type: String,
             }
         },setup() {
             const router = useRouter();
@@ -63,16 +62,35 @@
 
 <style scoped>
     .el-card{
-        width: 280px;
-        height: 320px;
+        width: 350px;
+        height: 500px;
+        background-color: #FFFFFF;
+        line-height: 30px;
     }
-    ._img{
+    .card_teacher_name{
+        text-align:center;
+        margin-left: 10px;
+        margin-top: 10px;
+        line-height: 30px;
 
     }
-    .card_course_info,.card_course_name,.card_course_education,.card_course_career{
-        text-align:center
+    .card_teacher_education,.card_teacher_career{
+        text-align:center;
+        margin-left: 10px;
+        margin-top: 10px;
+        line-height: 15px;
+        font-size: 12px;
+        color: #999999;
+    }
+    .card_teacher_info{
+        text-align:center;
+        margin-left: 10px;
+        margin-top: 10px;
+        line-height: 30px;
+        font-size: 13px;
+        color: #666666;
     }
     .card_teacher{
-        margin: 10px;
+        margin: 20px;
     }
 </style>
