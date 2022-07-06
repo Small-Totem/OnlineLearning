@@ -107,43 +107,46 @@
 
 
         <el-dialog
-                title="添加员工"
+                title="添加用户"
                 :visible.sync="addUserVisible"
                 width="30%"
                 v-model="addUserVisible">
 
-            <el-form label-width="100px"  style="width:280px;">
-                <el-form-item label="用户ID">
-                    <el-input v-model="form.userId" prefix-icon="el-icon-edit"></el-input>
+            <el-form label-width="100px"  style="width:280px;" ref="addUserForm"
+                     :model="addUserForm"
+                     :rules="addUserFormRules">
+                <el-form-item label="用户ID" prop="userId">
+                    <el-input v-model="addUserForm.userId" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
-                <el-form-item label="用户昵称">
-                    <el-input v-model="form.showName"  prefix-icon="el-icon-edit"></el-input>
+                <el-form-item label="用户昵称" prop="showName">
+                    <el-input id="showName" v-model="addUserForm.showName"  prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
-                <el-form-item label="图片链接" style="width:380px;">
+                <el-form-item label="图片链接" prop="picImg" style="width:380px;">
                     <el-input
+                            id="picImg"
                             type="textarea"
                             :rows="2"
                             placeholder="请输入内容"
-                            v-model="form.picImg"
+                            v-model="addUserForm.picImg"
                             prefix-icon="el-icon-edit"
                     >
                     </el-input>
                 </el-form-item>
-                <el-form-item label="性别">
-                    <el-radio v-model="form.sex" label="男">男</el-radio>
-                    <el-radio v-model="form.sex" label="女">女</el-radio>
+                <el-form-item label="性别" prop="sex">
+                    男 <input type="radio" name="paytype" value="男">
+                       女 <input type="radio" name="paytype" value="女">
                 </el-form-item>
-                <el-form-item label="手机" style="width:300px;">
-                    <el-input v-model="form.mobile"  prefix-icon="el-icon-edit"></el-input>
+                <el-form-item label="手机" prop="mobile" style="width:300px;">
+                    <el-input id="mobile" v-model="addUserForm.mobile"  prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
-                <el-form-item label="邮箱" style="width:300px;">
-                    <el-input v-model="form.email"  prefix-icon="el-icon-edit"></el-input>
+                <el-form-item label="邮箱" prop="email" style="width:300px;">
+                    <el-input id="email" v-model="addUserForm.email"  prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
             </el-form>
-            <template #footer>
-                <span class="dialog-footer">
+            <template  #footer>
+                <span slot="footer" class="dialog-footer">
                     <el-button @click="addUserVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="addUserVisible = false">确 定</el-button>
+                    <el-button type="primary" @click="a();addUserVisible = false;">确 定</el-button>
                 </span>
             </template>
         </el-dialog>
@@ -156,6 +159,7 @@
     import { fetchData } from "../api/index";
 
     import {getUserData} from '../api/article';
+    import {postaddUser} from '../api/article';
     import {getUserById} from "../api/user";
     import {removeUserById} from "../api/user";
 
@@ -164,9 +168,79 @@
         name: "user",
 
         data(){
+            var checkuserId = (rule, value, callback) => {
+                if (value==='') {
+                    callback(new Error('用户ID不能为空'));
+                }else{
+                    if(this.addUserForm.userId!==''){
+                        this.$refs.addUserForm.validateField('ok!');
+                    }
+                    callback();
+                }
+                /*
+                setTimeout(() => {
+                    if (!Number.isInteger(value)) {
+                        callback(new Error('请输入数字值'));
+                    }
+                    else
+                    {
+                            callback();
+                    }
+                }, 1000);*/
+            };
+            /*var checkEmail = (rule,value,callback) =>{
+                //验证邮箱的正则表达式
+                const regEmail = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+                if(regEmail.test(value)){
+                    return callback(); //合法邮箱
+                }
+                return callback(new Error("请输入正确的邮箱"));
+            }
+            var checkMobile = (rule,value,callback) =>{
+                //验证手机号的正则表达式
+                const regMobile = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
+                if(regMobile.test(value)){
+                    return callback(); //合法手机号
+                }
+                return callback(new Error("请输入合法的手机号"));
+            }*/
             return{
+                //获取用户列表的参数对象
+                User:{
+                    userId: "",
+                    showName: "",
+                    picImg: "",
+                    sex: "",
+                    mobile: "",
+                    email: "",
+                    createTime:""
+                },
+
+                queryInfo: {
+                    query: "",
+                    pagenum: 1, //当前的页数
+                    pagesize: 2, //每页的数量
+                },
+                userList : [],
+                addUserForm: {
+                    userId: "",
+                    showName: "",
+                    picImg: "",
+                    sex: "",
+                    mobile: "",
+                    email: "",
+                    createTime:""
+                }, //添加用户的表单数据
+
+                //添加表单的验证规则对象
+                addUserFormRules: {
+                    userId: [{ validator: checkuserId, trigger: 'blur' }],
+                    email: [{required:true,message:'请输入邮箱',trigger:'blur'}],
+                    mobile: [{required:true,message:'请输入手机号',trigger:'blur'}]
+                },
                 emps:[],
                 loading:false,
+                door:false,
                 total:0,
                 currentPage:1,
                 size:10,
@@ -180,9 +254,7 @@
                 total:0
             }
         },
-
         methods:{
-
             currentChange(currentPage){
                 this.currentPage=currentPage;
                 this.initEmps();
@@ -216,6 +288,7 @@
 
             }
         },
+
         setup () {
             const query = reactive({
                 userId: "",
@@ -223,9 +296,17 @@
                 picImg: "",
                 sex: "",
                 mobile: "",
-                emile: "",
+                email: "",
                 pageIndex: 1,
                 pageSize: 10,
+            });
+            let params = reactive({
+                showName: "",
+                picImg: "",
+                sex: "",
+                mobile: "",
+                email: "",
+                password:5431354
             });
             const tableData = ref([]);
             const pageTotal = ref(0);
@@ -274,7 +355,7 @@
                 picImg: "",
                 sex: "",
                 mobile: "",
-                emile: "",
+                email: "",
             });
             let idx = -1;
             const handleEdit = (index, row) => {
@@ -291,9 +372,46 @@
                     tableData.value[idx][item] = form[item];
                 });
             };
+/*
+            const params={
+                userId: 10,
+                showName: "hhh",
+                picImg: "644513154654",
+                sex: "男",
+                mobile: "3454654621",
+                email: "1654541",
+                password:135453321,
+            }*/
 
 
 
+            //添加用户
+            function a(){
+                params.showName = document.getElementById("showName").value;
+                params.picImg = document.getElementById("picImg").value;
+                let temp = document.getElementsByName("paytype");
+                for(let i=0;i<temp.length;i++){
+                    if(temp[i].checked){
+                        params.sex=temp[i].value;
+                    }
+                }
+                params.mobile = document.getElementById("mobile").value;
+                params.email = document.getElementById("email").value;
+                postaddUser(params).then(data => {
+                    //res.value = data.data
+                    console.log(data)
+                    //浏览器按f12 可以看到有success (我修改了全局设置，现在不用wrap也能正常返回东西了)
+                }).catch(error => {
+                    console.log(error)
+                    if (error !== 'error') {
+                        ElMessage({type: 'error', message: '失败!', showClose: true})
+                    }
+                })
+            }
+
+
+
+            //读取数据
             let backUserData=ref()
             getUserData().then(_data => {
                 backUserData.value = _data.data
@@ -335,6 +453,7 @@
 
 
             return {
+                a,
                 backUserData,
                 query,
                 tableData,

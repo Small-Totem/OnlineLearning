@@ -143,32 +143,46 @@
 
             <el-form label-width="100px" style="width:280px;">
                 <el-form-item label="课程ID" >
-                    <el-input v-model="form.courseId" prefix-icon="el-icon-edit"></el-input>
+                    <el-input id="courseId" v-model="form.courseId"></el-input>
                 </el-form-item>
-                <el-form-item label="课程名称" style="width:330px;">
-                    <el-input v-model="form.courseName" prefix-icon="el-icon-edit"></el-input>
+                <el-form-item  label="课程名称" style="width:330px;">
+                    <el-input id="courseName" v-model="form.courseName"></el-input>
                 </el-form-item>
                 <el-form-item label="标题" style="width:380px;">
                     <el-input
+                            id="title"
                             type="textarea"
                             :rows="2"
                             placeholder="请输入内容"
-                            v-model="form.title"
-                            prefix-icon="el-icon-edit"
-                    >
+                            v-model="form.title">
                     </el-input>
                 </el-form-item>
-                <el-form-item label="项目ID">
-                    <el-input v-model="form.subjectId" prefix-icon="el-icon-edit"></el-input>
+                <el-form-item label="logo" style="width:380px;">
+                    <el-input
+                            id="logo"
+                            type="textarea"
+                            :rows="2"
+                            placeholder="请输入LOGO链接"
+                            v-model="form.logo">
+                    </el-input>
+                </el-form-item>
+                <el-form-item label="项目">
+                    <el-input id="subject" v-model="form.subject"></el-input>
+                </el-form-item>
+                <el-form-item label="课程链接" style="width:380px;">
+                    <el-input
+                            id="subjectLink"
+                            type="textarea"
+                            :rows="2"
+                            placeholder="请输入内容"
+                            v-model="form.subjectLink">
+                    </el-input>
                 </el-form-item>
                 <el-form-item label="讲师ID">
-                    <el-input v-model="form.teacherId" prefix-icon="el-icon-edit"></el-input>
-                </el-form-item>
-                <el-form-item label="课程号">
-                    <el-input v-model="form.lessionNum" prefix-icon="el-icon-edit"></el-input>
+                    <el-input id="teacherId" v-model="form.teacherId"></el-input>
                 </el-form-item>
                 <el-form-item label="浏览数量" style="width:200px;">
-                    <el-input v-model="form.pageViewcount" prefix-icon="el-icon-edit"></el-input>
+                    <el-input id="pageViewcount" v-model="form.pageViewcount" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="创建时间" >
                     <el-date-picker
@@ -180,21 +194,11 @@
                             style="width:200px; text-align:center">
                     </el-date-picker>
                 </el-form-item>
-                <el-form-item label="结束时间" >
-                    <el-date-picker
-                            v-model="form.endTime"
-                            type="datetime"
-                            placeholder="选择创建日期时间"
-                            align="left"
-                            :picker-options="pickerOptions"
-                            style="width:200px; text-align:center">
-                    </el-date-picker>
-                </el-form-item>
             </el-form>
             <template #footer>
                 <span class="dialog-footer">
                     <el-button @click="addCourseVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="addCourseVisible = false">确 定</el-button>
+                    <el-button type="primary" @click="a();addCourseVisible = false">确 定</el-button>
                 </span>
             </template>
         </el-dialog>
@@ -207,8 +211,7 @@
     import { fetchData } from "../api/index";
 
     import {getCourseData} from "../api/article";
-    import {getCourseById} from "../api/course";
-    import {removeCourseById} from "../api/course";
+    import {postaddCourse} from "../api/article";
 
     export default {
         name: "baseform",
@@ -248,6 +251,18 @@
             }
         },
         setup() {
+            //返回给数据库的参数
+            let params = reactive({
+                courseId: "",
+                teacherId: "",
+                courseName: "",
+                subject: "",
+                subjectLink: "",
+                title: "",
+                logo: "",
+                pageViewcount:""
+            });
+
             const query = reactive({
                 address: "",
                 name: "",
@@ -312,6 +327,33 @@
                 });
             };
 
+            //添加课程
+            //添加教师
+            function a(){
+
+                params.courseId = document.getElementById("courseId").value;
+                params.teacherId = document.getElementById("teacherId").value;
+                params.courseName = document.getElementById("courseName").value;
+                params.subject = document.getElementById("subject").value;
+                params.subjectLink = document.getElementById("subjectLink").value;
+                params.title = document.getElementById("title").value;
+                params.logo = document.getElementById("logo").value;
+                params.pageViewcount = document.getElementById("pageViewcount").value;
+
+
+                postaddCourse(params).then(data => {
+                    //res.value = data.data
+                    console.log(data)
+                    //浏览器按f12 可以看到有success (我修改了全局设置，现在不用wrap也能正常返回东西了)
+                }).catch(error => {
+                    console.log(error)
+                    if (error !== 'error') {
+                        ElMessage({type: 'error', message: '失败!', showClose: true})
+                    }
+                })
+            }
+
+            //读取数据
             let backCourseData=ref()
             getCourseData().then(_data => {
                 backCourseData.value = _data.data
@@ -356,6 +398,7 @@
                 pageTotal,
                 editVisible,
                 form,
+                a,
                 handleSearch,
                 handlePageChange,
                 handleDelete,

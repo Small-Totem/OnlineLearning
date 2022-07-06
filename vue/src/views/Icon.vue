@@ -126,6 +126,8 @@
                 </span>
             </template>
         </el-dialog>
+
+
         <el-dialog
                 title="添加文章"
                 :visible.sync="addArticleVisible"
@@ -134,34 +136,27 @@
 
             <el-form label-width="100px" style="width:280px;">
                 <el-form-item label="文章ID">
-                    <el-input v-model="form.articleId" prefix-icon="el-icon-edit"></el-input>
+                    <el-input id="articleId" v-model="form.articleId" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="文章作者">
-                    <el-input v-model="form.userId" prefix-icon="el-icon-edit"></el-input>
+                    <el-input id="userId" v-model="form.userId" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="文章标题" style="width:340px;">
-                    <el-input v-model="form.title" prefix-icon="el-icon-edit"></el-input>
+                    <el-input id="title" v-model="form.title" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="文章概要" style="width:380px;">
                     <el-input
+                            id="summary"
                             type="textarea"
                             :rows="3"
                             placeholder="请输入内容"
                             v-model="form.summary">
                     </el-input>
                 </el-form-item>
-                <el-form-item label="发布时间">
-                    <el-date-picker
-                            v-model="form.publishTime"
-                            type="datetime"
-                            placeholder="选择发布日期时间"
-                            align="left"
-                            :picker-options="pickerOptions"
-                            style="width:200px; text-align:center">
-                    </el-date-picker>
-                </el-form-item>
+
                 <el-form-item label="文章链接" style="width:380px;">
                     <el-input
+                            id="link"
                             type="textarea"
                             :rows="2"
                             placeholder="请输入内容"
@@ -169,16 +164,16 @@
                     </el-input>
                 </el-form-item>
                 <el-form-item label="点击数量">
-                    <el-input v-model="form.clickNum"></el-input>
+                    <el-input  id="clickNum" v-model="form.clickNum"></el-input>
                 </el-form-item>
                 <el-form-item label="点赞数量">
-                    <el-input v-model="form.pralseCount" prefix-icon="el-icon-edit"></el-input>
+                    <el-input id="praiseCount" v-model="form.praiseCount" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
             </el-form>
             <template #footer>
                 <span class="dialog-footer">
-                    <el-button @click="editVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="saveEdit">确 定</el-button>
+                    <el-button @click="addArticleVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="a();addArticleVisible = false">确 定</el-button>
                 </span>
             </template>
         </el-dialog>
@@ -190,11 +185,29 @@
     import { ElMessage, ElMessageBox } from "element-plus";
     import { fetchData } from "../api/index";
 
+    import { getArticleData } from "../api/article";
+    import { postaddArticle } from "../api/article";
+
+
     import {getArticleById, getArticleData} from "../api/article";
     import {removeArticleById} from "../api/article";
     export default {
         name: "basetable",
         setup() {
+
+            //返回给数据库的参数
+            let params = reactive({
+                //articleId: "",
+                userId: "",
+                title: "",
+                summary: "",
+                //publishTime: "",
+                link: "",
+                clickNum: "",
+                praiseCount: "",
+            });
+
+
             const query = reactive({
                 articleId: "",
                 userId: "",
@@ -249,7 +262,7 @@
                 praiseCount: "",
             });
             let idx = -1;
-            const handleEdit = (index, row) => {
+            const handleEdit = (row) => {
                 idx = index;
                 Object.keys(form).forEach((item) => {
                     form[item] = row[item];
@@ -264,6 +277,30 @@
                 });
             };
 
+            //添加文章
+            function a(){
+
+                params.title = document.getElementById("title").value;
+                params.userId = document.getElementById("userId").value;
+                params.summary = document.getElementById("summary").value;
+                params.link = document.getElementById("link").value;
+                params.clickNum = document.getElementById("clickNum").value;
+                params.praiseCount = document.getElementById("praiseCount").value;
+
+
+                postaddArticle(params).then(data => {
+                    //res.value = data.data
+                    console.log(data)
+                    //浏览器按f12 可以看到有success (我修改了全局设置，现在不用wrap也能正常返回东西了)
+                }).catch(error => {
+                    console.log(error)
+                    if (error !== 'error') {
+                        ElMessage({type: 'error', message: '失败!', showClose: true})
+                    }
+                })
+            }
+
+            //读取数据
             let backArticleData=ref()
             getArticleData().then(_data => {
                 backArticleData.value = _data.data
@@ -308,6 +345,7 @@
                 pageTotal,
                 editVisible,
                 form,
+                a,
                 handleSearch,
                 handlePageChange,
                 handleDelete,

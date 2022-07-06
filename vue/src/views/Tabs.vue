@@ -7,7 +7,7 @@
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
-        <div class="container">
+        <div class="container" >
             <div >
                 <div style="display: flex;justify-content: space-between">
                     <div class="handle-box">
@@ -84,7 +84,7 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="分类" label-width="100px">
-                    <el-input v-model="form.SubjectId"></el-input>
+                    <el-input v-model="form.subject"></el-input>
                 </el-form-item>
                 <el-form-item label="讲师介绍" label-width="100px" style="width:380px;">
                     <el-input
@@ -106,16 +106,6 @@
                 </el-date-picker>
                 </el-form-item>
 
-                <el-form-item label="更新时间" label-width="100px">
-                <el-date-picker
-                        v-model="form.updateTime"
-                        type="datetime"
-                        placeholder="选择更新日期时间"
-                        align="left"
-                        :picker-options="pickerOptions"
-                        style="width:200px;text-align:center">
-                </el-date-picker>
-                </el-form-item>
                 <!--
                 <el-time-picker
                         v-model="form.createTime"
@@ -128,9 +118,6 @@
                         placeholder="更新时间"  style="height:60px;" >
                 </el-time-picker>-->
 
-                <el-form-item label="排序" label-width="100px">
-                    <el-input v-model="form.sort" ></el-input>
-                </el-form-item>
             </el-form>
             <template #footer>
                 <span class="dialog-footer">
@@ -147,47 +134,36 @@
 
             <el-form  style="width:280px;" >
                 <el-form-item label="用户名" label-width="100px">
-                    <el-input v-model="form.name" prefix-icon="el-icon-edit"></el-input>
+                    <el-input id="name" v-model="form.name" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="所属机构" label-width="100px">
-                    <el-input v-model="form.education" prefix-icon="el-icon-edit"></el-input>
+                    <el-input id="education" v-model="form.education" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="职称" label-width="100px">
-                    <el-input v-model="form.career" prefix-icon="el-icon-edit"></el-input>
+                    <el-input id="career" v-model="form.career" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
-                <el-form-item label="是否推荐" label-width="100px">
-                    <el-select v-model="form.isStar" placeholder="填写" class="handle-select mr10">
-                        <el-option key="1" label="是" value="是"></el-option>
-                        <el-option key="2" label="否" value="否"></el-option>
-                    </el-select>
+                <el-form-item label="是否推荐" prop="isStar">
+                    是 <input type="radio" name="paytype" value="1">
+                    否 <input type="radio" name="paytype" value="0">
                 </el-form-item>
                 <el-form-item label="分类ID" label-width="100px">
-                    <el-input v-model="form.SubjectId" prefix-icon="el-icon-edit"></el-input>
+                    <el-input id="subject" v-model="form.subject" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
-                <el-form-item label="状态" label-width="100px">
-                    <el-select v-model="form.status" placeholder="填写" class="handle-select mr10">
-                        <el-option key="1" label="在线" value="在线"></el-option>
-                        <el-option key="2" label="离线" value="离线"></el-option>
-                        <el-option key="3" label="已冻结" value="已冻结"></el-option>
-                    </el-select>
-                </el-form-item>
-
-                <el-form-item label="创建时间" label-width="100px">
-                    <el-date-picker
-                            v-model="form.createTime"
-                            type="datetime"
-                            placeholder="选择创建日期时间"
-                            align="left"
-                            :picker-options="pickerOptions"
-                            style="width:200px; text-align:center">
-                    </el-date-picker>
+                <el-form-item label="讲师介绍" label-width="100px" style="width:380px;">
+                    <el-input
+                            id="info"
+                            type="textarea"
+                            :rows="4"
+                            placeholder="请输入内容"
+                            v-model="form.info">
+                    </el-input>
                 </el-form-item>
 
             </el-form>
             <template #footer>
                 <span class="dialog-footer">
-                    <el-button @click="editVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="saveEdit">确 定</el-button>
+                    <el-button @click="addTeacherVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="a();addTeacherVisible = false">确 定</el-button>
                 </span>
             </template>
         </el-dialog>
@@ -200,12 +176,26 @@
     import {fetchData} from "../api/index";
 
     import {getTeacherData} from "../api/article";
+    import {postaddTeacher} from "../api/article";
+
+
     import {getTeacherById} from "../api/teacher";
     import {removeTeacherById} from "../api/teacher";
     export default {
         name: "basetable",
         setup() {
             //const loading=ref(true)
+            //返回给数据库的参数
+            let params = reactive({
+                id: "",
+                name: "",
+                education: "",
+                career: "",
+                isStar: "",
+                subject: "",
+                picPath: "",
+                info: "",
+            });
 
             const query = reactive({
                 id: "",
@@ -264,7 +254,6 @@
                 education: "",
                 career: "",
                 isStar: "",
-                status: "",
                 createTime: "",
                 subject: "",
                 info: "",
@@ -285,6 +274,35 @@
                 });
             };
 
+            //添加教师
+            function a(){
+
+                params.name = document.getElementById("name").value;
+                params.education = document.getElementById("education").value;
+                params.career = document.getElementById("career").value;
+                params.subject = document.getElementById("subject").value;
+                params.info = document.getElementById("info").value;
+
+                let temp = document.getElementsByName("paytype");
+                for(let i=0;i<temp.length;i++){
+                    if(temp[i].checked){
+                        params.isStar=temp[i].value;
+                    }
+                }
+
+                postaddTeacher(params).then(data => {
+                    //res.value = data.data
+                    console.log(data)
+                    //浏览器按f12 可以看到有success (我修改了全局设置，现在不用wrap也能正常返回东西了)
+                }).catch(error => {
+                    console.log(error)
+                    if (error !== 'error') {
+                        ElMessage({type: 'error', message: '失败!', showClose: true})
+                    }
+                })
+            }
+
+            //读取数据
             let backTeacherData = ref()
             getTeacherData().then(_data => {
                 backTeacherData.value = _data.data
@@ -329,6 +347,7 @@
                 pageTotal,
                 editVisible,
                 form,
+                a,
                 handleSearch,
                 handlePageChange,
                 handleDelete,
@@ -340,6 +359,15 @@
         },
         data() {
             return {
+                isStar_options: [{
+                    isStar_value: "1",
+                    isStar_label: "是",
+                }, {
+                    isStar_value: "2",
+                    isStar_label: "否",
+                }],
+                //isStar_value:"",
+
                 pickerOptions: {
                     shortcuts: [{
                         text: '今天',

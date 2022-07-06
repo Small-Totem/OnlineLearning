@@ -140,14 +140,12 @@
                 v-model="addQuestionVisible">
 
             <el-form label-width="100px"  style="width:280px;" >
-                <el-form-item label="问答ID">
-                    <el-input v-model="form.id" prefix-icon="el-icon-edit"></el-input>
-                </el-form-item>
                 <el-form-item label="提问者ID">
-                    <el-input v-model="form.cusId" prefix-icon="el-icon-edit"></el-input>
+                    <el-input  id="userId" v-model="form.userId" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="标题" style="width:380px;">
                     <el-input
+                            id="title"
                             type="textarea"
                             :rows="2"
                             placeholder="请输入内容"
@@ -155,38 +153,27 @@
                     </el-input>
                 </el-form-item>
                 <el-form-item label="类型">
-                    <el-input v-model="form.type" prefix-icon="el-icon-edit"></el-input>
+                    <el-input  id="type" v-model="form.type" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
-                <el-form-item label="状态" label-width="100px">
-                    <el-select v-model="form.status" placeholder="填写" class="handle-select mr10">
-                        <el-option key="1" label="已回复" value="已回复"></el-option>
-                        <el-option key="2" label="未回复" value="未回复"></el-option>
-                    </el-select>
+                <el-form-item label="状态" prop="status">
+                    &nbsp已回复 <input type="radio" name="paytype" value="已回复">
+                    &nbsp&nbsp&nbsp未回复 <input type="radio" name="paytype" value="已回复">
                 </el-form-item>
                 <el-form-item label="回复数量" style="width:200px;">
-                    <el-input v-model="form.replyCount" prefix-icon="el-icon-edit"></el-input>
+                    <el-input id="replyCount" v-model="form.replyCount" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="浏览数量" style="width:200px;">
-                    <el-input v-model="form.browseCount" prefix-icon="el-icon-edit"></el-input>
+                    <el-input id="browseCount" v-model="form.browseCount" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="点赞数量" style="width:200px;">
-                    <el-input v-model="form.praiseCount" prefix-icon="el-icon-edit"></el-input>
+                    <el-input id="praiseCount" v-model="form.praiseCount" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
-                <el-form-item label="创建时间" >
-                    <el-date-picker
-                            v-model="form.addTime"
-                            type="datetime"
-                            placeholder="选择创建日期时间"
-                            align="left"
-                            :picker-options="pickerOptions"
-                            style="width:200px; text-align:center">
-                    </el-date-picker>
-                </el-form-item>
+
             </el-form>
             <template #footer>
                 <span class="dialog-footer">
                     <el-button @click="addQuestionVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="addQuestionVisible=false">确 定</el-button>
+                    <el-button type="primary" @click="a();addQuestionVisible=false">确 定</el-button>
                 </span>
             </template>
         </el-dialog>
@@ -199,12 +186,25 @@
     import { fetchData } from "../api/index";
 
     import { getQuestionData } from "../api/article";
+    import { postaddQuestion } from "../api/article";
     import {getUserById} from "../api/user";
     import {getQuestionById} from "../api/question";
     import {removeQuestionById} from "../api/question";
     export default {
         name: "baseform",
         setup() {
+            //返回给数据库的参数
+            let params = reactive({
+                //articleId: "",
+                userId: "",
+                title: "",
+                type: "",
+                status: "",
+                replyCount: "",
+                clickNum: "",
+                praiseCount: "",
+            });
+
             const query = reactive({
                 address: "",
                 name: "",
@@ -268,6 +268,35 @@
                 });
             };
 
+            //添加文章
+            function a(){
+
+                params.title = document.getElementById("title").value;
+                params.userId = document.getElementById("userId").value;
+                params.type = document.getElementById("type").value;
+                params.replyCount = document.getElementById("replyCount").value;
+                params.browseCount = document.getElementById("browseCount").value;
+                params.praiseCount = document.getElementById("praiseCount").value;
+                let temp = document.getElementsByName("paytype");
+                for(let i=0;i<temp.length;i++){
+                    if(temp[i].checked){
+                        params.status=temp[i].value;
+                    }
+                }
+
+                postaddQuestion(params).then(data => {
+                    //res.value = data.data
+                    console.log(data)
+                    //浏览器按f12 可以看到有success (我修改了全局设置，现在不用wrap也能正常返回东西了)
+                }).catch(error => {
+                    console.log(error)
+                    if (error !== 'error') {
+                        ElMessage({type: 'error', message: '失败!', showClose: true})
+                    }
+                })
+            }
+
+            //读取数据
             let backQuestionData=ref()
             getQuestionData().then(_data => {
                 backQuestionData.value = _data.data
@@ -276,6 +305,8 @@
                     ElMessage({type: 'error', message: '问答数据加载失败!', showClose: true})
                 }
             })
+
+
             function  getQById(id){
                 let backQuestionData=ref()
                 getQuestionById(id).then(_data=>{
@@ -312,6 +343,7 @@
                 pageTotal,
                 editVisible,
                 form,
+                a,
                 handleSearch,
                 handlePageChange,
                 handleDelete,

@@ -42,7 +42,6 @@ public class UserController {
     @GetMapping("/queryAllUser")
     public Object queryAllUser() {
         return wrap(userService.queryAllUser());
-
     }
 
     //根据编号删除用户
@@ -59,5 +58,6 @@ public class UserController {
         queryuser.add(userService.getUserById(id));
         return queryuser;
     }
+
 
 }
