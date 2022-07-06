@@ -99,7 +99,7 @@
       </el-dialog>
     </div>
     <div>
-     <!-- <CardQuestion style="margin-top: 20px; border-radius: 10px" cardHeader="热门问题" :source="hotQuestions"></CardQuestion>-->
+     <!--todo <CardQuestion style="margin-top: 20px; border-radius: 10px" cardHeader="热门问题" :source="hotQuestions"></CardQuestion>-->
     </div>
     <el-row v-for="q in hot_questions">
       <el-card style="width: 300px;height: 70px">
@@ -181,13 +181,13 @@ export default {
 
     submitForm(){
       const _this = this;
-      const url = "http://localhost:8080/addComment"
+      const url = "http://localhost:8080/addQuesCom"
       const queryInfo = new URLSearchParams() ;
       queryInfo.append("content",_this.form.content)
       queryInfo.append("replyCount",0)
-      queryInfo.append("isbest",0)
-     // queryInfo.append("userId",store.state.userId)
-      queryInfo.append("questionid", _this.questionId)
+      queryInfo.append("isBest",0)
+     //todo queryInfo.append("userId",store.state.userId)
+      queryInfo.append("questionId", _this.questionId)
 
       if(_this.form.content==="" ) {
         ElMessage({type: 'error', message: '内容不能为空!', showClose: true})
