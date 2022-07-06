@@ -18,7 +18,7 @@ public class CourseFavoritesController {
     CourseFavoritesService courseFavoritesService;
 
     @PostMapping("/addCourseFavorites")
-    public Object addCourseFavorites(CourseFavorites a){
+    public String addCourseFavorites(CourseFavorites a){
         courseFavoritesService.addCourseFavorites(a);
         return "success";
     }

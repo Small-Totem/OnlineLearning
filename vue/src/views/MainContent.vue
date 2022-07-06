@@ -62,7 +62,7 @@
             id:6,
             pic:"https://10.idqqimg.com/qqcourse_logo_ng/ajNVdqHZLLDicSGQgicV6Ith5s9zAF5dK2rd2MibfPGzmauLhfE9LjLXDBRT7NzVBjRwuun2St22qk/356",
             description:"华为存储HCIA+HCIP实战",
-            link:"/course/5"
+            link:"/course/6"
         },
     ]
 

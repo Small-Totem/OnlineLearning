@@ -103,7 +103,7 @@ export default {
 
       axios.post(url).then(function (res) {
         //处理回传数据。
-        console.log(res)
+        //console.log(res)
         _this.loginflag=res.data
         if(_this.loginflag === -1) {
           ElMessage({type: 'error', message: '用户名或密码错误!', showClose: true})
@@ -111,43 +111,41 @@ export default {
         else{
           ElMessage({type: 'success', message: '登陆成功!', showClose: true})
           localStorage.setItem("ms_username", _this.loginForm.username);
+          localStorage.setItem("userId", _this.loginflag);
           _this.$router.push('/')
 
         }
       });
-      },
-      //注册
-      async register() {
-        const _this = this;
-        const url = 'http://localhost:8080/addUser'
-        if(_this.regForm.password!=_this.regForm.confirmPassword){
-          ElMessage({type: 'error', message: '两次输入的密码不一致!', showClose: true})
-        }else if(_this.regForm.password===""|| _this.regForm.username===""){
-          ElMessage({type: 'error', message: '用户名或密码不能为空!', showClose: true})
-        }
-        else {
-          var queryInfo = new URLSearchParams() ;
-          queryInfo.append("mobile",_this.regForm.username)
-          queryInfo.append("password",_this.regForm.password)
-          console.log(queryInfo)
+    },
+    //注册
+    async register() {
+      const _this = this;
+      const url = 'http://localhost:8080/addUser'
+      if(_this.regForm.password!=_this.regForm.confirmPassword){
+        ElMessage({type: 'error', message: '两次输入的密码不一致!', showClose: true})
+      }else if(_this.regForm.password===""|| _this.regForm.username===""){
+        ElMessage({type: 'error', message: '用户名或密码不能为空!', showClose: true})
+      }
+      else {
+        var queryInfo = new URLSearchParams() ;
+        queryInfo.append("mobile",_this.regForm.username)
+        queryInfo.append("password",_this.regForm.password)
+        //console.log(queryInfo)
         axios.post(url,queryInfo).then(function (res) {
           //处理回传数据。
           _this.registerFlag=res.data
           if(_this.registerFlag ==="success"){
             ElMessage({type: 'success', message: '注册成功!', showClose: true})
             localStorage.setItem("ms_username", _this.regForm.username);
+            localStorage.setItem("userId", _this.loginflag);
             _this.$router.push('/MainPage')
           }else{
             ElMessage({type: 'error', message: '服务器连接失败!', showClose: true})
           }
         })
-        };
-
+      }
     },
   },
-
-
-
 };
 </script>
 

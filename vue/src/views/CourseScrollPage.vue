@@ -52,9 +52,6 @@
       }
     },
     methods: {
-      view(id) {
-        this.$router.push({path: `/view/${id}`})
-      }
     },
     components: {
       'card-course':CardCourse,

@@ -7,7 +7,7 @@
     <el-tabs>
       <el-tab-pane label="全部问答" >
         <el-row v-for="question in questions">
-          <el-card class="box-card">
+          <el-card style="border-radius: 10px; margin-top: 8px" shadow="hover" class="box-card">
             <el-col>
             <div style="float: left;width: 100px;height: 100px">
               <div style="margin-bottom: 5px">
@@ -105,13 +105,12 @@
     </el-tabs>
   </div>
       <div style="width: 300px;background-color: #fff;float: right">
-          <div style="width: 10px;text-align: center">
+          <div style="width: 10px;text-align: center;padding-top: 20px">
             <el-button
                 type="primary"
                 style="width: 300px;font-size: 18px"
                 icon="el-icon-plus"
-                @click="dialogFormVisible=true"
-            >
+                @click="dialogFormVisible=true">
               我要提问
             </el-button>
             <el-dialog title="提问" :visible.sync="dialogFormVisible"  v-model="dialogFormVisible" :append-to-body="true" >
@@ -130,7 +129,7 @@
             </el-dialog>
           </div>
         <div>
-          <h5 style="font-size: 30px;color: #afafaf;text-align: center">热门问答推荐</h5>
+          <CardQuestion style="margin-top: 20px; border-radius: 10px" cardHeader="热门问题" :source="hotQuestions"></CardQuestion>
         </div>
         <el-row v-for="q in hot_questions">
           <el-card style="width: 300px;height: 70px">
@@ -158,14 +157,32 @@
 
 <script>
 
-
-
 import axios from "axios";
+import store from '../store'
 import {ElMessage} from "element-plus";
+import CardQuestion from '../components/card/CardQuestion.vue'
+import {getHotQuestion} from "../api/question";
+import {ref} from "vue"
 
 
 export default {
   name: "Question",
+  components:{
+    CardQuestion
+  },
+  setup(){
+    let hotQuestions=ref()
+    getHotQuestion().then(data => {
+      hotQuestions.value = data.data
+    }).catch(error => {
+      if (error !== 'error') {
+        ElMessage({type: 'error', message: '加载失败!', showClose: true})
+      }
+    })
+    return  {
+      hotQuestions
+    }
+  },
   data: function () {
     return {
       questions:[],
@@ -178,7 +195,7 @@ export default {
         title: "",
         content: "",
       },
-      formLabelWidth: '120px'
+      formLabelWidth: '120px',
     };
 
     },
@@ -193,20 +210,17 @@ export default {
       const _this = this;
       const url = 'http://localhost:8080/queryAllQuestion'
       axios.get(url).then(function (res) {
-
-        console.log(res.data.data)
+        //console.log(res.data.data)
         _this.questions=res.data.data
-        console.log(_this.questions)
+        //console.log(_this.questions)
     })
-
-
   },
 
     getTypeQuestionData(){
       const _this = this;
       const url = "http://localhost:8080/getQuestionByType/2"
       axios.get(url).then(function (res) {
-        console.log(res.data.data)
+        //console.log(res.data.data)
         _this.type_questions=res.data.data
 
       })
@@ -215,26 +229,25 @@ export default {
       const _this = this;
       const url = "http://localhost:8080/getQuestionByType/1"
       axios.get(url).then(function (res) {
-
-        console.log(res.data.data)
+        //console.log(res.data.data)
         _this.hot_questions=res.data.data
-
       })
     },
-    submitForm(){
 
+    submitForm(){
       const _this = this;
       const url = "http://localhost:8080/addQuestion"
-      var queryInfo = new URLSearchParams() ;
+      const queryInfo = new URLSearchParams() ;
       queryInfo.append("title",_this.form.title)
       queryInfo.append("content",_this.form.content)
       queryInfo.append("replyCount",0)
       queryInfo.append("browseCount",0)
-      if(_this.form.title==""|| _this.form.content==="" ) {
+      queryInfo.append("userId",store.state.userId)
+      if(_this.form.title===""|| _this.form.content==="" ) {
         ElMessage({type: 'error', message: '问题标题与内容不能为空!', showClose: true})
       }else {
         axios.post(url, queryInfo).then(function (res) {
-          //处理回传数据。
+          //处理回传数据
           _this.submitFlag = res.data
           if (_this.submitFlag === "success") {
             ElMessage({type: 'success', message: '提交成功!', showClose: true})
@@ -245,17 +258,15 @@ export default {
           }
         })
       }
-
     },
-
-
-}}
+  }
+}
 </script>
 
 <style scoped>
 
 .mainbox{
-  background-color: #d2d2d2;
+  background-color: #ffffff;
   width:100%;
   height: 100%;
 }

@@ -32,6 +32,12 @@
                 tagName:"运动"
             },{
                 id:6,
+                tagName:"历史"
+            },{
+                id:7,
+                tagName:"围棋"
+            },{
+                id:8,
                 tagName:"艺术"
             }]
             return {

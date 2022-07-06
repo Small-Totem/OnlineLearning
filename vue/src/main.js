@@ -12,3 +12,7 @@ app
     .use(store)
     .use(router)
     .mount('#app')
+
+
+store.state.userId=localStorage.getItem("userId")
+//console.log("userId="+store.state.userId)
