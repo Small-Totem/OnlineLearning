@@ -66,6 +66,14 @@ const routes = [
                 },
                 component: () => import ( /* webpackChunkName: "dashboard" */ "../views/Question.vue")
             },
+            {
+                path: "/QuestionDetails/:id",
+                name: "QuestionDetails",
+                meta: {
+                    title: '问答详情'
+                },
+                component: () => import ( /* webpackChunkName: "dashboard" */ "../views/QuestionDetails.vue")
+            },
         ]
     },
     {

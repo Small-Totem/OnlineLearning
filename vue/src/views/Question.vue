@@ -7,7 +7,7 @@
     <el-tabs>
       <el-tab-pane label="全部问答" >
         <el-row v-for="question in questions">
-          <el-card style="border-radius: 10px; margin-top: 8px" shadow="hover" class="box-card">
+          <el-card style="border-radius: 10px; margin-top: 8px" shadow="hover" class="box-card"  @click.native="toDetails(question.id)">
             <el-col>
             <div style="float: left;width: 100px;height: 100px">
               <div style="margin-bottom: 5px">
@@ -24,7 +24,9 @@
             </el-col>
             <el-col style="width: 550px;margin-left: 10px">
                <div >
-                   <span style="color: #20a0ff" >{{question.title}}</span>
+                   <span style="color: #20a0ff">{{question.title}}</span>
+
+                <!-- <el-link href="http://localhost:3000/QuestionDetails/{{question.userId}}" target="_blank" style="color:#20a0ff;">{{question.title}}</el-link>-->
                </div>
                <div style="margin-top: 10px" >
                    <span >{{question.content}}</span>
@@ -56,7 +58,7 @@
 
       <el-tab-pane label="课程问答" lazy>
         <el-row v-for="tq in type_questions">
-          <el-card class="box-card">
+          <el-card class="box-card" @click.native="toDetails(tq.id)" >
             <el-col>
               <div style="float: left;width: 100px;height: 100px">
                 <div style="margin-bottom: 5px">
@@ -113,6 +115,7 @@
                 @click="dialogFormVisible=true">
               我要提问
             </el-button>
+            
             <el-dialog title="提问" :visible.sync="dialogFormVisible"  v-model="dialogFormVisible" :append-to-body="true" >
               <el-form :model="form">
                 <el-form-item label="问题标题" :label-width="formLabelWidth">
@@ -163,6 +166,7 @@ import {ElMessage} from "element-plus";
 import CardQuestion from '../components/card/CardQuestion.vue'
 import {getHotQuestion} from "../api/question";
 import {ref} from "vue"
+import {useRouter} from "_vue-router@4.0.16@vue-router";
 
 
 export default {
@@ -259,6 +263,11 @@ export default {
         })
       }
     },
+    toDetails(id){
+      const _this = this;
+      console.log("1111")
+      _this.$router.push('/QuestionDetails/'+id)
+    }
   }
 }
 </script>
