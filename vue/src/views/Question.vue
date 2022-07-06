@@ -37,18 +37,18 @@
             </el-col>
             <el-col>
             <div style="text-align: center ">
-              <span style="color:#adadad">{{ question.replyCount }}</span>
+              <span >{{ question.replyCount }}</span>
             </div>
             <div style="margin-top: 30px">
-              <span style="color: #adadad">{{ "回答数" }}</span>
+              <i style="color: #adadad" class="el-icon-lx-message"> 回答数</i>
             </div>
             </el-col>
             <el-col style="float: right">
               <div style="text-align: center ">
-                <span style="color: #adadad">{{ question.browseCount }}</span>
+                <span >{{ question.browseCount }}</span>
               </div>
               <div style="margin-top: 30px">
-                <span style="color: #adadad">{{ "浏览数" }}</span>
+                <i style="color: #adadad" class="el-icon-lx-attention"> 浏览数</i>
               </div>
             </el-col>
 
@@ -115,7 +115,7 @@
                 @click="dialogFormVisible=true">
               我要提问
             </el-button>
-            
+
             <el-dialog title="提问" :visible.sync="dialogFormVisible"  v-model="dialogFormVisible" :append-to-body="true" >
               <el-form :model="form">
                 <el-form-item label="问题标题" :label-width="formLabelWidth">
@@ -134,21 +134,6 @@
         <div>
           <CardQuestion style="margin-top: 20px; border-radius: 10px" cardHeader="热门问题" :source="hotQuestions"></CardQuestion>
         </div>
-        <el-row v-for="q in hot_questions">
-          <el-card style="width: 300px;height: 70px">
-            <div style="float: left ;margin-top: 4px;margin-right: 4px">
-            <i class="el-icon-collection-tag" ></i>
-             </div>
-
-            <el-link href="https://element.eleme.io" target="_blank">{{q.title}}</el-link>
-            <div style="float: right">
-              <span style="color: #ff876b">{{ q.replyCount }}</span>
-            </div>
-            <div>
-              <span style="color: #adadad;float: right">{{ "回答数" }}</span>
-            </div>
-          </el-card>
-        </el-row>
       </div>
     </el-col>
   </el-row>
@@ -166,8 +151,6 @@ import {ElMessage} from "element-plus";
 import CardQuestion from '../components/card/CardQuestion.vue'
 import {getHotQuestion} from "../api/question";
 import {ref} from "vue"
-import {useRouter} from "_vue-router@4.0.16@vue-router";
-
 
 export default {
   name: "Question",

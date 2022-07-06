@@ -1,71 +1,173 @@
 <template>
-    <div>
-        <el-container>
-            <el-header class="select">课程选择</el-header>
-            <el-main class="content">
-                学科：
-                <el-radio-group v-model="radio3">
-                    <el-radio-button label="计算机科学"></el-radio-button>
-                    <el-radio-button label="软件工程"></el-radio-button>
-                    <el-radio-button label="大数据"></el-radio-button>
-                    <el-radio-button label="人工智能"></el-radio-button>
-                </el-radio-group>
-            </el-main>
-        </el-container>
+    <div class="mainbox">
+        <el-row type="flex" justify="center">
+            <el-col :span="20">
+                <div style="width: 70%;background-color: #fff;padding: 10px 20px;float: left;">
+                    <el-row v-for="article in articles">
+                        <el-card style="border-radius: 10px; margin-top: 8px" shadow="hover" class="box-card">
+                            <el-col>
+                                <div style="float: left;width: 100px;height: 100px">
+                                    <div style="margin-bottom: 5px">
+                                        <el-avatar :size="large" :src=url></el-avatar>
+                                    </div >
+                                    <span style="margin-left: 15px" >{{article.userId}}</span>
+                                </div>
+                            </el-col>
+
+                            <el-col>
+                                <div style="margin-top: 4px" ><i class="el-icon-collection-tag"></i></div>
+                                <div style="float: left; margin-top: 10px"><i class="el-icon-chat-dot-round"></i></div>
+                                <div style=" margin-top: 40px"><i class="el-icon-edit"></i> </div>
+                            </el-col>
+                            <el-col style="width: 550px;margin-left: 10px">
+                                <div >
+                                    <span style="color: #20a0ff" >{{article.title}}</span>
+                                </div>
+                                <div style="margin-top: 10px" >
+                                    <span >{{article.summary}}</span>
+                                </div>
+                                <div style="margin-top: 10px" >
+                                    <span style="color: #999999">{{article.publishTime}}</span>
+                                </div>
+                            </el-col>
+                            <el-col>
+                                <div style="text-align: center ">
+                                    <span >{{ article.praiseCount }}</span>
+                                </div>
+                                <div style="margin-top: 30px">
+                                    <i style="color: #adadad" class="el-icon-lx-like"> 点赞数</i>
+                                </div>
+                            </el-col>
+                            <el-col style="float: right">
+                                <div style="text-align: center ">
+                                    <span>{{ article.clickNum }}</span>
+                                </div>
+                                <div style="margin-top: 30px">
+                                    <i style="color: #adadad" class="el-icon-lx-attention"> 浏览数</i>
+                                </div>
+                            </el-col>
+
+                        </el-card>
+                    </el-row>
+                </div>
+                <div style="width: 300px;background-color: #fff;float: right">
+                    <div style="width: 10px;text-align: center;padding-top: 20px">
+                        <el-button
+                                type="primary"
+                                style="width: 300px;font-size: 18px"
+                                icon="el-icon-plus"
+                                @click="dialogFormVisible=true">
+                            发表文章
+                        </el-button>
+                        <el-dialog title="提问" :visible.sync="dialogFormVisible" v-model="dialogFormVisible" :append-to-body="true" >
+                            <el-form :model="form">
+                                <el-form-item label="问题标题" :label-width="formLabelWidth">
+                                    <el-input v-model="form.title" autocomplete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item label="问题内容" :label-width="formLabelWidth">
+                                    <el-input v-model="form.content" autocomplete="off"  ></el-input>
+                                </el-form-item>
+                            </el-form>
+                            <div slot="footer" class="dialog-footer">
+                                <el-button @click="dialogFormVisible = false" style="margin-left: 250px">取 消</el-button>
+                                <el-button type="primary" @click="submitForm">确 定</el-button>
+                            </div>
+                        </el-dialog>
+                    </div>
+                    <div>
+                        <CardArticle style="margin-top: 20px; border-radius: 10px" cardHeader="热门文章" :source="hotArticles"></CardArticle>
+                    </div>
+                </div>
+            </el-col>
+        </el-row>
     </div>
 </template>
 
 <script>
-    import { ref } from 'vue'
-    import {post_param_test} from '../api/article'
-    import {ElMessage} from 'element-plus'
+    import axios from "axios";
+    import store from '../store'
+    import {ElMessage} from "element-plus";
+    import {getHotArticles} from "../api/article";
+    import {ref} from "vue"
+    import CardArticle from "../components/card/CardArticle.vue";
 
     export default {
-        name: "ArticlePage",
+        name: "Question",
+        components:{
+            CardArticle
+        },
         setup(){
-
-
-////////////////////////////////////////////////
-//以下是无用代码，仅作为post带参数调用例子 todo delete this
-
-            const params={
-                userId:2,
-                courseId:3
-            }
-            post_param_test(params).then(data => {
-                //res.value = data.data
-                console.log(data)
-                //浏览器按f12 可以看到有success (我修改了全局设置，现在不用wrap也能正常返回东西了)
+            let hotArticles=ref()
+            getHotArticles().then(data => {
+                hotArticles.value = data.data
             }).catch(error => {
-                console.log(error)
                 if (error !== 'error') {
-                    ElMessage({type: 'error', message: '失败!', showClose: true})
+                    ElMessage({type: 'error', message: '加载失败!', showClose: true})
                 }
             })
-///////////////////////////////////////////////
+            return  {
+                hotArticles,
+                articles:[],
+                submitFlag:"fail",
+                url:"../src/assets/img/img.jpg",
+                dialogFormVisible: false,
+                form: {
+                    title: "",
+                    content: "",
+                },
+                formLabelWidth: '120px',
+            }
+        },
 
-            return {
-                radio3: ''
+        created() {
+            this.getQuestionData()
+        },
+        methods: {
+            getQuestionData() {
+                const _this = this;
+                const url = 'http://localhost:8080/queryAllArticle'
+                axios.get(url).then(function (res) {
+                    _this.articles = res.data.data;
+                    //console.log(_this.articles)
+                })
+            },
+
+            submitForm() {  //todo
+                const _this = this;
+                const url = "http://localhost:8080/addQuestion"
+                const queryInfo = new URLSearchParams();
+                queryInfo.append("title", _this.form.title)
+                queryInfo.append("content", _this.form.content)
+                queryInfo.append("replyCount", 0)
+                queryInfo.append("browseCount", 0)
+                queryInfo.append("userId", store.state.userId)
+                if (_this.form.title === "" || _this.form.content === "") {
+                    ElMessage({type: 'error', message: '问题标题与内容不能为空!', showClose: true})
+                } else {
+                    axios.post(url, queryInfo).then(function (res) {
+                        //处理回传数据
+                        _this.submitFlag = res.data
+                        if (_this.submitFlag === "success") {
+                            ElMessage({type: 'success', message: '提交成功!', showClose: true})
+                            _this.dialogFormVisible = false
+
+                        } else {
+                            ElMessage({type: 'error', message: '提交失败!', showClose: true})
+                        }
+                    })
+                }
             }
         }
     }
 </script>
 
-<style >
-    .select{
-        background-color: #B3C0D1;
-        color: #333;
-        text-align: center;
-        line-height: 60px;
+<style scoped>
+    .mainbox{
+        background-color: #ffffff;
+        width:100%;
+        height: 100%;
     }
-    .content {
-        background-color: #E9EEF3;
-        color: #333;
-        text-align: center;
-        line-height: 160px;
+    .box-card{
+        width:100%;
     }
-    body > .el-container {
-        margin-bottom: 40px;
-    }
-
 </style>

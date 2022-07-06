@@ -21,7 +21,7 @@ public class CommentController {
     @PostMapping("/addComment")
     public String addComment(Comment a){
         commentService.addComment(a);
-        return  "success";
+        return "success";
     }
 
     @GetMapping("/getComment/{id}")

@@ -40,9 +40,10 @@ create table edu_article
 );
 
 insert into edu_article (USER_ID,TITLE,SUMMARY,CONTENT,CLICK_NUM,PRAISE_COUNT) values (1,"我是理塘丁真","我只抽电子烟","我是来自理塘的丁真",345,121);
-insert into edu_article (USER_ID,TITLE,SUMMARY,CLICK_NUM,PRAISE_COUNT) values (1,"都什么时代了，还在抽传统烟？","电子烟入门教学",3245,221);
-insert into edu_article (USER_ID,TITLE,SUMMARY,CLICK_NUM,PRAISE_COUNT) values (3,"鸡哥篮球速成班","篮球速成",3345,221);
-insert into edu_article (USER_ID,TITLE,SUMMARY,CLICK_NUM,PRAISE_COUNT) values (2,"滑雪教学","滑了",3245,231);
+insert into edu_article (USER_ID,TITLE,SUMMARY,CONTENT,CLICK_NUM,PRAISE_COUNT) values (1,"都什么时代了，还在抽传统烟？","电子烟入门教学","孩子不懂事抽着玩的",3245,221);
+insert into edu_article (USER_ID,TITLE,SUMMARY,CONTENT,CLICK_NUM,PRAISE_COUNT) values (3,"鸡哥篮球速成班","篮球速成","鸡你太美",3345,221);
+insert into edu_article (USER_ID,TITLE,SUMMARY,CONTENT,CLICK_NUM,PRAISE_COUNT) values (2,"滑雪教学","滑了","狠狠地滑",3245,231);
+insert into edu_article (USER_ID,TITLE,SUMMARY,CONTENT,CLICK_NUM,PRAISE_COUNT) values (5,"大家好，我是带带大师兄","我正式入驻在线教育平台了","我会持续高强度更新日语教学视频",4396,234);
 
 
 /*==============================================================*/
@@ -58,9 +59,10 @@ create table edu_comment
    PRAISE_COUNT         int,
    primary key (COMMENT_ID)
 );
-insert into edu_comment (COURSE_ID,USER_ID,CONTENT,PRAISE_COUNT) values (0,2,"我踏马直接入土",3);
-insert into edu_comment (COURSE_ID,USER_ID,CONTENT,PRAISE_COUNT) values (0,0,"这不有手就行？",1);
-insert into edu_comment (COURSE_ID,USER_ID,CONTENT,PRAISE_COUNT) values (1,0,"php是世界上最好的语言！",14);
+insert into edu_comment (COURSE_ID,USER_ID,CONTENT,PRAISE_COUNT) values (2,2,"我踏马直接入土",3);
+insert into edu_comment (COURSE_ID,USER_ID,CONTENT,PRAISE_COUNT) values (2,1,"这不有手就行？",1);
+insert into edu_comment (COURSE_ID,USER_ID,CONTENT,PRAISE_COUNT) values (1,1,"php是世界上最好的语言！",14);
+insert into edu_comment (COURSE_ID,USER_ID,CONTENT,PRAISE_COUNT) values (1,3,"javascript是世界上最烂的语言！",16);
 
 
 /*==============================================================*/
