@@ -8,6 +8,7 @@ import com.cqu.online_learning.utils.ReturnWrap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.cqu.online_learning.utils.StaticUtils.wrap;
@@ -32,8 +33,10 @@ public class CourseController {
     }
 
     @GetMapping("/getCourse/{courseId}")
-    public Course queryCourse(@PathVariable int courseId){
-        return courseService.getCourse(courseId);
+    public List<Course> queryCourse(@PathVariable int courseId){
+        List<Course> querycourse=new ArrayList<>();
+        querycourse.add(courseService.getCourse(courseId));
+        return querycourse;
 
     }
     @GetMapping("/removeCourse/{id}")

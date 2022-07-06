@@ -20,7 +20,7 @@
                             <el-option key="6" label="发布时间" value="publishTime"></el-option>
                         </el-select>
                         <el-input v-model="query.name" clearable   class="handle-input mr10"></el-input>
-                        <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+                        <el-button type="primary" icon="el-icon-search" @click="getAById(query.name)">搜索</el-button>
                     </div>
                     <div>
 
@@ -190,7 +190,7 @@
     import { ElMessage, ElMessageBox } from "element-plus";
     import { fetchData } from "../api/index";
 
-    import { getArticleData } from "../api/article";
+    import {getArticleById, getArticleData} from "../api/article";
 
     export default {
         name: "basetable",
@@ -271,9 +271,22 @@
                 if (error !== 'error') {
                     ElMessage({type: 'error', message: '文章咨询数据加载失败!', showClose: true})
                 }
-            }).finally(() => {
-                loading.value = false
             })
+            function getAById(id) {
+                let backArticleData=ref()
+                getArticleById(id).then(_data => {
+                    this.backArticleData=undefined;
+                    this.backArticleData=_data;
+                    console.log(_data)
+                }).catch(error => {
+                    if (error !== 'error') {
+                        ElMessage({type: 'error', message: '文章咨询数据加载失败!', showClose: true})
+                    }
+                })
+                return{
+                  backArticleData,
+                };
+            }
 
             return {
                 backArticleData,
@@ -287,6 +300,7 @@
                 handleDelete,
                 handleEdit,
                 saveEdit,
+                getAById
             };
         },
         data() {

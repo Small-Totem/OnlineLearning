@@ -20,7 +20,7 @@
                         <el-option key="6" label="添加时间" value="addTime"></el-option>
                     </el-select>
                     <el-input v-model="query.name" clearable   class="handle-input mr10"></el-input>
-                    <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+                    <el-button type="primary" icon="el-icon-search" @click="getCById(query.name)">搜索</el-button>
                 </div>
                 <div>
 
@@ -207,6 +207,7 @@
     import { fetchData } from "../api/index";
 
     import {getCourseData} from "../api/article";
+    import {getCourseById} from "../api/course";
 
     export default {
         name: "baseform",
@@ -316,9 +317,21 @@
                 if (error !== 'error') {
                     ElMessage({type: 'error', message: '课程数据加载失败!', showClose: true})
                 }
-            }).finally(() => {
-                loading.value = false
             })
+            function getCById(courseId) {
+                let backCourseData=ref()
+                getCourseById(courseId).then(_data => {
+                   this.backCourseData=undefined;
+                   this.backCourseData=_data;
+                }).catch(error => {
+                    if (error !== 'error') {
+                        ElMessage({type: 'error', message: '课程数据加载失败!', showClose: true})
+                    }
+                })
+                return{
+                    backCourseData,
+                };
+            }
 
 
             return {
@@ -333,6 +346,7 @@
                 handleDelete,
                 handleEdit,
                 saveEdit,
+                getCById
             };
         }
 

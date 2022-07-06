@@ -7,6 +7,7 @@ import com.cqu.online_learning.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.cqu.online_learning.utils.StaticUtils.wrap;
@@ -53,8 +54,10 @@ public class UserController {
     }
 
     @GetMapping("/getUserById/{id}")
-    public User getUser(@PathVariable int id){
-        return userService.getUserById(id);
+    public List<User> getUser(@PathVariable int id){
+        List<User> queryuser = new ArrayList<>();
+        queryuser.add(userService.getUserById(id));
+        return queryuser;
     }
 
 }

@@ -19,7 +19,7 @@
                             <el-option key="5" label="分类" value="subject"></el-option>
                         </el-select>
                         <el-input v-model="query.name" clearable   class="handle-input mr10"></el-input>
-                        <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+                        <el-button type="primary" icon="el-icon-search" @click="getTById(query.name)">搜索</el-button>
                     </div>
                     <div>
                         <el-button type="primary" icon="el-icon-plus" @click="showAddTeacher">添加讲师</el-button>
@@ -200,6 +200,7 @@
     import {fetchData} from "../api/index";
 
     import {getTeacherData} from "../api/article";
+    import {getTeacherById} from "../api/teacher";
 
     export default {
         name: "basetable",
@@ -291,10 +292,22 @@
                 if (error !== 'error') {
                     ElMessage({type: 'error', message: '教师数据加载失败!', showClose: true})
                 }
-            }).finally(() => {
-                loading.value = false
             })
-
+            function getTById(id) {
+                let backTeacherData = ref()
+                getTeacherById(id).then(_data => {
+                    this.backTeacherData=undefined;
+                    this.backTeacherData=_data;
+                    console.log(_data)
+                }).catch(error => {
+                    if (error !== 'error') {
+                        ElMessage({type: 'error', message: '教师数据加载失败!', showClose: true})
+                    }
+                })
+                return{
+                    backTeacherData,
+                };
+            }
 
             return {
                 backTeacherData,
@@ -308,6 +321,7 @@
                 handleDelete,
                 handleEdit,
                 saveEdit,
+                getTById
             };
         },
         data() {

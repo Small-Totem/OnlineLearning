@@ -14,3 +14,10 @@ export function getHotCourses() {
         method: 'get'
     })
 }
+export function  getCourseById(courseId) {
+    return request({
+        url:`http://localhost:8080/getCourse/${courseId}`,
+        method:'get'
+    })
+
+}

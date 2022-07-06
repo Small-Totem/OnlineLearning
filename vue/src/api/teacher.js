@@ -17,3 +17,9 @@ export function getTeachersBySubject(subject) {
         }
     })
 }
+export function getTeacherById(id){
+    return request({
+        url:`http://localhost:8080/getTeacher/${id}`,
+        method:'get'
+    })
+}
