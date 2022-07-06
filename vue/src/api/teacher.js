@@ -23,3 +23,9 @@ export function getTeacherById(id){
         method:'get'
     })
 }
+export function removeTeacherById(id){
+    return request({
+        url:`http://localhost:8080/removeTeacher/${id}`,
+        method:'get'
+    })
+}

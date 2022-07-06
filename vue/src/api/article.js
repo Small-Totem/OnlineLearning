@@ -68,3 +68,10 @@ export function post_param_test(params) {
     }
   })
 }
+export function removeArticleById(id) {
+  return request({
+    url:`http://localhost:8080/removeArticle/${id}`,
+    method:'get'
+  })
+
+}

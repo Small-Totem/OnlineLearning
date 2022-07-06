@@ -21,3 +21,9 @@ export function getQuestionById(id) {
     })
 
 }
+export function removeQuestionById(id){
+    return request({
+        url:`http://localhost:8080/removeQuestion/${id}`,
+        method:'get'
+    })
+}

@@ -48,7 +48,7 @@
                         <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)">编辑
                         </el-button>
                         <el-button type="text" icon="el-icon-delete" class="red"
-                                   @click="handleDelete(scope.$index, scope.row)">删除
+                                   @click="handleDelete( scope.row)">删除
                         </el-button>
                     </template>
                 </el-table-column>
@@ -201,7 +201,7 @@
 
     import {getTeacherData} from "../api/article";
     import {getTeacherById} from "../api/teacher";
-
+    import {removeTeacherById} from "../api/teacher";
     export default {
         name: "basetable",
         setup() {
@@ -243,14 +243,14 @@
             };
 
             // 删除操作
-            const handleDelete = (index) => {
+            const handleDelete = (row) => {
                 // 二次确认删除
                 ElMessageBox.confirm("确定要删除吗？", "提示", {
                     type: "warning",
                 })
                     .then(() => {
+                        removeTById(row.id);
                         ElMessage.success("删除成功");
-                        tableData.value.splice(index, 1);
                     })
                     .catch(() => {
                     });
@@ -307,7 +307,20 @@
                 return{
                     backTeacherData,
                 };
-            }
+            };
+            function removeTById(id){
+                let backTeacherData=ref()
+                removeTeacherById(id).then(_data => {
+                    console.log(_data)
+                }).catch(error => {
+                    if (error !== 'error') {
+                        ElMessage({type: 'error', message: '用户数据加载失败!', showClose: true})
+                    }
+                })
+                return{
+                    backTeacherData,
+                };
+            };
 
             return {
                 backTeacherData,
@@ -321,7 +334,8 @@
                 handleDelete,
                 handleEdit,
                 saveEdit,
-                getTById
+                getTById,
+                removeTById
             };
         },
         data() {

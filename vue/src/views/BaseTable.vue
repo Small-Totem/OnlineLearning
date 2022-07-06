@@ -43,7 +43,7 @@
                         <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)">编辑
                         </el-button>
                         <el-button type="text" icon="el-icon-delete" class="red"
-                                   @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                                   @click="handleDelete(scope.row)">删除</el-button>
                     </template>
                 </el-table-column>
 
@@ -157,6 +157,7 @@
 
     import {getUserData} from '../api/article';
     import {getUserById} from "../api/user";
+    import {removeUserById} from "../api/user";
 
     export default {
 
@@ -186,16 +187,7 @@
                 this.currentPage=currentPage;
                 this.initEmps();
             },
-            //监听改变Size
-            handleSizesChange(newSize){
-              this.queryInfo.pagesize=newSize
-              this.getUserList()
-            },
-            //监听newPage
-            handleCurrentChange(newPage){
-              this.queryInfo.pagenum=newPage
-                this.getUserList()
-            },
+
             async getUserList () {
                 const { data: res } = await this.$http.get('/queryAllUser', {
                     params: this.queryInfo
@@ -258,16 +250,19 @@
             };
 
             // 删除操作
-            const handleDelete = (index) => {
+            const handleDelete = (row) => {
+
+
                 // 二次确认删除
                 ElMessageBox.confirm("确定要删除吗？", "提示", {
                     type: "warning",
-                })
-                    .then(() => {
+                }).then(() => {
+                        removeUById(row.userId);
                         ElMessage.success("删除成功");
-                        tableData.value.splice(index, 1);
+                        //this.backUserData.splice(index, 1)
                     })
-                    .catch(() => {
+                    .catch((error) => {
+                        console.log(error)
                     });
             };
 
@@ -322,7 +317,20 @@
                 return{
                     backUserData,
                 };
-            }
+            };
+            function removeUById(id){
+                let backUserData=ref()
+                removeUserById(id).then(_data => {
+                    console.log(_data)
+                }).catch(error => {
+                    if (error !== 'error') {
+                        ElMessage({type: 'error', message: '用户数据加载失败!', showClose: true})
+                    }
+                })
+                return{
+                    backUserData,
+                };
+            };
 
 
 
@@ -338,7 +346,8 @@
                 handleDelete,
                 handleEdit,
                 saveEdit,
-                getUById
+                getUById,
+                removeUById
             };
         },
     };

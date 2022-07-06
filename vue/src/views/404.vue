@@ -50,7 +50,7 @@
                         <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)">编辑
                         </el-button>
                         <el-button type="text" icon="el-icon-delete" class="red"
-                                   @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                                   @click="handleDelete(scope.row)">删除</el-button>
                     </template>
                 </el-table-column>
 
@@ -201,7 +201,7 @@
     import { getQuestionData } from "../api/article";
     import {getUserById} from "../api/user";
     import {getQuestionById} from "../api/question";
-
+    import {removeQuestionById} from "../api/question";
     export default {
         name: "baseform",
         setup() {
@@ -234,14 +234,14 @@
             };
 
             // 删除操作
-            const handleDelete = (index) => {
+            const handleDelete = (row) => {
                 // 二次确认删除
                 ElMessageBox.confirm("确定要删除吗？", "提示", {
                     type: "warning",
-                })
-                    .then(() => {
+                }).then(() => {
+                        removeQById(row.id);
                         ElMessage.success("删除成功");
-                        tableData.value.splice(index, 1);
+
                     })
                     .catch(() => {});
             };
@@ -290,7 +290,20 @@
                 return{
                     backQuestionData,
                 };
-            }
+            };
+            function removeQById(id){
+                let backQuestionData=ref()
+                removeQuestionById(id).then(_data => {
+                    console.log(_data)
+                }).catch(error => {
+                    if (error !== 'error') {
+                        ElMessage({type: 'error', message: '用户数据加载失败!', showClose: true})
+                    }
+                })
+                return{
+                    backQuestionData,
+                };
+            };
 
             return {
                 backQuestionData,
@@ -304,7 +317,8 @@
                 handleDelete,
                 handleEdit,
                 saveEdit,
-                getQById
+                getQById,
+                removeQById
             };
         },
         data() {

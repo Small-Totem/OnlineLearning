@@ -12,3 +12,9 @@ export function  getUserById(id) {
         method: 'get'
     })
 }
+export function removeUserById(id) {
+    return request({
+        url:`http://localhost:8080/removeUser/${id}`,
+        method:'get'
+    })
+}

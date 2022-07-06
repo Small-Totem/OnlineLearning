@@ -21,3 +21,10 @@ export function  getCourseById(courseId) {
     })
 
 }
+export function removeCourseById(courseId) {
+    return request({
+        url:`http://localhost:8080/removeCourse/${courseId}`,
+        method:'get'
+    })
+
+}
