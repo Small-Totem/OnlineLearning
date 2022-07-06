@@ -6,6 +6,9 @@ import com.cqu.online_learning.services.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.cqu.online_learning.utils.StaticUtils.wrap;
 
 @RestController
@@ -25,8 +28,10 @@ public class ArticleController {
     }
 
     @GetMapping("/getArticle/{id}")
-    public Article getArticle(@PathVariable int id){
-        return articleService.getArticle(id);
+    public List<Article> getArticle(@PathVariable int id){
+        List<Article> queryarticle=new ArrayList<>();
+        queryarticle.add(articleService.getArticle(id));
+        return queryarticle;
     }
 
     @GetMapping("/removeArticle/{id}")

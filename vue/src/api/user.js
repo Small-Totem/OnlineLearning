@@ -8,7 +8,7 @@ export function queryAllUser() {
 
 export function  getUserById(id) {
     return request({
-        url: `/getUserById/${id}`,
+        url: `http://localhost:8080/getUserById/${id}`,
         method: 'get'
     })
 }

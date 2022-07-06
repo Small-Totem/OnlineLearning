@@ -81,13 +81,15 @@ create table edu_course
 );
 
 
-insert into edu_course (TEACHER_ID,COURSE_NAME,TITLE,LOGO) values (1,"java:从入门到入土","java:从入门到入土","https://p2.itc.cn/images01/20210720/9c5ad1a36bd54ac4a621c9b357423081.jpeg");
-insert into edu_course (TEACHER_ID,COURSE_NAME,TITLE,LOGO) values (2,"php:从入门到入土","php:从入门到入土","https://img2.baidu.com/it/u=2692009492,3096513359&fm=253&fmt=auto&app=138&f=JPEG?w=550&h=370");
-insert into edu_course (TEACHER_ID,COURSE_NAME,TITLE,LOGO) values (4,"围棋:AI是怎么让围棋变得无趣的","围棋:AI是怎么让围棋变得无趣的","http://mms1.baidu.com/it/u=4137928886,1380956632&fm=253&app=138&f=JPEG&fmt=auto&q=75?w=590&h=500");
-insert into edu_course (TEACHER_ID,COURSE_NAME,TITLE,LOGO) values (2,"c++:从入门到入土","c++:从入门到入土","https://img1.baidu.com/it/u=2432038776,1994590296&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500");
-insert into edu_course (TEACHER_ID,COURSE_NAME,TITLE,LOGO) values (2,"kotlin:从基础到实战","kotlin:从基础到实战","http://mms0.baidu.com/it/u=2188006861,2500630587&fm=253&app=138&f=JPEG&fmt=auto&q=75?w=500&h=500");
-insert into edu_course (TEACHER_ID,COURSE_NAME,TITLE,LOGO) values (3,"vue:前端开发实战","vue:前端开发实战","http://mms0.baidu.com/it/u=4101935789,3368351456&fm=253&app=138&f=JPEG&fmt=auto&q=75?w=474&h=383");
-insert into edu_course (TEACHER_ID,COURSE_NAME,TITLE,LOGO) values (5,"电子烟的发展史","电子烟的发展史","https://img1.baidu.com/it/u=1043431332,3800419241&fm=253&fmt=auto&app=138&f=JPEG?w=749&h=500");
+insert into edu_course (TEACHER_ID,COURSE_NAME,SUBJECT,TITLE,LOGO) values (1,"java:从入门到入土","IT","java:从入门到入土","https://p2.itc.cn/images01/20210720/9c5ad1a36bd54ac4a621c9b357423081.jpeg");
+insert into edu_course (TEACHER_ID,COURSE_NAME,SUBJECT,TITLE,LOGO) values (2,"php:从入门到入土","IT","php:从入门到入土","https://img2.baidu.com/it/u=2692009492,3096513359&fm=253&fmt=auto&app=138&f=JPEG?w=550&h=370");
+insert into edu_course (TEACHER_ID,COURSE_NAME,SUBJECT,TITLE,LOGO) values (4,"围棋:AI是怎么让围棋变得无趣的","围棋","围棋:AI是怎么让围棋变得无趣的","http://mms1.baidu.com/it/u=4137928886,1380956632&fm=253&app=138&f=JPEG&fmt=auto&q=75?w=590&h=500");
+insert into edu_course (TEACHER_ID,COURSE_NAME,SUBJECT,TITLE,LOGO) values (2,"c++:从入门到入土","IT","c++:从入门到入土","https://img1.baidu.com/it/u=2432038776,1994590296&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500");
+insert into edu_course (TEACHER_ID,COURSE_NAME,SUBJECT,TITLE,LOGO) values (2,"kotlin:从基础到实战","IT","kotlin:从基础到实战","http://mms0.baidu.com/it/u=2188006861,2500630587&fm=253&app=138&f=JPEG&fmt=auto&q=75?w=500&h=500");
+insert into edu_course (TEACHER_ID,COURSE_NAME,SUBJECT,TITLE,LOGO) values (3,"vue:前端开发实战","IT","vue:前端开发实战","http://mms0.baidu.com/it/u=4101935789,3368351456&fm=253&app=138&f=JPEG&fmt=auto&q=75?w=474&h=383");
+insert into edu_course (TEACHER_ID,COURSE_NAME,SUBJECT,TITLE,LOGO) values (5,"电子烟的发展史","历史","电子烟的发展史","https://img1.baidu.com/it/u=1043431332,3800419241&fm=253&fmt=auto&app=138&f=JPEG?w=749&h=500");
+insert into edu_course (TEACHER_ID,COURSE_NAME,SUBJECT,TITLE,LOGO) values (3,"apex进阶技巧","电竞","apex进阶技巧","https://img1.baidu.com/it/u=1785571183,2132428175&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500");
+insert into edu_course (TEACHER_ID,COURSE_NAME,SUBJECT,TITLE,LOGO) values (2,"药酱教你高情商为人处世","职场","药酱教你高情商为人处世","https://img2.baidu.com/it/u=3280602308,123718325&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500");
 
 /*==============================================================*/
 /* Table: edu_course_favorites                                  */
@@ -164,11 +166,11 @@ create table edu_teacher
    primary key (ID)
 );
 
-insert into edu_teacher (NAME,IS_STAR,SUBJECT) values ("虎哥",0,"职场");
-insert into edu_teacher (NAME,IS_STAR,SUBJECT) values ("药水哥",0,"情感");
-insert into edu_teacher (NAME,IS_STAR,SUBJECT) values ("动力小子",0,"电竞");
-insert into edu_teacher (NAME,IS_STAR,SUBJECT) values ("柯洁",0,"围棋");
-insert into edu_teacher (NAME,IS_STAR,SUBJECT) values ("丁真",1,"养生");
+insert into edu_teacher (NAME,EDUCATION,CAREER,IS_STAR,PIC_PATH,INFO,SUBJECT) values ("虎哥","重庆带专","教授",0,"https://p2.itc.cn/images01/20210720/9c5ad1a36bd54ac4a621c9b357423081.jpeg","史文文，男，1984年出生于江西省湖口县，2013年毕业于华中师范大学体育学院，获教育学博士学位。主要研究方向为运动心理学与体育人力资源管理，围绕研究方向已相继在在《北京体育大学学报》、《心理科学进展》、《中国体育科技》、《上海体育学院学报》等国内核心期刊发表论文数十篇，研究成果多次在全国体育科学大会、全国体育管理科学大会、全国运动心理学学术大会、中部心理学学术论坛、国际运动心理学大会等国内外学术会议上做口头报告与交流，合著学术专著1部（体育彩民购彩心理与行为特征研究）。作为项目主要成员参与国家社科基金项目2项，省部级项目3项。","计算机科学");
+insert into edu_teacher (NAME,EDUCATION,CAREER,IS_STAR,PIC_PATH,INFO,SUBJECT) values ("药水哥","重庆带专","教授",0,"https://img2.baidu.com/it/u=2692009492,3096513359&fm=253&fmt=auto&app=138&f=JPEG?w=550&h=370","史文文，男，1984年出生于江西省湖口县，2013年毕业于华中师范大学体育学院，获教育学博士学位。主要研究方向为运动心理学与体育人力资源管理，围绕研究方向已相继在在《北京体育大学学报》、《心理科学进展》、《中国体育科技》、《上海体育学院学报》等国内核心期刊发表论文数十篇，研究成果多次在全国体育科学大会、全国体育管理科学大会、全国运动心理学学术大会、中部心理学学术论坛、国际运动心理学大会等国内外学术会议上做口头报告与交流，合著学术专著1部（体育彩民购彩心理与行为特征研究）。作为项目主要成员参与国家社科基金项目2项，省部级项目3项。","大数据");
+insert into edu_teacher (NAME,EDUCATION,CAREER,IS_STAR,PIC_PATH,INFO,SUBJECT) values ("动力小子","重庆带专","教授",0,"https://img.3dmgame.com/uploads/images/xiaz/20210617/1623917007_655536.jpg","史文文，男，1984年出生于江西省湖口县，2013年毕业于华中师范大学体育学院，获教育学博士学位。主要研究方向为运动心理学与体育人力资源管理，围绕研究方向已相继在在《北京体育大学学报》、《心理科学进展》、《中国体育科技》、《上海体育学院学报》等国内核心期刊发表论文数十篇，研究成果多次在全国体育科学大会、全国体育管理科学大会、全国运动心理学学术大会、中部心理学学术论坛、国际运动心理学大会等国内外学术会议上做口头报告与交流，合著学术专著1部（体育彩民购彩心理与行为特征研究）。作为项目主要成员参与国家社科基金项目2项，省部级项目3项。","软件工程");
+insert into edu_teacher (NAME,EDUCATION,CAREER,IS_STAR,PIC_PATH,INFO,SUBJECT) values ("柯洁","重庆带专","教授",0,"https://img.3dmgame.com/uploads/images/xiaz/20210617/1623917007_655536.jpg","史文文，男，1984年出生于江西省湖口县，2013年毕业于华中师范大学体育学院，获教育学博士学位。主要研究方向为运动心理学与体育人力资源管理，围绕研究方向已相继在在《北京体育大学学报》、《心理科学进展》、《中国体育科技》、《上海体育学院学报》等国内核心期刊发表论文数十篇，研究成果多次在全国体育科学大会、全国体育管理科学大会、全国运动心理学学术大会、中部心理学学术论坛、国际运动心理学大会等国内外学术会议上做口头报告与交流，合著学术专著1部（体育彩民购彩心理与行为特征研究）。作为项目主要成员参与国家社科基金项目2项，省部级项目3项。","软件工程");
+insert into edu_teacher (NAME,EDUCATION,CAREER,IS_STAR,PIC_PATH,INFO,SUBJECT) values ("丁真","重庆带专","教授",0,"https://img.3dmgame.com/uploads/images/xiaz/20210617/1623917007_655536.jpg","史文文，男，1984年出生于江西省湖口县，2013年毕业于华中师范大学体育学院，获教育学博士学位。主要研究方向为运动心理学与体育人力资源管理，围绕研究方向已相继在在《北京体育大学学报》、《心理科学进展》、《中国体育科技》、《上海体育学院学报》等国内核心期刊发表论文数十篇，研究成果多次在全国体育科学大会、全国体育管理科学大会、全国运动心理学学术大会、中部心理学学术论坛、国际运动心理学大会等国内外学术会议上做口头报告与交流，合著学术专著1部（体育彩民购彩心理与行为特征研究）。作为项目主要成员参与国家社科基金项目2项，省部级项目3项。","人工智能");
 
 /*==============================================================*/
 /* Table: edu_user                                              */

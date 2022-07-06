@@ -21,7 +21,7 @@
                             <el-option key="7" label="内容" value="content"></el-option>
                         </el-select>
                         <el-input v-model="query.name" clearable   class="handle-input mr10"></el-input>
-                        <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+                        <el-button type="primary" icon="el-icon-search" @click="getQById(query.name)">搜索</el-button>
                     </div>
                     <div>
 
@@ -199,6 +199,8 @@
     import { fetchData } from "../api/index";
 
     import { getQuestionData } from "../api/article";
+    import {getUserById} from "../api/user";
+    import {getQuestionById} from "../api/question";
 
     export default {
         name: "baseform",
@@ -273,9 +275,22 @@
                 if (error !== 'error') {
                     ElMessage({type: 'error', message: '问答数据加载失败!', showClose: true})
                 }
-            }).finally(() => {
-                loading.value = false
             })
+            function  getQById(id){
+                let backQuestionData=ref()
+                getQuestionById(id).then(_data=>{
+                    this.backQuestionData=undefined;
+                    this.backQuestionData=_data;
+                    console.log(_data)
+                }).catch(error=>{
+                    if(error!=='error'){
+                        ElMessage({type: 'error', message: '问答数据加载失败!', showClose: true})
+                    }
+                })
+                return{
+                    backQuestionData,
+                };
+            }
 
             return {
                 backQuestionData,
@@ -289,6 +304,7 @@
                 handleDelete,
                 handleEdit,
                 saveEdit,
+                getQById
             };
         },
         data() {

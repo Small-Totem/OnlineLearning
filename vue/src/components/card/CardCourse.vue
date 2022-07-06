@@ -1,14 +1,18 @@
 <template>
-    <el-card style="cursor:pointer" @click="course(2)" :body-style="{ padding: '0px' }" shadow="hover" class="card_course"  >
-        <div class="_img">
+    <el-card style="cursor:pointer" @click="course(courseId)" :body-style="{ padding: '0px' }"
+             shadow="hover" class="card_course" v-if="currFilter===subject || currFilter==='null'">
+        <div class="_img" >
             <img :src=link width="280" height="280"/>
         </div>
         <div class="card_course_info">
-            <span class="card_course_info_description">{{description}}</span>
+            <span class="card_course_info_description">{{ description }}</span>
             <div class="card_course_info_teacher">
-                <i class="el-icon-lx-service"></i>
-                <span >{{ teacher }}</span>
-                <!--todo-->
+                <el-col :span="8">
+                    <i class="el-icon-lx-service">{{ teacher }}</i>
+                </el-col>
+                <el-col style="float: right" :span="8">
+                    <i class="el-icon-lx-tag">{{ subject }}</i>
+                </el-col>
             </div>
         </div>
     </el-card>
@@ -31,10 +35,19 @@
             },
             courseId:{
                 type: Number,
+            },
+            subject:{
+                type: String,
+            },
+            currFilter: {
+                type: String,
             }
         },
-        setup(){
+        setup(props,context){
             const router = useRouter();
+
+            console.log(props.currFilter)
+
             function course(id) {
                 router.push("/course/"+id)
             }
@@ -62,6 +75,7 @@
     .card_course_info_teacher{
         text-align:left;
         margin-left: 10px;
+        margin-right: 10px;
         margin-top: 10px;
     }
     .card_course_info_description{

@@ -15,7 +15,7 @@
                         <el-option key="2" label="用户昵称" value="用户昵称"></el-option>
                     </el-select>
                     <el-input v-model="query.name" clearable   class="handle-input mr10"></el-input>
-                    <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+                    <el-button type="primary" icon="el-icon-search" @click="getUById(query.name)">搜索</el-button>
                 </div>
                 <div>
 
@@ -48,15 +48,20 @@
                 </el-table-column>
 
             </el-table >
+
+
             <div style="display: flex;justify-content: flex-end">
                 <el-pagination
+                        v-model:currentPage="queryInfo.pagenum" :page-size="queryInfo.pagesize" :page-sizes="[1,2,5,10]"
                         background
-                        @current-change="currentChange"
-                        @size-change="sizeChange"
+                        @current-change="handleCurrentChange"
+                        @size-change="handleSizesChange"
                         layout="sizes,prev, pager, next, jumper, ->, total"
-                        :total="1000">
+                        :total="total">
                 </el-pagination>
             </div>
+
+
 
             <!--<div class="pagination">
                 <el-pagination background layout="total, prev, pager, next" :current-page="query.pageIndex"
@@ -151,6 +156,7 @@
     import { fetchData } from "../api/index";
 
     import {getUserData} from '../api/article';
+    import {getUserById} from "../api/user";
 
     export default {
 
@@ -164,14 +170,40 @@
                 currentPage:1,
                 size:10,
                 radio: '1',
-                addUserVisible: false
+                addUserVisible: false,
+                queryInfo:{
+                    query:'',
+                    pagenum:1,
+                    pagesize:2
+                },
+                total:0
             }
         },
 
         methods:{
+
             currentChange(currentPage){
                 this.currentPage=currentPage;
                 this.initEmps();
+            },
+            //监听改变Size
+            handleSizesChange(newSize){
+              this.queryInfo.pagesize=newSize
+              this.getUserList()
+            },
+            //监听newPage
+            handleCurrentChange(newPage){
+              this.queryInfo.pagenum=newPage
+                this.getUserList()
+            },
+            async getUserList () {
+                const { data: res } = await this.$http.get('/queryAllUser', {
+                    params: this.queryInfo
+                })
+                if (res.meta.status !== 200) return this.$message.error('获取用户列表失败')
+                this.userlist = res.data.users
+                this.total = res.data.total
+                console.log(res)
             },
             sizeChange(size){
                 this.size=size;
@@ -274,9 +306,25 @@
                 if (error !== 'error') {
                     ElMessage({type: 'error', message: '用户数据加载失败!', showClose: true})
                 }
-            }).finally(() => {
-                loading.value = false
             })
+
+            function getUById(id){
+                let backUserData=ref()
+                getUserById(id).then(_data => {
+                    this.backUserData=undefined;
+                    this.backUserData=_data;
+                    console.log(_data)
+                }).catch(error => {
+                    if (error !== 'error') {
+                        ElMessage({type: 'error', message: '用户数据加载失败!', showClose: true})
+                    }
+                })
+                return{
+                    backUserData,
+                };
+            }
+
+
 
             return {
                 backUserData,
@@ -290,6 +338,7 @@
                 handleDelete,
                 handleEdit,
                 saveEdit,
+                getUById
             };
         },
     };

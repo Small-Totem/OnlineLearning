@@ -3,8 +3,9 @@
         <el-col>
             <swiper-3-d :source="source"></swiper-3-d>
             <el-container>
-                <el-main >
-                    <Course-scroll-page></Course-scroll-page>
+                <el-main>
+                    <!--注意 curr-filter="null" 用于标识不加筛选，不能删-->
+                    <Course-scroll-page curr-filter="null"></Course-scroll-page>
                 </el-main>
                 <el-aside>
                     <card-article cardHeader="最新文章" :source="hotArticles"></card-article>

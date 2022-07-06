@@ -14,3 +14,10 @@ export function getHotQuestion() {
         method: 'get'
     })
 }
+export function getQuestionById(id) {
+    return request({
+        url:`http://localhost:8080/getQuestionById/${id}`,
+        method:'get'
+    })
+
+}

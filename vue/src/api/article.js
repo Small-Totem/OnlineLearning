@@ -17,7 +17,7 @@ export function getHotArticles() {
 
 export function getArticleById(id) {
   return request({
-    url: `/getArticle/${id}`,
+    url: `http://localhost:8080/getArticle/${id}`,
     method: 'get'
   })
 }

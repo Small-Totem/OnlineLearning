@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.cqu.online_learning.utils.StaticUtils.wrap;
@@ -45,8 +46,10 @@ public class QuestionController {
     }
 
     @GetMapping("/getQuestionById/{id}")
-    public Question getQuestion(@PathVariable int id){
-        return questionService.getQuestionById(id);
+    public List<Question> getQuestion(@PathVariable int id){
+        List<Question> queryquestion=new ArrayList<>();
+        queryquestion.add(questionService.getQuestionById(id));
+        return  queryquestion;
     }
 
     @GetMapping("/getQuestionByType/{id}")//按类型查询问题
