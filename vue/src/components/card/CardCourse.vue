@@ -8,6 +8,7 @@
             <div class="card_course_info_teacher">
                 <i class="el-icon-lx-service"></i>
                 <span >{{ teacher }}</span>
+                <!--todo-->
             </div>
         </div>
     </el-card>
