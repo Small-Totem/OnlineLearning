@@ -63,7 +63,7 @@
 <style scoped>
     .el-card{
         width: 350px;
-        height: 500px;
+        height: 510px;
         background-color: #FFFFFF;
         line-height: 30px;
     }
