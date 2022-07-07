@@ -6,7 +6,7 @@ export function queryAllUser() {
     })
 }
 
-export function  getUserById(id) {
+export function getUserById(id) {
     return request({
         url: `http://localhost:8080/getUserById/${id}`,
         method: 'get'

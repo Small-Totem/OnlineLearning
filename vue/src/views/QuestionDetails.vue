@@ -7,7 +7,7 @@
             <div style="margin-bottom: 5px">
               <el-avatar :size="large" :src=url></el-avatar>
             </div >
-            <span style="margin-left: 15px" >{{question.userId}}</span>
+            <span style="text-align: center" >{{question.userId}}</span>
           </div>
         </el-col>
 
@@ -48,7 +48,7 @@
       </el-card>
     </el-row>
     <el-row>
-      <span style="margin-left: 200px;font-size: 30px;color: #0785fd">{{comments.length}}个回答</span>
+      <span style="margin-top:16px;margin-left: 200px;font-size: 30px;color: #0785fd">{{comments.length}}个回答</span>
     </el-row>
     <!--回答开始 -->
     <el-row type="flex" justify="center" v-for="comment in comments">
@@ -58,7 +58,7 @@
             <div style="margin-bottom: 5px">
               <el-avatar :size="large" :src=url></el-avatar>
             </div >
-            <span style="margin-left: 15px" >{{comment.userId}}</span>
+            <span style="text-align: center" >{{comment.userId}}</span>
           </div>
         </el-col>
         <el-col>
@@ -124,6 +124,7 @@
 import axios from "axios";
 import store from "../store";
 import {ElMessage} from "element-plus";
+import {ref} from "vue"
 
 
 export default {
@@ -163,12 +164,25 @@ export default {
       axios.get(url).then(function (res) {
         _this.question=res.data
         //console.log(_this.question)
+        const url = ref()
+        url.value='http://localhost:8080/getUserById/'+_this.question.userId;
+        axios.get(url.value).then(function (res) {
+          //此处直接把userId改为showName了（只是为了显示名字）
+          _this.question.userId=res.data.showName
+        });
       })
       const url2 = 'http://localhost:8080/getAllQuestionCommentByQuestionId/'+_this.questionId
       axios.get(url2).then(function (res) {
         _this.comments=res.data.data
         //console.log(_this.comments.length)
-
+        const url = ref()
+        for (let i=0; i<_this.comments.length; i++){
+          url.value='http://localhost:8080/getUserById/'+_this.comments[i].userId;
+          axios.get(url.value).then(function (res) {
+            //此处直接把userId改为showName了（只是为了显示名字）
+            _this.comments[i].userId=res.data.showName
+          });
+        }
       })
     },
     getHotQuestionData(){

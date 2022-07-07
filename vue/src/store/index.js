@@ -3,7 +3,7 @@ import {createStore} from 'vuex'
 export default createStore({
     state: {
         collapse: false,
-        userId: null,
+        userId: null
     },
     mutations: {
         // 侧边栏折叠
@@ -12,7 +12,7 @@ export default createStore({
         },
         setUserId(id){
             state.userId = id;
-        }
+        },
     },
 
     actions: {},

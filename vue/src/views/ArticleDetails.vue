@@ -29,6 +29,14 @@
             const article=ref()
             axios.get(url).then( res => {
                 article.value = res.data
+
+                const url = ref()
+                url.value='http://localhost:8080/getUserById/'+article.value.userId;
+                axios.get(url.value).then(function (res) {
+                    //此处直接把userId改为showName了（只是为了显示名字）
+                    article.value.userId=res.data.showName
+                });
+
             }).catch(error => {
                 if (error !== 'error') {
                     ElMessage({type: 'error', message: '加载失败!', showClose: true})
