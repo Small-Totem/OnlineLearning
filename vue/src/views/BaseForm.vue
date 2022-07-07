@@ -223,7 +223,8 @@
 <script>
     import { ref, reactive } from "vue";
     import { ElMessage, ElMessageBox } from "element-plus";
-    import { fetchData } from "../api/index";
+    import { fetchData } from "../api/index"
+    import {time_wrap} from "../utils/time";
 
     import {getCourseData} from "../api/article";
     import {postaddCourse} from "../api/article";
@@ -371,12 +372,16 @@
             //读取数据
             let backCourseData=ref()
             getCourseData().then(_data => {
-                backCourseData.value = _data.data
+                backCourseData.value = _data.data;
+                for (let i=0; i<backCourseData.value.length; i++){
+                    backCourseData.value[i].addTime=time_wrap(backCourseData.value[i].addTime);
+                }
             }).catch(error => {
                 if (error !== 'error') {
                     ElMessage({type: 'error', message: '课程数据加载失败!', showClose: true})
                 }
             })
+
             function getCById(courseId) {
                 let backCourseData=ref()
                 getCourseById(courseId).then(_data => {
@@ -391,6 +396,7 @@
                     backCourseData,
                 };
             };
+
             function removeCById(id){
                 let backCourseData=ref()
                 removeCourseById(id).then(_data => {
@@ -414,6 +420,7 @@
                 editVisible,
                 form,
                 a,
+                time_wrap,
                 handleSearch,
                 handlePageChange,
                 handleDelete,

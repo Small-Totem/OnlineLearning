@@ -182,6 +182,7 @@
     import { ref, reactive } from "vue";
     import { ElMessage, ElMessageBox } from "element-plus";
     import { fetchData } from "../api/index";
+    import {time_wrap} from "../utils/time";
 
     import { getQuestionData } from "../api/article";
     import { postaddQuestion } from "../api/article";
@@ -297,7 +298,10 @@
             //读取数据
             let backQuestionData=ref()
             getQuestionData().then(_data => {
-                backQuestionData.value = _data.data
+                backQuestionData.value = _data.data;
+                for (let i=0; i<backQuestionData.value.length; i++){
+                    backQuestionData.value[i].addTime=time_wrap(backQuestionData.value[i].addTime);
+                }
             }).catch(error => {
                 if (error !== 'error') {
                     ElMessage({type: 'error', message: '问答数据加载失败!', showClose: true})
@@ -342,6 +346,7 @@
                 editVisible,
                 form,
                 a,
+                time_wrap,
                 handleSearch,
                 handlePageChange,
                 handleDelete,

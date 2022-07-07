@@ -175,6 +175,7 @@
     import {ref, reactive} from "vue";
     import {ElMessage, ElMessageBox} from "element-plus";
     import {fetchData} from "../api/index";
+    import {time_wrap} from "../utils/time";
 
     import {getTeacherData} from "../api/article";
     import {postaddTeacher} from "../api/article";
@@ -306,12 +307,17 @@
             //读取数据
             let backTeacherData = ref()
             getTeacherData().then(_data => {
-                backTeacherData.value = _data.data
+                backTeacherData.value = _data.data;
+                for (let i=0; i<backTeacherData.value.length; i++){
+                    backTeacherData.value[i].createTime=time_wrap(backTeacherData.value[i].createTime);
+                }
             }).catch(error => {
                 if (error !== 'error') {
                     ElMessage({type: 'error', message: '教师数据加载失败!', showClose: true})
                 }
             })
+
+
             function getTById(id) {
                 let backTeacherData = ref()
                 getTeacherById(id).then(_data => {
@@ -349,6 +355,7 @@
                 editVisible,
                 form,
                 a,
+                time_wrap,
                 handleSearch,
                 handlePageChange,
                 handleDelete,

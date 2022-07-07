@@ -173,6 +173,7 @@
     import { ref, reactive } from "vue";
     import { ElMessage, ElMessageBox } from "element-plus";
     import { fetchData } from "../api/index";
+    import {time_wrap} from "../utils/time";
 
     import { getArticleData } from "../api/article";
     import { postaddArticle } from "../api/article";
@@ -328,12 +329,17 @@
             //读取数据
             let backArticleData=ref()
             getArticleData().then(_data => {
-                backArticleData.value = _data.data
+                backArticleData.value = _data.data;
+                for (let i=0; i<backArticleData.value.length; i++){
+                    backArticleData.value[i].publishTime=time_wrap(backArticleData.value[i].publishTime);
+                }
             }).catch(error => {
                 if (error !== 'error') {
                     ElMessage({type: 'error', message: '文章咨询数据加载失败!', showClose: true})
                 }
             })
+
+
             function getAById(id) {
                 let backArticleData=ref()
                 getArticleById(id).then(_data => {
@@ -371,6 +377,7 @@
                 editVisible,
                 form,
                 a,
+                time_wrap,
                 alter,
                 handleSearch,
                 handlePageChange,
