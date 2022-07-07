@@ -1,11 +1,11 @@
 <template >
   <div><div style="float: left;width: 70%">
-    <el-row type="flex" justify="center" >
+    <el-row type="flex" justify="center" v-for="question in questions">
       <el-card style="border-radius: 10px; margin-top: 20px;" shadow="hover" >
         <el-col>
           <div style="float: left;width: 100px;height: 100px">
             <div style="margin-bottom: 5px">
-              <el-avatar :size="large" :src=url></el-avatar>
+              <el-avatar  :src=url></el-avatar>
             </div >
             <span style="margin-left: 15px" >{{question.userId}}</span>
           </div>
@@ -56,7 +56,7 @@
         <el-col>
           <div style="float: left;width: 100px;height: 100px">
             <div style="margin-bottom: 5px">
-              <el-avatar :size="large" :src=url></el-avatar>
+              <el-avatar  :src=url></el-avatar>
             </div >
             <span style="margin-left: 15px" >{{comment.userId}}</span>
           </div>
@@ -71,7 +71,7 @@
           </div>
 
           <div style="margin-top: 40px" >
-            <span style="color: #999999">{{question.addTime}}</span>
+            <span style="color: #999999">{{comment.addTime}}</span>
           </div>
         </el-col>
       </el-card>
@@ -128,13 +128,13 @@ import {ElMessage} from "element-plus";
 
 export default {
   name: "QuestionDetails",
-  components:{
 
-  },
+
+
 
   data: function () {
     return {
-      question:"",
+      questions:[],
       questionId:-1,
       comments:[],
       type_questions:[],
@@ -143,7 +143,6 @@ export default {
       url:"../src/assets/img/img.jpg",
       dialogFormVisible: false,
       form: {
-
         content: "",
       },
       formLabelWidth: '120px',
@@ -151,6 +150,12 @@ export default {
 
   },
   created(){
+
+    this.getData()
+    this.getHotQuestionData()
+  },
+//https://www.icode9.com/content-4-1282852.html 解决vue 路由切换页面再次进入更新数据
+  activated(){ //项目使用了keep-alive,所以用activate监听才会再次刷新数据
     this.getData()
     this.getHotQuestionData()
   },
@@ -161,13 +166,14 @@ export default {
       _this.questionId=_this.$router.currentRoute.value.params.id
       const url = 'http://localhost:8080/getQuestionById/'+_this.questionId
       axios.get(url).then(function (res) {
-        _this.question=res.data
-        //console.log(_this.question)
+        _this.questions=res.data
+        //console.log(res.data)
+        //console.log( _this.questions)
       })
       const url2 = 'http://localhost:8080/getAllQuestionCommentByQuestionId/'+_this.questionId
       axios.get(url2).then(function (res) {
         _this.comments=res.data.data
-        //console.log(_this.comments.length)
+       // console.log(_this.comments)
 
       })
     },
@@ -207,7 +213,11 @@ export default {
       }
     },
 
-  }
+
+    }
+
+
+
 
 
 }
