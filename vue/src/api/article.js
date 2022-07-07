@@ -147,6 +147,42 @@ export function postaddQuestion(params){
   })
 }
 
+export function putupdateArticle(params2){
+  return request({
+    url:'http://localhost:8080/updateArticle',
+    method:"put",
+    params:{
+      articleId: params2.articleId,
+      userId: params2.userId,
+      title: params2.title,
+      content: params2.content,
+      summary: params2.summary,
+      publishTime: params2.publishTime,
+      link: params2.link,
+      clickNum:params2.clickNum,
+      praiseCount:params2.praiseCount,
+    }
+  })
+}
+
+export function putupdateUser(params2){
+  return request({
+    url:'http://localhost:8080/updateUser',
+    method:"put",
+    params:{
+      userId: params2.userId,
+      showName: params2.showName,
+      picImg: params2.picImg,
+      sex: params2.sex,
+      mobile: params2.mobile,
+      email: params2.email,
+      createTime:params2.createTime,
+      password:params2.password
+    }
+  })
+}
+
+
 //作为post带参数的例子 勿动
 export function post_param_test(params) {
   return request({

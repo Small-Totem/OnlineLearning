@@ -19,6 +19,12 @@ public class UserController {
     @Autowired
     UserLoginLogService logService;
 
+    @PutMapping("/updateUser")
+    public String updateUser(User a){
+        userService.updateUser(a);
+        return "success";
+    }
+
     @PostMapping("/addUser")
     public String addUser(User a) {
         userService.addUser(a);

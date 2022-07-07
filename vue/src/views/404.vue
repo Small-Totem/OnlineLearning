@@ -38,9 +38,7 @@
                 <el-table-column prop="id" label="问答ID" width="70" align="center"></el-table-column>
                 <el-table-column prop="userId" label="提问者ID" width="80" align="center"></el-table-column>
                 <el-table-column prop="title" label="标题" width="210" align="center"></el-table-column>
-                <el-table-column prop="type" label="类型" align="center"></el-table-column>
                 <el-table-column prop="content" label="内容" width="210" align="center"></el-table-column>
-                <el-table-column prop="status" label="状态" width="80" align="center"></el-table-column>
                 <el-table-column prop="replyCount" label="回复数量" width="80" align="center"></el-table-column>
                 <el-table-column prop="browseCount" label="浏览数量" width="80" align="center"></el-table-column>
                 <el-table-column prop="praiseCount" label="点赞数量" width="80" align="center"></el-table-column>
@@ -72,7 +70,7 @@
         </div>
 
         <!-- 编辑弹出框 -->
-        <el-dialog title="编辑" v-model="editVisible" width="30%">
+        <el-dialog title="编辑" v-model="editVisible" width="35%">
             <el-form label-width="100px"  style="width:280px;" >
                 <el-form-item label="问答ID">
                     <el-input v-model="form.id"></el-input>
@@ -136,7 +134,7 @@
         <el-dialog
                 title="添加问答"
                 :visible.sync="addQuestionVisible"
-                width="30%"
+                width="35%"
                 v-model="addQuestionVisible">
 
             <el-form label-width="100px"  style="width:280px;" >

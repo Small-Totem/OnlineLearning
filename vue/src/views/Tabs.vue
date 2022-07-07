@@ -41,7 +41,8 @@
                 <el-table-column prop="isStar" label="是否推荐" width="55" align="center"></el-table-column>
                 <el-table-column prop="subject" label="分类" align="center"></el-table-column>
                 <el-table-column prop="createTime" label="创建时间" align="center"></el-table-column>
-                <el-table-column prop="info" label="讲师简介" align="center"></el-table-column>
+                <el-table-column prop="info" label="讲师简介"  width="400px" align="center">
+                </el-table-column>
 
                 <el-table-column label="操作" width="180" align="center">
                     <template #default="scope">

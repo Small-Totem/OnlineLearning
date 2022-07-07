@@ -21,6 +21,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         this.save(a);
     }
 
+    @Override
+    public void updateUser(User a) {
+        this.updateById(a);
+    }
 
     @Override
     public List<User> queryAllUser() {

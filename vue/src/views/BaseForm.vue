@@ -135,6 +135,8 @@
                 </span>
             </template>
         </el-dialog>
+
+
         <el-dialog
                 title="添加课程"
                 :visible.sync="addCourseVisible"

@@ -16,9 +16,13 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Autowired
     ArticleMapper articleMapper;
+
     @Override
-    public void addArticle(Article a) {
-        this.save(a);
+    public void addArticle(Article a) { this.save(a); }
+
+    @Override
+    public void updateArticle(Article a) {
+        this.updateById(a);
     }
 
     @Override

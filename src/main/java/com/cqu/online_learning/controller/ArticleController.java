@@ -13,6 +13,12 @@ public class ArticleController {
     @Autowired
     ArticleService articleService;
 
+    @PutMapping("/updateArticle")
+    public String updateArticle(Article a){
+        articleService.updateArticle(a);
+        return "success";
+    }
+
     @PostMapping("/addArticle")
     public String addArticle(Article a){
         articleService.addArticle(a);

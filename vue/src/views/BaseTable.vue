@@ -73,34 +73,37 @@
         <el-dialog title="编辑" v-model="editVisible" width="30%">
             <el-form label-width="100px"  style="width:280px;">
                 <el-form-item label="用户ID">
-                    <el-input v-model="form.userId"></el-input>
+                    <el-input id="userId" v-model="form.userId"></el-input>
                 </el-form-item>
-                <el-form-item label="用户昵称">
-                    <el-input v-model="form.showName"></el-input>
+                <el-form-item label="用户昵称" prop="showName">
+                    <el-input id="showName2" v-model="form.showName"  prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
-                <el-form-item label="图片链接" style="width:380px;">
+                <el-form-item label="图片链接" prop="picImg" style="width:380px;">
                     <el-input
+                            id="picImg2"
                             type="textarea"
                             :rows="2"
                             placeholder="请输入内容"
-                            v-model="form.picImg">
+                            v-model="form.picImg"
+                            prefix-icon="el-icon-edit"
+                    >
                     </el-input>
                 </el-form-item>
-                <el-form-item label="性别">
-                    <el-radio v-model="form.sex" label="男">男</el-radio>
-                    <el-radio v-model="form.sex" label="女">女</el-radio>
+                <el-form-item label="性别" prop="sex">
+                    男 <input type="radio" name="paytype2" value="男">
+                    女 <input type="radio" name="paytype2" value="女">
                 </el-form-item>
-                <el-form-item label="手机" style="width:300px;">
-                    <el-input v-model="form.mobile"></el-input>
+                <el-form-item label="手机" prop="mobile" style="width:300px;">
+                    <el-input id="mobile2" v-model="form.mobile"  prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
-                <el-form-item label="邮箱" style="width:300px;">
-                    <el-input v-model="form.email"></el-input>
+                <el-form-item label="邮箱" prop="email" style="width:300px;">
+                    <el-input id="email2" v-model="form.email"  prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
             </el-form>
             <template #footer>
                 <span class="dialog-footer">
                     <el-button @click="editVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="saveEdit">确 定</el-button>
+                    <el-button type="primary" @click="alter();editVisible = false">确 定</el-button>
                 </span>
             </template>
         </el-dialog>
@@ -115,9 +118,6 @@
             <el-form label-width="100px"  style="width:280px;" ref="addUserForm"
                      :model="addUserForm"
                      :rules="addUserFormRules">
-                <el-form-item label="用户ID" prop="userId">
-                    <el-input v-model="addUserForm.userId" prefix-icon="el-icon-edit"></el-input>
-                </el-form-item>
                 <el-form-item label="用户昵称" prop="showName">
                     <el-input id="showName" v-model="addUserForm.showName"  prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
@@ -160,6 +160,7 @@
 
     import {getUserData} from '../api/article';
     import {postaddUser} from '../api/article';
+    import {putupdateUser} from '../api/article';
     import {getUserById} from "../api/user";
     import {removeUserById} from "../api/user";
 
@@ -300,7 +301,18 @@
                 pageIndex: 1,
                 pageSize: 10,
             });
+
             let params = reactive({
+                showName: "",
+                picImg: "",
+                sex: "",
+                mobile: "",
+                email: "",
+                password:5431354
+            });
+
+            let params2 = reactive({
+                userId:"",
                 showName: "",
                 picImg: "",
                 sex: "",
@@ -384,6 +396,30 @@
             }*/
 
 
+             //修改用户
+            function alter(){
+                params2.userId = document.getElementById("userId").value;
+                params2.showName = document.getElementById("showName2").value;
+                params2.picImg = document.getElementById("picImg2").value;
+                let temp = document.getElementsByName("paytype2");
+                for(let i=0;i<temp.length;i++){
+                    if(temp[i].checked){
+                        params2.sex=temp[i].value;
+                    }
+                }
+                params2.mobile = document.getElementById("mobile2").value;
+                params2.email = document.getElementById("email2").value;
+                putupdateUser(params2).then(data => {
+                    //res.value = data.data
+                    console.log(data)
+                    //浏览器按f12 可以看到有success (我修改了全局设置，现在不用wrap也能正常返回东西了)
+                }).catch(error => {
+                    console.log(error)
+                    if (error !== 'error') {
+                        ElMessage({type: 'error', message: '失败!', showClose: true})
+                    }
+                })
+            }
 
             //添加用户
             function a(){
@@ -453,13 +489,14 @@
 
 
             return {
-                a,
                 backUserData,
                 query,
                 tableData,
                 pageTotal,
                 editVisible,
                 form,
+                a,
+                alter,
                 handleSearch,
                 handlePageChange,
                 handleDelete,

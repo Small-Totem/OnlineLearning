@@ -39,7 +39,6 @@
                 <el-table-column prop="title" label="文章标题" align="center"></el-table-column>
                 <el-table-column prop="summary" label="文章概要" align="center"></el-table-column>
                 <el-table-column prop="publishTime" label="发布时间"  align="center"></el-table-column>
-                <el-table-column prop="link" label="文章链接" align="center"></el-table-column>
                 <el-table-column prop="clickNum" label="点击数量" width="90" align="center"></el-table-column>
                 <!--<template #default="scope">
                     <el-tag :type="
@@ -75,37 +74,30 @@
         </div>
 
         <!-- 编辑弹出框 -->
-        <el-dialog title="编辑" v-model="editVisible" width="30%">
+        <el-dialog title="编辑" v-model="editVisible" width="35%">
             <el-form label-width="100px" style="width:280px;">
-                <el-form-item label="文章ID">
-                    <el-input v-model="form.articleId"></el-input>
+                <el-form-item label="文章ID" >
+                    <el-input id="articleId" v-model="form.articleId" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="文章作者">
-                    <el-input v-model="form.userId"></el-input>
+                    <el-input id="userId2" v-model="form.userId" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="文章标题" style="width:340px;">
-                    <el-input v-model="form.title"></el-input>
+                    <el-input id="title2" v-model="form.title" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="文章概要" style="width:380px;">
                     <el-input
+                            id="summary2"
                             type="textarea"
                             :rows="3"
                             placeholder="请输入内容"
                             v-model="form.summary">
                     </el-input>
                 </el-form-item>
-                <el-form-item label="发布时间">
-                    <el-date-picker
-                            v-model="form.publishTime"
-                            type="datetime"
-                            placeholder="选择发布日期时间"
-                            align="left"
-                            :picker-options="pickerOptions"
-                            style="width:200px; text-align:center">
-                    </el-date-picker>
-                </el-form-item>
+
                 <el-form-item label="文章链接" style="width:380px;">
                     <el-input
+                            id="link2"
                             type="textarea"
                             :rows="2"
                             placeholder="请输入内容"
@@ -113,16 +105,16 @@
                     </el-input>
                 </el-form-item>
                 <el-form-item label="点击数量">
-                    <el-input v-model="form.clickNum"></el-input>
+                    <el-input  id="clickNum2" v-model="form.clickNum"></el-input>
                 </el-form-item>
                 <el-form-item label="点赞数量">
-                    <el-input v-model="form.praiseCount"></el-input>
+                    <el-input id="praiseCount2" v-model="form.praiseCount" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
             </el-form>
             <template #footer>
                 <span class="dialog-footer">
                     <el-button @click="editVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="saveEdit">确 定</el-button>
+                    <el-button type="primary" @click="alter();editVisible = false">确 定</el-button>
                 </span>
             </template>
         </el-dialog>
@@ -135,9 +127,6 @@
                 v-model="addArticleVisible">
 
             <el-form label-width="100px" style="width:280px;">
-                <el-form-item label="文章ID">
-                    <el-input id="articleId" v-model="form.articleId" prefix-icon="el-icon-edit"></el-input>
-                </el-form-item>
                 <el-form-item label="文章作者">
                     <el-input id="userId" v-model="form.userId" prefix-icon="el-icon-edit"></el-input>
                 </el-form-item>
@@ -187,10 +176,12 @@
 
     import { getArticleData } from "../api/article";
     import { postaddArticle } from "../api/article";
-
+    import {putupdateArticle} from "../api/article";
 
     import {getArticleById} from "../api/article";
     import {removeArticleById} from "../api/article";
+
+
     export default {
         name: "basetable",
         setup() {
@@ -207,6 +198,16 @@
                 praiseCount: "",
             });
 
+            let params2 = reactive({
+                articleId: "",
+                userId: "",
+                title: "",
+                summary: "",
+                //publishTime: "",
+                link: "",
+                clickNum: "",
+                praiseCount: "",
+            });
 
             const query = reactive({
                 articleId: "",
@@ -262,7 +263,7 @@
                 praiseCount: "",
             });
             let idx = -1;
-            const handleEdit = (row) => {
+            const handleEdit = (index,row) => {
                 idx = index;
                 Object.keys(form).forEach((item) => {
                     form[item] = row[item];
@@ -276,6 +277,30 @@
                     tableData.value[idx][item] = form[item];
                 });
             };
+
+            //修改文章
+            function alter(){
+                params2.articleId = document.getElementById("articleId").value;
+                params2.title = document.getElementById("title2").value;
+                params2.userId = document.getElementById("userId2").value;
+                params2.summary = document.getElementById("summary2").value;
+                params2.link = document.getElementById("link2").value;
+                params2.clickNum = document.getElementById("clickNum2").value;
+                params2.praiseCount = document.getElementById("praiseCount2").value;
+
+
+                putupdateArticle(params2).then(data => {
+                    //res.value = data.data
+                    console.log(data)
+                    //浏览器按f12 可以看到有success (我修改了全局设置，现在不用wrap也能正常返回东西了)
+                }).catch(error => {
+                    console.log(error)
+                    if (error !== 'error') {
+                        ElMessage({type: 'error', message: '失败!', showClose: true})
+                    }
+                })
+            }
+
 
             //添加文章
             function a(){
@@ -346,6 +371,7 @@
                 editVisible,
                 form,
                 a,
+                alter,
                 handleSearch,
                 handlePageChange,
                 handleDelete,
