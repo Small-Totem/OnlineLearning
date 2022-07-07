@@ -8,7 +8,6 @@ import com.cqu.online_learning.utils.ReturnWrap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.cqu.online_learning.utils.StaticUtils.wrap;
