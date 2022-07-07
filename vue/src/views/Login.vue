@@ -112,6 +112,7 @@ export default {
           ElMessage({type: 'success', message: '登陆成功!', showClose: true})
           localStorage.setItem("ms_username", _this.loginForm.username);
           _this.$store.commit('setUserId',_this.loginflag)
+          localStorage.setItem("userId", _this.loginflag);
           _this.$router.push('/')
         }
       });
@@ -137,6 +138,7 @@ export default {
             ElMessage({type: 'success', message: '注册成功!', showClose: true})
             localStorage.setItem("ms_username", _this.regForm.username);
             _this.$store.commit('setUserId',_this.loginflag)
+            localStorage.setItem("userId", _this.loginflag);
             _this.$router.push('/MainPage')
           }else{
             ElMessage({type: 'error', message: '服务器连接失败!', showClose: true})

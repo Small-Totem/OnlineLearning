@@ -2,7 +2,7 @@
 ## 在线教育系统  
 第12组项目，前后端分离的在线教育系统。
 - 前端使用Vue3
-- 后端使用Srpingboot+Mybatisplus
+- 后端使用Springboot+MybatisPlus
 ## 目录结构
 ```ini
 ├── vue                        # 前端项目源代码(vue)
