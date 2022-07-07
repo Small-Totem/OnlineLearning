@@ -20,7 +20,6 @@
                         </card-teacher>
                     </el-col>
                 </scroll-page>
-
             </el-main>
         </el-container>
     </div>
