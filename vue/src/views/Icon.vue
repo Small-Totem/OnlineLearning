@@ -189,7 +189,7 @@
     import { postaddArticle } from "../api/article";
 
 
-    import {getArticleById, getArticleData} from "../api/article";
+    import {getArticleById} from "../api/article";
     import {removeArticleById} from "../api/article";
     export default {
         name: "basetable",
