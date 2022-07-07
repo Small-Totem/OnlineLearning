@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.cqu.online_learning.utils.StaticUtils.wrap;
@@ -32,10 +31,8 @@ public class TeacherController {
     }
 
     @GetMapping("/getTeacher/{id}")
-    public List<Teacher> getTeacher(@PathVariable int id){
-        List<Teacher> queryteacher=new ArrayList<>();
-        queryteacher.add(teacherService.getTeacher(id));
-        return queryteacher;
+    public Teacher getTeacher(@PathVariable int id){
+        return teacherService.getTeacher(id);
     }
 
     @GetMapping("/removeTeacher/{id}")
