@@ -97,7 +97,11 @@ insert into edu_course (TEACHER_ID,COURSE_NAME,SUBJECT,TITLE,LOGO) values (2,"ko
 insert into edu_course (TEACHER_ID,COURSE_NAME,SUBJECT,TITLE,LOGO) values (3,"vue:前端开发实战","IT","vue:前端开发实战","http://mms0.baidu.com/it/u=4101935789,3368351456&fm=253&app=138&f=JPEG&fmt=auto&q=75?w=474&h=383");
 insert into edu_course (TEACHER_ID,COURSE_NAME,SUBJECT,TITLE,LOGO) values (5,"电子烟的发展史","历史","电子烟的发展史","https://img1.baidu.com/it/u=1043431332,3800419241&fm=253&fmt=auto&app=138&f=JPEG?w=749&h=500");
 insert into edu_course (TEACHER_ID,COURSE_NAME,SUBJECT,TITLE,LOGO) values (3,"apex进阶技巧","电竞","apex进阶技巧","https://img1.baidu.com/it/u=1785571183,2132428175&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500");
+insert into edu_course (TEACHER_ID,COURSE_NAME,SUBJECT,TITLE,LOGO) values (3,"apex英雄:武器完全解析","电竞","apex英雄:武器完全解析","https://img1.baidu.com/it/u=1960041980,2043975107&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500");
 insert into edu_course (TEACHER_ID,COURSE_NAME,SUBJECT,TITLE,LOGO) values (2,"药酱教你高情商为人处世","职场","药酱教你高情商为人处世","https://img2.baidu.com/it/u=3280602308,123718325&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500");
+insert into edu_course (TEACHER_ID,COURSE_NAME,SUBJECT,TITLE,LOGO) values (6,"鸡哥的篮球基础教学","运动","鸡哥的篮球基础教学","https://img0.baidu.com/it/u=4090386160,4004136615&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=414");
+insert into edu_course (TEACHER_ID,COURSE_NAME,SUBJECT,TITLE,LOGO) values (1,"东百抽象艺术","艺术","东百抽象艺术","https://img2.baidu.com/it/u=574407957,1694974694&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500");
+
 
 /*==============================================================*/
 /* Table: edu_course_favorites                                  */
@@ -179,6 +183,7 @@ insert into edu_teacher (NAME,EDUCATION,CAREER,IS_STAR,PIC_PATH,INFO,SUBJECT) va
 insert into edu_teacher (NAME,EDUCATION,CAREER,IS_STAR,PIC_PATH,INFO,SUBJECT) values ("动力小子","重庆带专","教授",0,"https://img.3dmgame.com/uploads/images/xiaz/20210617/1623917007_655536.jpg","史文文，男，1984年出生于江西省湖口县，2013年毕业于华中师范大学体育学院，获教育学博士学位。主要研究方向为运动心理学与体育人力资源管理，围绕研究方向已相继在在《北京体育大学学报》、《心理科学进展》、《中国体育科技》、《上海体育学院学报》等国内核心期刊发表论文数十篇，研究成果多次在全国体育科学大会、全国体育管理科学大会、全国运动心理学学术大会、中部心理学学术论坛、国际运动心理学大会等国内外学术会议上做口头报告与交流，合著学术专著1部（体育彩民购彩心理与行为特征研究）。作为项目主要成员参与国家社科基金项目2项，省部级项目3项。","软件工程");
 insert into edu_teacher (NAME,EDUCATION,CAREER,IS_STAR,PIC_PATH,INFO,SUBJECT) values ("柯洁","重庆带专","教授",0,"https://img.3dmgame.com/uploads/images/xiaz/20210617/1623917007_655536.jpg","史文文，男，1984年出生于江西省湖口县，2013年毕业于华中师范大学体育学院，获教育学博士学位。主要研究方向为运动心理学与体育人力资源管理，围绕研究方向已相继在在《北京体育大学学报》、《心理科学进展》、《中国体育科技》、《上海体育学院学报》等国内核心期刊发表论文数十篇，研究成果多次在全国体育科学大会、全国体育管理科学大会、全国运动心理学学术大会、中部心理学学术论坛、国际运动心理学大会等国内外学术会议上做口头报告与交流，合著学术专著1部（体育彩民购彩心理与行为特征研究）。作为项目主要成员参与国家社科基金项目2项，省部级项目3项。","软件工程");
 insert into edu_teacher (NAME,EDUCATION,CAREER,IS_STAR,PIC_PATH,INFO,SUBJECT) values ("丁真","重庆带专","教授",0,"https://img.3dmgame.com/uploads/images/xiaz/20210617/1623917007_655536.jpg","史文文，男，1984年出生于江西省湖口县，2013年毕业于华中师范大学体育学院，获教育学博士学位。主要研究方向为运动心理学与体育人力资源管理，围绕研究方向已相继在在《北京体育大学学报》、《心理科学进展》、《中国体育科技》、《上海体育学院学报》等国内核心期刊发表论文数十篇，研究成果多次在全国体育科学大会、全国体育管理科学大会、全国运动心理学学术大会、中部心理学学术论坛、国际运动心理学大会等国内外学术会议上做口头报告与交流，合著学术专著1部（体育彩民购彩心理与行为特征研究）。作为项目主要成员参与国家社科基金项目2项，省部级项目3项。","人工智能");
+insert into edu_teacher (NAME,EDUCATION,CAREER,IS_STAR,PIC_PATH,INFO,SUBJECT) values ("蔡徐坤","重庆带专","练习生",0,"https://img.3dmgame.com/uploads/images/xiaz/20210617/1623917007_655536.jpg","史文文，男，1984年出生于江西省湖口县，2013年毕业于华中师范大学体育学院，获教育学博士学位。主要研究方向为运动心理学与体育人力资源管理，围绕研究方向已相继在在《北京体育大学学报》、《心理科学进展》、《中国体育科技》、《上海体育学院学报》等国内核心期刊发表论文数十篇，研究成果多次在全国体育科学大会、全国体育管理科学大会、全国运动心理学学术大会、中部心理学学术论坛、国际运动心理学大会等国内外学术会议上做口头报告与交流，合著学术专著1部（体育彩民购彩心理与行为特征研究）。作为项目主要成员参与国家社科基金项目2项，省部级项目3项。","人工智能");
 
 /*==============================================================*/
 /* Table: edu_user                                              */
