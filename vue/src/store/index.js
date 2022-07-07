@@ -10,7 +10,7 @@ export default createStore({
         handleCollapse(state, data) {
             state.collapse = data;
         },
-        setUserId(id){
+        setUserId(state,id){
             state.userId = id;
         },
     },

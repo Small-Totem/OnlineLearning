@@ -29,7 +29,6 @@
                     </span>
                     <template #dropdown>
                         <el-dropdown-menu>
-                            <el-dropdown-item command="user">个人中心</el-dropdown-item>
                             <el-dropdown-item command="backToMain">回到首页</el-dropdown-item>
                             <el-dropdown-item divided command="loginOut">退出登录</el-dropdown-item>
                         </el-dropdown-menu>

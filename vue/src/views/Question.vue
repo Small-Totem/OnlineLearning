@@ -247,7 +247,7 @@ export default {
           if (_this.submitFlag === "success") {
             ElMessage({type: 'success', message: '提交成功!', showClose: true})
             _this.dialogFormVisible=false
-
+            _this.$router.go(0)
           } else {
             ElMessage({type: 'error', message: '提交失败!', showClose: true})
           }

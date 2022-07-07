@@ -155,6 +155,10 @@ export default {
     this.getData()
     this.getHotQuestionData()
   },
+  activated(){ //项目使用了keep-alive,所以用activate监听才会再次刷新数据
+    this.getData()
+    this.getHotQuestionData()
+  },
   methods:{
     getData(){
       const _this = this;
@@ -213,17 +217,14 @@ export default {
           if (_this.submitFlag === "success") {
             ElMessage({type: 'success', message: '提交成功!', showClose: true})
             _this.dialogFormVisible=false
-
+            _this.$router.go(0)
           } else {
             ElMessage({type: 'error', message: '提交失败!', showClose: true})
           }
         })
       }
     },
-
   }
-
-
 }
 
 

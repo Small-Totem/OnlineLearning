@@ -197,12 +197,12 @@ create table edu_user
    primary key (USER_ID)
 );
 
--- 此处密码明文是abc123 (a906449d5769fa7361d7ecc6aa3f6d28)
-insert into edu_user (EMAIL,PASSWORD,SEX,SHOW_NAME) values ("abc@xyz.com","a906449d5769fa7361d7ecc6aa3f6d28","男",'丁真');
-insert into edu_user (EMAIL,PASSWORD,SEX,SHOW_NAME) values ("abcd@xyz.com","a906449d5769fa7361d7ecc6aa3f6d28","女",'谷爱凌');
-insert into edu_user (MOBILE,PASSWORD,SEX,SHOW_NAME) values ("13579246810","a906449d5769fa7361d7ecc6aa3f6d28","男",'蔡徐坤');
-insert into edu_user (MOBILE,PASSWORD,SEX,SHOW_NAME) values ("13579246811","a906449d5769fa7361d7ecc6aa3f6d28","男",'柯洁');
-insert into edu_user (MOBILE,PASSWORD,SEX,SHOW_NAME) values ("13579246812","a906449d5769fa7361d7ecc6aa3f6d28","男",'孙笑川');
+-- 此处密码明文是abc123 (md5:a906449d5769fa7361d7ecc6aa3f6d28)
+insert into edu_user (EMAIL,PASSWORD,SEX,SHOW_NAME,PERMISSION) values ("abc@xyz.com","a906449d5769fa7361d7ecc6aa3f6d28","男",'丁真','student');
+insert into edu_user (EMAIL,PASSWORD,SEX,SHOW_NAME,PERMISSION) values ("abcd@xyz.com","a906449d5769fa7361d7ecc6aa3f6d28","女",'谷爱凌','teacher');
+insert into edu_user (MOBILE,PASSWORD,SEX,SHOW_NAME,PERMISSION) values ("13579246810","a906449d5769fa7361d7ecc6aa3f6d28","男",'蔡徐坤','student');
+insert into edu_user (MOBILE,PASSWORD,SEX,SHOW_NAME,PERMISSION) values ("13579246811","a906449d5769fa7361d7ecc6aa3f6d28","男",'柯洁','teacher');
+insert into edu_user (MOBILE,PASSWORD,SEX,SHOW_NAME,PERMISSION) values ("13579246812","a906449d5769fa7361d7ecc6aa3f6d28","男",'孙笑川','teacher');
 
 /*==============================================================*/
 /* Table: edu_user_login_log                                    */

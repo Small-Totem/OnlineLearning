@@ -77,7 +77,7 @@ export default {
     return {
       loginFormVisible: false,
       loginForm: {
-        username: '13579246810',
+        username: '13579246812',
         password: '123abc'
       },
       regForm: {
@@ -111,9 +111,8 @@ export default {
         else{
           ElMessage({type: 'success', message: '登陆成功!', showClose: true})
           localStorage.setItem("ms_username", _this.loginForm.username);
-          localStorage.setItem("userId", _this.loginflag);
+          _this.$store.commit('setUserId',_this.loginflag)
           _this.$router.push('/')
-
         }
       });
     },
@@ -137,7 +136,7 @@ export default {
           if(_this.registerFlag ==="success"){
             ElMessage({type: 'success', message: '注册成功!', showClose: true})
             localStorage.setItem("ms_username", _this.regForm.username);
-            localStorage.setItem("userId", _this.loginflag);
+            _this.$store.commit('setUserId',_this.loginflag)
             _this.$router.push('/MainPage')
           }else{
             ElMessage({type: 'error', message: '服务器连接失败!', showClose: true})

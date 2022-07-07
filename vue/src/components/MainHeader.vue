@@ -27,13 +27,14 @@
                 </div>
                 <!-- 用户名下拉菜单 -->
                 <el-dropdown class="user-name" trigger="click" @command="handleCommand">
-                    <span class="el-dropdown-link">
-                        {{username}}
+                    <span style="margin-left: 4px" class="el-dropdown-link">
+                        {{userInfo.showName}}
                         <i class="el-icon-caret-bottom"></i>
                     </span>
                     <template #dropdown>
                         <el-dropdown-menu>
-                            <el-dropdown-item command="user">个人中心</el-dropdown-item>
+                            <el-dropdown-item command="loginOut" disabled>权限:{{userInfo.permission}}</el-dropdown-item>
+                            <el-dropdown-item v-if="userInfo.permission==='teacher'" divided command="user">后台管理</el-dropdown-item>
                             <el-dropdown-item command="backToMain">回到首页</el-dropdown-item>
                             <el-dropdown-item divided command="loginOut" >退出登录</el-dropdown-item>
                         </el-dropdown-menu>
@@ -51,6 +52,10 @@
 
 <script>
     import { useRouter } from "vue-router";
+    import axios from "axios";
+    import { ref } from "vue"
+    import store from '../store'
+
     export default {
         data() {
             return {
@@ -59,15 +64,16 @@
         },
         setup() {
             const username = localStorage.getItem("ms_username");
-            const message = 2;
+            const message = 0;
             const role = localStorage.getItem('ms_username');
             // 用户名下拉菜单选择事件
             const router = useRouter();
             const handleCommand = (command) => {
                 if (command === "loginOut") {
                     localStorage.removeItem("ms_username");
+                    store.commit('setUserId', '0')
                     router.push("/");
-                    router.go(0);//刷新
+                    router.go(0)
                 } else if (command === "backToMain") {
                     router.push("/");
                 }
@@ -77,9 +83,7 @@
             };
 
             const toLogin = () => {
-
-              router.push('/dashboard')
-
+              router.push('/login')
             };
 
             return {
@@ -87,8 +91,31 @@
                 message,
                 handleCommand,
                 role,
-                toLogin
+                toLogin,
+
             };
+        },
+
+        activated(){
+            this.refresh()
+        },
+        data(){
+            return{
+                userInfo : []
+            }
+        },
+        methods:{
+            refresh(){
+                let _this= this
+                const url = ref()
+                url.value='http://localhost:8080/getUserById/'+store.state.userId;
+                axios.get(url.value).then(function (res) {
+                    _this.userInfo = res.data
+                });
+            }
+        },
+        created(){
+            this.refresh()
         },
     };
 </script>
