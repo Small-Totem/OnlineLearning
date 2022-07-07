@@ -92,28 +92,28 @@ const routes = [
                 path: "/table",
                 name: "basetable",
                 meta: {
-                    title: '表格'
+                    title: '会员管理'
                 },
                 component: () => import ( /* webpackChunkName: "table" */ "../views/BaseTable.vue")
             }, {
                 path: "/charts",
                 name: "basecharts",
                 meta: {
-                    title: '图表'
+                    title: '统计分析'
                 },
                 component: () => import ( /* webpackChunkName: "charts" */ "../views/BaseCharts.vue")
             }, {
                 path: "/form",
                 name: "baseform",
                 meta: {
-                    title: '表单'
+                    title: '课程管理'
                 },
                 component: () => import ( /* webpackChunkName: "form" */ "../views/BaseForm.vue")
             }, {
                 path: "/tabs",
                 name: "tabs",
                 meta: {
-                    title: 'tab标签'
+                    title: '讲师管理'
                 },
                 component: () => import ( /* webpackChunkName: "tabs" */ "../views/Tabs.vue")
             }, {
@@ -135,14 +135,14 @@ const routes = [
                 path: "/icon",
                 name: "icon",
                 meta: {
-                    title: '自定义图标'
+                    title: '文章咨询管理'
                 },
                 component: () => import ( /* webpackChunkName: "icon" */ "../views/Icon.vue")
             }, {
                 path: '/table1',
                 name: '404',
                 meta: {
-                    title: '找不到页面'
+                    title: '问答管理'
                 },
                 component: () => import (/* webpackChunkName: "404" */ '../views/404.vue')
             }, {
