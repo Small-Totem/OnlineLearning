@@ -169,6 +169,7 @@
                 <el-form-item label="项目">
                     <el-input id="subject" v-model="form.subject"></el-input>
                 </el-form-item>
+
                 <el-form-item label="课程链接" style="width:380px;">
                     <el-input
                             id="subjectLink"
@@ -178,6 +179,17 @@
                             v-model="form.subjectLink">
                     </el-input>
                 </el-form-item>
+
+
+                    <el-upload class="upload-demo" align="center" drag action="http://jsonplaceholder.typicode.com/api/posts/" multiple>
+                    <i class="el-icon-upload"></i>
+                    <div class="el-upload__text">
+                        将文件拖到此处，或
+                        <em>点击上传</em>
+                    </div>
+                </el-upload>
+
+
                 <el-form-item label="讲师ID">
                     <el-input id="teacherId" v-model="form.teacherId"></el-input>
                 </el-form-item>
@@ -201,6 +213,7 @@
                     <el-button type="primary" @click="a();addCourseVisible = false">确 定</el-button>
                 </span>
             </template>
+
         </el-dialog>
     </div>
 </template>
