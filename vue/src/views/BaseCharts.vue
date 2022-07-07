@@ -8,10 +8,6 @@
             </el-breadcrumb>
         </div>
         <div class="container">
-            <div class="plugins-tips">
-                最佳课程：假烟发现就跑路，臭要饭的别挡我财路：
-                <a href="https://www.bilibili.com/video/BV11g411d7bW?share_source=copy_pc" target="_blank">zood</a>
-            </div>
             <div class="schart-box">
                 <div class="content-title">柱状图</div>
                 <schart class="schart" canvasId="bar" :options="options1"></schart>
