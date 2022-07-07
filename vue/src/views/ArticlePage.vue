@@ -7,11 +7,11 @@
                         <el-card style="border-radius: 10px; margin-top: 8px;cursor:pointer" shadow="hover" class="box-card"
                                  @click.native="toDetails(article.articleId)">
                             <el-col>
-                                <div style="float: left;width: 100px;height: 100px">
+                                <div style="float: left;width: 120px;height: 100px">
                                     <div style="margin-bottom: 5px">
                                         <el-avatar :size="large" :src=url></el-avatar>
                                     </div >
-                                    <span style="margin-left: 15px" >{{article.userId}}</span>
+                                    <span style="text-align: center" >{{article.userId}}</span>
                                 </div>
                             </el-col>
 
@@ -109,6 +109,7 @@
                     ElMessage({type: 'error', message: '加载失败!', showClose: true})
                 }
             })
+
             return  {
                 hotArticles,
                 submitFlag:"fail",
@@ -141,6 +142,14 @@
                 axios.get(url).then(function (res) {
                     _this.articles = res.data.data;
                     //console.log(_this.articles)
+                    const url = ref()
+                    for (let i=0; i<_this.articles.length; i++){
+                        url.value='http://localhost:8080/getUserById/'+_this.articles[i].userId;
+                        axios.get(url.value).then(function (res) {
+                            //此处直接把userId改为showName了（只是为了显示名字）
+                            _this.articles[i].userId=res.data.showName
+                        });
+                    }
                 })
             },
 

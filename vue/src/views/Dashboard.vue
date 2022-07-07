@@ -12,23 +12,23 @@
                     </div>
                     <div class="user-info-list">
                         上次登录时间：
-                        <span>2019-11-01</span>
+                        <span>2022-7-7</span>
                     </div>
                     <div class="user-info-list">
                         上次登录地点：
-                        <span>东莞</span>
+                        <span>重庆</span>
                     </div>
                 </el-card>
                 <el-card shadow="hover" style="height:252px;">
                     <template #header>
                         <div class="clearfix">
-                            <span>语言详情</span>
+                            <span>课程详情</span>
                         </div>
                     </template>
-                    Vue
-                    <el-progress :percentage="71.3" color="#42b983"></el-progress>JavaScript
-                    <el-progress :percentage="24.1" color="#f1e05a"></el-progress>CSS
-                    <el-progress :percentage="13.7"></el-progress>HTML
+                    IT
+                    <el-progress :percentage="71.3" color="#42b983"></el-progress>电子烟
+                    <el-progress :percentage="24.1" color="#f1e05a"></el-progress>电竞
+                    <el-progress :percentage="13.7"></el-progress>职场
                     <el-progress :percentage="5.9" color="#f56c6c"></el-progress>
                 </el-card>
             </el-col>
@@ -62,7 +62,7 @@
                                 <i class="el-icon-s-goods grid-con-icon"></i>
                                 <div class="grid-cont-right">
                                     <div class="grid-num">5000</div>
-                                    <div>数量</div>
+                                    <div>课程数量</div>
                                 </div>
                             </div>
                         </el-card>
@@ -157,69 +157,77 @@ export default {
         const options = {
             type: "bar",
             title: {
-                text: "最近一周各品类销售图",
+                text: "最近一周各内容浏览量",
             },
             xRorate: 25,
             labels: ["周一", "周二", "周三", "周四", "周五"],
             datasets: [
                 {
-                    label: "家电",
+                    label: "课程",
                     data: [234, 278, 270, 190, 230],
                 },
                 {
-                    label: "百货",
+                    label: "讲师",
                     data: [164, 178, 190, 135, 160],
                 },
                 {
-                    label: "食品",
+                    label: "文章",
                     data: [144, 198, 150, 235, 120],
+                },
+                {
+                    label: "问答",
+                    data: [99, 96, 57, 124, 89],
                 },
             ],
         };
         const options2 = {
             type: "line",
             title: {
-                text: "最近几个月各品类销售趋势图",
+                text: "最近几个月各内容学习情况",
             },
             labels: ["6月", "7月", "8月", "9月", "10月"],
             datasets: [
                 {
-                    label: "家电",
-                    data: [234, 278, 270, 190, 230],
+                    label: "课程",
+                    data: [960, 1024, 1360, 845, 923],
                 },
                 {
-                    label: "百货",
-                    data: [164, 178, 150, 135, 160],
+                    label: "讲师",
+                    data: [662, 703, 600, 540, 650],
                 },
                 {
-                    label: "食品",
-                    data: [74, 118, 200, 235, 90],
+                    label: "文章",
+                    data: [300, 500, 800, 900, 360],
+                },
+                {
+                    label: "问答",
+                    data: [400, 380, 245, 600, 390],
                 },
             ],
         };
         const todoList = reactive([
             {
-                title: "今天要修复100个bug",
+                title: "学习php:从入门到入土",
                 status: false,
             },
             {
-                title: "今天要修复100个bug",
+                title: "学习药酱教你高情商为人处世",
                 status: false,
             },
             {
-                title: "今天要写100行代码加几个bug吧",
+                title: "学习apex进阶技巧",
                 status: false,
             },
             {
-                title: "今天要修复100个bug",
+                title: "看《都什么时代了，还在抽传统烟？》",
                 status: true,
             },
             {
-                title: "今天要修复100个bug",
+                title: "看《滑雪教学》",
                 status: true,
             },
             {
-                title: "今天要写100行代码加几个bug吧",
+                title: "回答vue报错怎么办",
                 status: true,
             },
         ]);

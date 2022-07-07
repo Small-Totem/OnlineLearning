@@ -20,7 +20,7 @@
           <i class="el-icon-lx-attention"> {{ source.clickNum }}</i>
         </el-col>
       </el-card>
-      <p style="text-align: left;font-size: 20px">{{source.content}}</p>
+      <p style="text-align: left;font-size: 20px;white-space: pre-wrap;">{{source.content}}</p>
     </div>
 
   </el-card>

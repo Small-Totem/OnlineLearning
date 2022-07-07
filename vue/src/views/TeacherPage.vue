@@ -2,11 +2,12 @@
     <div>
         <el-container>
 
-            <el-header class="select">讲师介绍</el-header>
+<!--            <el-header class="select">讲师介绍</el-header>-->
             <el-main class="content">
                 <br/>
                 学科：
                 <el-radio-group v-model="subject" @change="SelectSubject">
+                    <el-radio-button label="全部"></el-radio-button>
                     <el-radio-button label="计算机科学"></el-radio-button>
                     <el-radio-button label="软件工程"></el-radio-button>
                     <el-radio-button label="大数据"></el-radio-button>
@@ -19,14 +20,12 @@
                         </card-teacher>
                     </el-col>
                 </scroll-page>
-
             </el-main>
         </el-container>
     </div>
 </template>
 
 <script>
-    // import TeacherScrollPage from './TeacherScrollPage.vue'
     import ScrollPage from '../components/scrollpage/index.vue'
     import {ref,reactive} from 'vue'
     import {ElMessage} from 'element-plus'
@@ -42,7 +41,7 @@
         },
         data () {
             return {
-                subject: '大数据'
+                subject: '全部'
             }
         },
         setup(){
@@ -52,7 +51,7 @@
             let TeacherList=ref()
             getHotTeachers().then(_data => {
                 TeacherList.value = _data.data
-               //console.log(TeacherList);
+               //console.log(TeacherList);//test
             }).catch(error => {
                 if (error !== 'error') {
                     ElMessage({type: 'error', message: '讲师列表加载失败!', showClose: true})
@@ -63,7 +62,10 @@
 
             function SelectSubject(value){
                 const url = ref()
+                console.log(value)
                 url.value='http://localhost:8080/getTeacherBySubject/'+value
+                 if(value=="全部")
+                     url.value='http://localhost:8080/queryAllTeacher/'
                 axios.get(url.value).then(_data =>{
                     TeacherList.value = _data.data.data
                 })

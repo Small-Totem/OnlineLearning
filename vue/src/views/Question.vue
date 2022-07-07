@@ -13,7 +13,7 @@
               <div style="margin-bottom: 5px">
               <el-avatar :size="large" :src=url></el-avatar>
               </div >
-              <span style="margin-left: 15px" >{{question.userId}}</span>
+              <span style="text-align: center" >{{question.userId}}</span>
             </div>
             </el-col>
 
@@ -200,6 +200,14 @@ export default {
         //console.log(res.data.data)
         _this.questions=res.data.data
         //console.log(_this.questions)
+        const url = ref()
+        for (let i=0; i<_this.questions.length; i++){
+          url.value='http://localhost:8080/getUserById/'+_this.questions[i].userId;
+          axios.get(url.value).then(function (res) {
+            //此处直接把userId改为showName了（只是为了显示名字）
+            _this.questions[i].userId=res.data.showName
+          });
+        }
     })
   },
 

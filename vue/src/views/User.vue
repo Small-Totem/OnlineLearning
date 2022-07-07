@@ -16,7 +16,7 @@
                             </span>
                         </div>
                         <div class="info-name">{{ name }}</div>
-                        <div class="info-desc">不可能！我的代码怎么可能会有bug！</div>
+                        <div class="info-desc">每天看四小时书，文化先和初中生同步</div>
                     </div>
                 </el-card>
             </el-col>
@@ -76,7 +76,7 @@ export default {
         const form = reactive({
             old: "",
             new: "",
-            desc: "不可能！我的代码怎么可能会有bug！",
+            desc: "我是马背上的康巴的汉子！",
         });
         const onSubmit = () => {};
 
