@@ -16,3 +16,14 @@ export function formatTime(time) {
 
   return time
 }
+
+
+export function time_wrap(time) {
+  if (time==undefined)
+    return "";
+  let part1=time.match(/\d+-\d+-\d+/)[0];
+  let part2_raw=time.match(/T\d+/)[0].match(/\d+/)[0];
+  let part2=parseInt(part2_raw)+8;
+  let part3=time.match(/:\d+:\d+/)[0];
+  return part1+" "+part2+part3
+}

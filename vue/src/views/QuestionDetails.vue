@@ -26,23 +26,23 @@
             <span >{{question.content}}</span>
           </div>
           <div style="margin-top: 10px" >
-            <span style="color: #999999">{{question.addTime}}</span>
+            <span style="color: #999999">{{time_wrap(question.addTime)}}</span>
           </div>
         </el-col>
         <el-col>
           <div style="text-align: center ">
-            <span style="color:#adadad">{{ question.replyCount }}</span>
+            <span >{{ question.replyCount }}</span>
           </div>
           <div style="margin-top: 30px">
-            <span style="color: #adadad">{{ "回答数" }}</span>
+            <i style="color: #adadad" class="el-icon-lx-message"> 回答数</i>
           </div>
         </el-col>
         <el-col style="float: right">
           <div style="text-align: center ">
-            <span style="color: #adadad">{{ question.browseCount }}</span>
+            <span >{{ question.browseCount }}</span>
           </div>
           <div style="margin-top: 30px">
-            <span style="color: #adadad">{{ "浏览数" }}</span>
+            <i style="color: #adadad" class="el-icon-lx-attention"> 浏览数</i>
           </div>
         </el-col>
       </el-card>
@@ -71,7 +71,7 @@
           </div>
 
           <div style="margin-top: 40px" >
-            <span style="color: #999999">{{question.addTime}}</span>
+            <span style="color: #999999">{{time_wrap(question.addTime)}}</span>
           </div>
         </el-col>
       </el-card>
@@ -125,7 +125,7 @@ import axios from "axios";
 import store from "../store";
 import {ElMessage} from "element-plus";
 import {ref} from "vue"
-
+import {time_wrap} from "../utils/time";
 
 export default {
   name: "QuestionDetails",
@@ -143,6 +143,7 @@ export default {
       submitFlag:"fail",
       url:"../src/assets/img/img.jpg",
       dialogFormVisible: false,
+      time_wrap,
       form: {
 
         content: "",

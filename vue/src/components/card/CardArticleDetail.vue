@@ -7,7 +7,7 @@
       <el-card style="background-color: #f0f0ff" class="card_inner" shadow="hover" >
         <p style="text-align: center;font-size: 16px; margin-bottom: 10px">简介:{{source.summary}}</p>
         <el-col :span="8">
-          <i class="el-icon-lx-time">{{ source.publishTime }}</i>
+          <i class="el-icon-lx-time">{{ time_wrap(source.publishTime) }}</i>
         </el-col>
         <el-col style="float: right" :span="8">
           <i class="el-icon-lx-profile"> {{ source.userId }}</i>
@@ -28,6 +28,8 @@
 </template>
 
 <script>
+  import {time_wrap} from "../../utils/time";
+
   export default {
     name: 'CardArticleDetail',
     props: {
@@ -35,7 +37,7 @@
       itemStyle: Object
     },
     data() {
-      return {}
+      return {time_wrap}
     },
     methods: {
       view(id) {

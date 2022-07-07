@@ -32,7 +32,7 @@
                    <span >{{question.content}}</span>
             </div>
               <div style="margin-top: 10px" >
-                <span style="color: #999999">{{question.addTime}}</span>
+                <span style="color: #999999">{{time_wrap(question.addTime)}}</span>
               </div>
             </el-col>
             <el-col>
@@ -151,6 +151,8 @@ import {ElMessage} from "element-plus";
 import CardQuestion from '../components/card/CardQuestion.vue'
 import {getHotQuestion} from "../api/question";
 import {ref} from "vue"
+import {time_wrap} from "../utils/time";
+
 
 export default {
   name: "Question",
@@ -183,6 +185,7 @@ export default {
         content: "",
       },
       formLabelWidth: '120px',
+      time_wrap,
     };
 
     },

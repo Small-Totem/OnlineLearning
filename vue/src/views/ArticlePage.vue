@@ -28,7 +28,7 @@
                                     <span >{{article.summary}}</span>
                                 </div>
                                 <div style="margin-top: 10px" >
-                                    <span style="color: #999999">{{article.publishTime}}</span>
+                                    <span style="color: #999999">{{time_wrap(article.publishTime)}}</span>
                                 </div>
                             </el-col>
                             <el-col>
@@ -94,6 +94,7 @@
     import {getHotArticles} from "../api/article";
     import {ref} from "vue"
     import CardArticle from "../components/card/CardArticle.vue";
+    import {time_wrap} from "../utils/time";
 
     export default {
         name: "Question",
@@ -115,6 +116,7 @@
                 submitFlag:"fail",
                 url:"../src/assets/img/img.jpg",
                 formLabelWidth: '120px',
+                time_wrap,
             }
         },
 
