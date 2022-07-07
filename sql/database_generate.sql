@@ -203,11 +203,11 @@ create table edu_user
 );
 
 -- 此处密码明文是abc123 (md5:a906449d5769fa7361d7ecc6aa3f6d28)
-insert into edu_user (EMAIL,PASSWORD,SEX,SHOW_NAME,PERMISSION) values ("abc@xyz.com","a906449d5769fa7361d7ecc6aa3f6d28","男",'丁真','student');
-insert into edu_user (EMAIL,PASSWORD,SEX,SHOW_NAME,PERMISSION) values ("abcd@xyz.com","a906449d5769fa7361d7ecc6aa3f6d28","女",'谷爱凌','teacher');
-insert into edu_user (MOBILE,PASSWORD,SEX,SHOW_NAME,PERMISSION) values ("13579246810","a906449d5769fa7361d7ecc6aa3f6d28","男",'蔡徐坤','student');
-insert into edu_user (MOBILE,PASSWORD,SEX,SHOW_NAME,PERMISSION) values ("13579246811","a906449d5769fa7361d7ecc6aa3f6d28","男",'柯洁','teacher');
-insert into edu_user (MOBILE,PASSWORD,SEX,SHOW_NAME,PERMISSION) values ("13579246812","a906449d5769fa7361d7ecc6aa3f6d28","男",'孙笑川','teacher');
+insert into edu_user (EMAIL,PASSWORD,SEX,SHOW_NAME,PERMISSION,PIC_IMG) values ("abc@xyz.com","a906449d5769fa7361d7ecc6aa3f6d28","男",'丁真','student','src/assets/photo/teacher/1442297885942.jpg');
+insert into edu_user (EMAIL,PASSWORD,SEX,SHOW_NAME,PERMISSION,PIC_IMG) values ("abcd@xyz.com","a906449d5769fa7361d7ecc6aa3f6d28","女",'谷爱凌','teacher','src/assets/photo/teacher/1442297919077.jpg');
+insert into edu_user (MOBILE,PASSWORD,SEX,SHOW_NAME,PERMISSION,PIC_IMG) values ("13579246810","a906449d5769fa7361d7ecc6aa3f6d28","男",'蔡徐坤','student','src/assets/photo/teacher/1442297927029.jpg');
+insert into edu_user (MOBILE,PASSWORD,SEX,SHOW_NAME,PERMISSION,PIC_IMG) values ("13579246811","a906449d5769fa7361d7ecc6aa3f6d28","男",'柯洁','teacher','src/assets/photo/teacher/1442297935589.jpg');
+insert into edu_user (MOBILE,PASSWORD,SEX,SHOW_NAME,PERMISSION,PIC_IMG) values ("13579246812","a906449d5769fa7361d7ecc6aa3f6d28","男",'孙笑川','teacher','src/assets/photo/teacher/1442297957332.jpg');
 
 /*==============================================================*/
 /* Table: edu_user_login_log                                    */

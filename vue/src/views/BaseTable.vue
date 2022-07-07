@@ -29,7 +29,7 @@
                 <el-table-column prop="showName" label="用户昵称" width="250" align="center"></el-table-column>
                 <el-table-column prop="picImg" label="图片链接"  width="90" align="center">
                     <template #default="scope">
-                        <el-image class="table-td-thumb" :src="scope.row.thumb" :preview-src-list="[scope.row.thumb]">
+                        <el-image class="table-td-thumb" :src="scope.row.picImg" :preview-src-list="[scope.row.picImg]">
                         </el-image>
                     </template>
                 </el-table-column>

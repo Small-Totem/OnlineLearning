@@ -32,7 +32,7 @@
                 <el-table-column prop="name" label="用户名" align="center"></el-table-column>
                 <el-table-column prop="picPath" label="头像(查看大图)" align="center">
                     <template #default="scope">
-                        <el-image class="table-td-thumb" :src="scope.row.thumb" :preview-src-list="[scope.row.thumb]">
+                        <el-image class="table-td-thumb" :src="scope.row.picPath" :preview-src-list="[scope.row.picPath]">
                         </el-image>
                     </template>
                 </el-table-column>

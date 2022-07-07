@@ -38,7 +38,7 @@
                 <el-table-column prop="courseName" label="课程名称" width="130" align="center"></el-table-column>
                 <el-table-column prop="logo" label="封面LOGO"  width="100" align="center">
                     <template #default="scope">
-                        <el-image class="table-td-thumb" :src="scope.row.thumb" :preview-src-list="[scope.row.thumb]">
+                        <el-image class="table-td-thumb" :src="scope.row.logo" :preview-src-list="[scope.row.logo]">
                         </el-image>
                     </template>
                 </el-table-column>
