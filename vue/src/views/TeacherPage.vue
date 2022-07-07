@@ -1,8 +1,6 @@
 <template>
     <div>
         <el-container>
-
-<!--            <el-header class="select">讲师介绍</el-header>-->
             <el-main class="content">
                 <br/>
                 学科：
@@ -15,7 +13,7 @@
                 </el-radio-group><br/><br/>
                 <scroll-page :loading="loading" :no-data="noData">
                     <el-col v-for="(item,index) in TeacherList">
-                        <card-teacher :squareUrl="item.picPath" :teacher_name=item.name :teacher_education="item.education"
+                        <card-teacher  :squareUrl="item.picPath" :teacher_name=item.name :teacher_education="item.education"
                                       :teacher_career="item.career" :teacher_description="item.info" :teacher_id="item.id">
                         </card-teacher>
                     </el-col>
@@ -70,7 +68,6 @@
                     TeacherList.value = _data.data.data
                 })
             }
-
             return {
                 loading,
                 noData,

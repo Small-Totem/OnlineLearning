@@ -1,5 +1,5 @@
 <template>
-    <el-card style="cursor:pointer" @click="teacher(2)" :body-style="{ padding: '0px' }" shadow="hover" class="card_teacher"  >
+    <el-card style="cursor:pointer" @click="teacher(teacher_id)" :body-style="{ padding: '0px' }" shadow="hover" class="card_teacher"  >
         <div class="_img">
             <el-avatar :size="100" :src="squareUrl" ></el-avatar>
         </div>

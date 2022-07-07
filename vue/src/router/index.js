@@ -38,7 +38,7 @@ const routes = [
                 },
                 component: () => import ( /* webpackChunkName: "dashboard" */ "../views/TeacherPage.vue")
             },{
-                path: "/Teacher",
+                path: "/Teacher/:id",
                 name: "Teacher",
                 meta: {
                 title: '讲师详情'
