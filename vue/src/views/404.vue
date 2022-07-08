@@ -181,12 +181,10 @@
 <script>
     import { ref, reactive } from "vue";
     import { ElMessage, ElMessageBox } from "element-plus";
-    import { fetchData } from "../api/index";
     import {time_wrap} from "../utils/time";
 
     import { getQuestionData } from "../api/article";
     import { postaddQuestion } from "../api/article";
-    import {getUserById} from "../api/user";
     import {getQuestionById} from "../api/question";
     import {removeQuestionById} from "../api/question";
     export default {
@@ -212,24 +210,14 @@
             });
             const tableData = ref([]);
             const pageTotal = ref(0);
-            // 获取表格数据
-            const getData = () => {
-                fetchData(query).then((res) => {
-                    tableData.value = res.list;
-                    pageTotal.value = res.pageTotal || 50;
-                });
-            };
-            getData();
 
             // 查询操作
             const handleSearch = () => {
                 query.pageIndex = 1;
-                getData();
             };
             // 分页导航
             const handlePageChange = (val) => {
                 query.pageIndex = val;
-                getData();
             };
 
             // 删除操作
