@@ -129,6 +129,8 @@ export default {
       else {
         var queryInfo = new URLSearchParams() ;
         queryInfo.append("mobile",_this.regForm.username)
+        queryInfo.append("showName",_this.regForm.username)
+        queryInfo.append("permission","student")
         queryInfo.append("password",_this.regForm.password)
         //console.log(queryInfo)
         axios.post(url,queryInfo).then(function (res) {
@@ -136,10 +138,17 @@ export default {
           _this.registerFlag=res.data
           if(_this.registerFlag ==="success"){
             ElMessage({type: 'success', message: '注册成功!', showClose: true})
-            localStorage.setItem("ms_username", _this.regForm.username);
-            _this.$store.commit('setUserId',_this.loginflag)
-            localStorage.setItem("userId", _this.loginflag);
-            _this.$router.push('/MainPage')
+
+            const url = 'http://localhost:8080/loginVerify/'+_this.regForm.username+'/'+_this.regForm.password
+            axios.post(url).then(function (res) {
+              //获取uid
+              _this.loginflag = res.data
+
+              localStorage.setItem("ms_username", _this.regForm.username);
+              _this.$store.commit('setUserId',_this.loginflag)
+              localStorage.setItem("userId", _this.loginflag);
+              _this.$router.push('/')
+            })
           }else{
             ElMessage({type: 'error', message: '服务器连接失败!', showClose: true})
           }
